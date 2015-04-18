@@ -46,12 +46,48 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Crypto.cs" />
+    <Compile Include="Common\DateRangeAttribute.cs" />
+    <Compile Include="DbImp\AdminDbImp.cs" />
+    <Compile Include="DbImp\BaseDbContext.cs" />
+    <Compile Include="DbImp\EngineerDbImp.cs" />
+    <Compile Include="DbImp\HomeDbImp.cs" />
+    <Compile Include="DbImp\ProjectDbImp.cs" />
+    <Compile Include="DbImp\ReportDbImp.cs" />
+    <Compile Include="DbImp\UserDbImp.cs" />
+    <Compile Include="DbImp\UserRoleDbContext.cs" />
+    <Compile Include="DbInterfaces\IAdminDb.cs" />
+    <Compile Include="DbInterfaces\IEngineerDb.cs" />
+    <Compile Include="DbInterfaces\IHomeDb.cs" />
+    <Compile Include="DbInterfaces\IProjectDb.cs" />
+    <Compile Include="DbInterfaces\IReportDb.cs" />
+    <Compile Include="DbInterfaces\IUserDb.cs" />
+    <Compile Include="MockDbs\AdminDb.cs" />
+    <Compile Include="MockDbs\EngineerDb.cs" />
+    <Compile Include="MockDbs\HomeDb.cs" />
+    <Compile Include="MockDbs\ProjectDb.cs" />
+    <Compile Include="MockDbs\ReportDb.cs" />
+    <Compile Include="MockDbs\UserDb.cs" />
+    <Compile Include="Models\AdminUser.cs" />
+    <Compile Include="Models\District.cs" />
+    <Compile Include="Models\Engineer.cs" />
+    <Compile Include="Models\JobType.cs" />
+    <Compile Include="Models\Place.cs" />
+    <Compile Include="Models\Project.cs" />
+    <Compile Include="Models\ProjectFilter.cs" />
+    <Compile Include="Models\RegisterUser.cs" />
+    <Compile Include="Models\Requirement.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\UserDetail.cs" />
+    <Compile Include="Models\UserLogin.cs" />
+    <Compile Include="Models\UserPassword.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

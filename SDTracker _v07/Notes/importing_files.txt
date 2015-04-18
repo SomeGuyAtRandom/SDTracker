@@ -1,0 +1,12 @@
+﻿Starting with the BusinessLayer
+
+Add Folders
+
+Common
+DbImp
+DbInterfaces
+MockDbs
+Models
+
+Add respective files
+

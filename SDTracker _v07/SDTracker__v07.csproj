@@ -208,6 +208,7 @@
     <Content Include="Notes\creating_a_directed_graph_doument.txt" />
     <Content Include="Notes\creating_the_project_from_scratch.txt" />
     <Content Include="Notes\getting_started_with_unit_test.txt" />
+    <Content Include="Notes\importing_files.txt" />
     <Content Include="Notes\initial_conditions_refs.txt" />
     <Content Include="Notes\init_EF_and_others.txt" />
     <Content Include="Notes\JQuery_setup_and_how.txt" />
