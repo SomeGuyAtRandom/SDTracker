@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F171E4
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADOTransfer", "ADOTransfer\ADOTransfer.csproj", "{67C4A3AE-F119-49A2-BC03-54440AE216C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{CECF3940-9610-4361-9429-B3C4B5DAE3C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CECF3940-9610-4361-9429-B3C4B5DAE3C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CECF3940-9610-4361-9429-B3C4B5DAE3C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67C4A3AE-F119-49A2-BC03-54440AE216C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67C4A3AE-F119-49A2-BC03-54440AE216C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67C4A3AE-F119-49A2-BC03-54440AE216C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67C4A3AE-F119-49A2-BC03-54440AE216C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

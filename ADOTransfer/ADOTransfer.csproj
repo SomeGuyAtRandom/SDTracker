@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{67C4A3AE-F119-49A2-BC03-54440AE216C9}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ADOTransfer</RootNamespace>
+    <AssemblyName>ADOTransfer</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.9.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SQLScripts.cs" />
+    <Compile Include="TransferProjects.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SQL_scripts\Build\_BuildAddData.sql" />
+    <Content Include="SQL_scripts\Build\_BuildStoredProcs.sql" />
+    <Content Include="SQL_scripts\Build\_BuildTables.sql" />
+    <Content Include="SQL_scripts\Debug\debug_permissions.sql" />
+    <Content Include="SQL_scripts\Debug\delete_stored_procs.sql" />
+    <Content Include="SQL_scripts\Debug\delete_tables.sql" />
+    <Content Include="SQL_scripts\Debug\spTransferPlaces.sql" />
+    <Content Include="SQL_scripts\Debug\spTransferProjects.sql" />
+    <Content Include="SQL_scripts\Delete\spDeleteDistrict.sql" />
+    <Content Include="SQL_scripts\Delete\spDeleteEngineer.sql" />
+    <Content Include="SQL_scripts\Delete\spDeleteEngineerByUserName.sql" />
+    <Content Include="SQL_scripts\Delete\spDeleteJobType.sql" />
+    <Content Include="SQL_scripts\Delete\spDeleteProject.sql" />
+    <Content Include="SQL_scripts\Delete\spDeleteUserDetail.sql" />
+    <Content Include="SQL_scripts\Insert\spAddDistrict.sql" />
+    <Content Include="SQL_scripts\Insert\spAddEngineer.sql" />
+    <Content Include="SQL_scripts\Insert\spAddJobType.sql" />
+    <Content Include="SQL_scripts\Insert\spAddProject.sql" />
+    <Content Include="SQL_scripts\Insert\spAddUserPassword.sql" />
+    <Content Include="SQL_scripts\Reports\rptYearSummaryByMonthByJobType.sql" />
+    <Content Include="SQL_scripts\Select\spGetAdminUserById.sql" />
+    <Content Include="SQL_scripts\Select\spGetAllDesignEngineers.sql" />
+    <Content Include="SQL_scripts\Select\spGetAllDistricts.sql" />
+    <Content Include="SQL_scripts\Select\spGetAllEngineers.sql" />
+    <Content Include="SQL_scripts\Select\spGetAllHeadEngineers.sql" />
+    <Content Include="SQL_scripts\Select\spGetAllJobTypes.sql" />
+    <Content Include="SQL_scripts\Select\spGetAllPlaces.sql" />
+    <Content Include="SQL_scripts\Select\spGetAllProjects.sql" />
+    <Content Include="SQL_scripts\Select\spGetAllRoles.sql" />
+    <Content Include="SQL_scripts\Select\spGetAllUserDetails.sql" />
+    <Content Include="SQL_scripts\Select\spGetDistrict.sql" />
+    <Content Include="SQL_scripts\Select\spGetEngineerById.sql" />
+    <Content Include="SQL_scripts\Select\spGetJobType.sql" />
+    <Content Include="SQL_scripts\Select\spGetPlacesWithSearch.sql" />
+    <Content Include="SQL_scripts\Select\spGetProject.sql" />
+    <Content Include="SQL_scripts\Select\spGetProjectsWithSearch.sql" />
+    <Content Include="SQL_scripts\Select\spGetRequirementsByProjectId.sql" />
+    <Content Include="SQL_scripts\Select\spGetUserDetailById.sql" />
+    <Content Include="SQL_scripts\Select\spGetUserDetailByUserName.sql" />
+    <Content Include="SQL_scripts\Select\spGetUserEngineerByEmail.sql" />
+    <Content Include="SQL_scripts\Select\spGetUserPasswordByInitials.sql" />
+    <Content Include="SQL_scripts\Select\spGetUserPasswordByUserName.sql" />
+    <Content Include="SQL_scripts\Select\spGetUserRoles.sql" />
+    <Content Include="SQL_scripts\Select\spGetUsersWithSearch.sql" />
+    <Content Include="SQL_scripts\Tables\tblDistricts.sql" />
+    <Content Include="SQL_scripts\Tables\tblEngineers.sql" />
+    <Content Include="SQL_scripts\Tables\tblJobTypes.sql" />
+    <Content Include="SQL_scripts\Tables\tblPlaces.sql" />
+    <Content Include="SQL_scripts\Tables\tblProjects.sql" />
+    <Content Include="SQL_scripts\Tables\tblRequirement.sql" />
+    <Content Include="SQL_scripts\Tables\tblRequirements.sql" />
+    <Content Include="SQL_scripts\Tables\tblRoles.sql" />
+    <Content Include="SQL_scripts\Tables\tblUserPasswords.sql" />
+    <Content Include="SQL_scripts\Tables\tblUserRoles.sql" />
+    <Content Include="SQL_scripts\Update\spEnableDisableUser.sql" />
+    <Content Include="SQL_scripts\Update\spSaveDistrict.sql" />
+    <Content Include="SQL_scripts\Update\spSaveEngineer.sql" />
+    <Content Include="SQL_scripts\Update\spSaveJobType.sql" />
+    <Content Include="SQL_scripts\Update\spSaveProject.sql" />
+    <Content Include="SQL_scripts\Update\spUpdateProjectField.sql" />
+    <Content Include="SQL_scripts\Update\spUpdateUserDetail.sql" />
+    <Content Include="SQL_scripts\Update\spUpdateUserField.sql" />
+    <Content Include="SQL_scripts\Update\spUpdateUserRole.sql" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

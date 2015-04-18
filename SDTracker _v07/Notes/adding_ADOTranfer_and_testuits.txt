@@ -1,0 +1,20 @@
+﻿This part I assume will go smooth because I haven't ran into problems in the past.
+
+ADOTransfer does not depend on the other projects.
+
+ADOTransfer is a consol project to transfer data from the MySql database to the SQLServer database.
+This requires the MySql.Data.dll in Assemplies 
+MySql.Data version 6.9.5.0
+
+Add the folder structure: and import files.
+SQL_scripts
+- Build
+- Debug
+- Delete
+- Insert
+- Reports
+- Select
+- Tables
+- Update
+
+Build and save.

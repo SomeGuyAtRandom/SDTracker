@@ -231,6 +231,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Icon.png" />
+    <Content Include="Notes\adding_ADOTranfer_and_testuits.txt" />
     <Content Include="Notes\creating_a_directed_graph_doument.txt" />
     <Content Include="Notes\creating_the_project_from_scratch.txt" />
     <Content Include="Notes\getting_started_with_unit_test.txt" />
