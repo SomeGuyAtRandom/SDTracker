@@ -1,0 +1,5 @@
+﻿When I changed the project name on both SDTracker and SDTracker.Test
+In noticed changes in the .sln files
+old .snl file was deleted and new SDTracker[_vXX].snl file created.
+
+also the same results happend to the SDTracker[_vXX].csproj file

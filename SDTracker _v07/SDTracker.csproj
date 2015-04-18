@@ -239,6 +239,7 @@
     <Content Include="Notes\init_EF_and_others.txt" />
     <Content Include="Notes\JQuery_setup_and_how.txt" />
     <Content Include="Notes\notes_on_servers.txt" />
+    <Content Include="Notes\renaming_project_name.txt" />
     <Content Include="Notes\setup.txt" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

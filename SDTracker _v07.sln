@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDTracker__v07", "SDTracker _v07\SDTracker__v07.csproj", "{CD5F59D9-8683-4DDF-B16D-51CEA484F7F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDTracker", "SDTracker _v07\SDTracker.csproj", "{CD5F59D9-8683-4DDF-B16D-51CEA484F7F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDTracker__v07.Tests", "SDTracker__v07.Tests\SDTracker__v07.Tests.csproj", "{AC250A98-C130-4366-AE59-CF20E2B7D15B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDTracker.Tests", "SDTracker__v07.Tests\SDTracker.Tests.csproj", "{AC250A98-C130-4366-AE59-CF20E2B7D15B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLayer", "BusinessLayer\BusinessLayer.csproj", "{CECF3940-9610-4361-9429-B3C4B5DAE3C4}"
 EndProject

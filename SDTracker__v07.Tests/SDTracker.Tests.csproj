@@ -153,9 +153,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SDTracker _v07\SDTracker__v07.csproj">
+    <ProjectReference Include="..\SDTracker _v07\SDTracker.csproj">
       <Project>{CD5F59D9-8683-4DDF-B16D-51CEA484F7F7}</Project>
-      <Name>SDTracker__v07</Name>
+      <Name>SDTracker</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
