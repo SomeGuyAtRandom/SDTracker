@@ -1,0 +1,6 @@
+﻿This file contains not only the JQuery configuation but bootstrap confiuration also.
+Other itmes will be JQuery validate (unobtrusive)
+PageListings and others.
+
+
+

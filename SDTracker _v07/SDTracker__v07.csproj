@@ -126,6 +126,7 @@
     <Content Include="Notes\creating_the_project_from_scratch.txt" />
     <Content Include="Notes\getting_started_with_unit_test.txt" />
     <Content Include="Notes\initial_conditions_refs.txt" />
+    <Content Include="Notes\JQuery_setup_and_how.txt" />
     <Content Include="Notes\notes_on_servers.txt" />
     <Content Include="Notes\setup.txt" />
     <Content Include="Web.config" />

@@ -14,6 +14,8 @@ Adding the Models Project:
 In design I choose to create a different project for the Models called the BusinessLayer.
 BusinessLayer is a C# class library.
 Thus I deleted the file Class1.cs
+
+To Get Fill path goto JQuery_setup_and_how
 Setting Up JavaScript, Bootstrap and JQuery:
 This part will be new as of version 8 (use 7+ files to populate).
 Add a Shared folder to Views.
