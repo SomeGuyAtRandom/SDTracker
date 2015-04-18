@@ -143,6 +143,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\TestAdminController.cs" />
+    <Compile Include="Controllers\TestEngineerController.cs" />
+    <Compile Include="Controllers\TestHomeController.cs" />
+    <Compile Include="Controllers\TestProjectController.cs" />
+    <Compile Include="Controllers\TestProjectController_ms.cs" />
+    <Compile Include="Controllers\TestUserController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
