@@ -1,0 +1,15 @@
+﻿IIS7 is my home instalation
+
+Use SDTracker Properties
+Set Web
+
+Servers
+Local IIS and Create Virtual Directory
+
+
+Authenication
+Forms Authentication Enabled
+Anonymous Authentication Enabled
+
+This caused a change in the .csproj file 
+And made a commit
