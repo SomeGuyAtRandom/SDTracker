@@ -7,8 +7,7 @@ PageListings and others.
 
 Entity Framework
 PagedList.MVC
-
-Boostrap version 3.3.2 - note this requires jQuery >= 1.9
+bostrap version 3.3.2 - note this requires jQuery >= 1.9
 JQuery Validation with Bootstrap requires jQuery >= 1.9
 
 jQuery UI (Combined Library)
@@ -18,7 +17,7 @@ Microsoft jQuery Unobtrusive Ajax
 Microsoft jQuery Unobtrusive Validation
 
 Install First
-Boostrap
+Boostrap  
 
 When I first looked for bootstrap, it could not find it (I'd selected all)
 But, if you select nuget.org node and then re-search for bootstrap the correct select is revield
@@ -30,9 +29,25 @@ To find JQuery Validation use the id jquery.valadate.bootstrap
 Note that this requires 
 Microsoft jQuery Unobtrusive Ajax
 Microsoft jQuery Unobtrusive Validation
-
+ 
 
 Last..
 jQuery UI (Combined Library)
 
 Note the packages folder has been modified according to suspicion. 
+I had tried to commit the JQuery add on but Visual Studio hung. I had closed all external programs. Did a search on the internet to see if there were any solutions while the git was still in commit hang and found none.
+Fouce quit Visual Studio with restart (Visual Studio – not the OS)
+Reopened project.
+
+At this point I was not able to open the View -> Other Windows - Source Control Explorer.
+So I decieded to restart windows.
+
+When I reopend from a reboot I decided to check to see if Git Source Contorl Provider was still there and yes with now way to reinstall??
+I decided to reset the Tools -> Options -> Source Controll to Git Source Control Provider (was Microsoft Git provider)
+
+It gave the message to re-start but did not, Rather it opened the viewer in another window. 
+I did a restart and now I feel it works to my satifaction.
+
+Viewed history and it appears the added Jquery files are in Git Repository
+
+next note file: init_EF_and_others

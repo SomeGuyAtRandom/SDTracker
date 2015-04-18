@@ -1,0 +1,7 @@
+﻿These steps were preformed after JQuery_setup_and_how
+
+Add via NuGet:
+EntityFrameWork
+Version 6.1.3
+
+
