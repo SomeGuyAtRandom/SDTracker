@@ -1,0 +1,27 @@
+﻿@model BusinessLayer.Models.Reports.Cell
+@{
+    string dateIn = Model.StartDate.ToString("MM-dd-yyyy");
+    string sTotal = "" + Model.Total;
+    string JobTypeId = "" + Model.JobTypeId;
+    string reportName = Model.reportName;
+    string columnName = "";
+}
+
+
+@{
+    if (Model.Total == 0)
+    {
+       @Html.ActionLink(sTotal, reportName, "Report")
+    }
+    else
+    {
+        @Html.ActionLink(sTotal, "DetailSummary", "Report",
+        new
+        {
+            reportName = reportName,
+            columnName = columnName,
+            dateIn = dateIn,
+            JobTypeId = JobTypeId
+        }, null)
+    }
+}

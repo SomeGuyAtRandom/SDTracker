@@ -1,0 +1,16 @@
+﻿    
+
+@if (Request.IsAuthenticated)
+{
+    @Html.ActionLink("Log Out", "Logout", "User")
+
+}
+else
+{
+    <a href="~/User/Login" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Login<span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu">
+        <li>@Html.ActionLink("Log in", "Login", "Home")</li>
+        <li>@Html.ActionLink("Register", "Register", "Home")</li>
+    </ul>
+}
+

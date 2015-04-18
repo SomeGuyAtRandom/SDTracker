@@ -1,0 +1,13 @@
+﻿@using SDTracker.Common;
+
+@if (Request.IsAuthenticated && SDTRoleProvider.UserIsInRole(ViewContext, "Guest"))
+{
+    <a href="~/User/Logout" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Projects<span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu">
+        <li>@Html.ActionLink("List Projects", "Table", "Project")</li>
+        <li>@Html.ActionLink("Create New Project", "Create", "Project")</li>
+    </ul>
+
+
+}
+

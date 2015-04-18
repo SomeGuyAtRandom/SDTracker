@@ -1,0 +1,10 @@
+﻿@using SDTracker.Common;
+@if (SDTRoleProvider.UserIsInRole(ViewContext, "Admin"))
+{
+    <a href="~/User/Admin" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin<span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu">
+        <li>@Html.ActionLink("Find User Account", "UserList", "Admin")</li>
+    </ul>
+}
+
+

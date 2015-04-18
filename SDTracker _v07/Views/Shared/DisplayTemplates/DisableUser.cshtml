@@ -1,0 +1,29 @@
+﻿@model BusinessLayer.Models.AdminUser
+
+
+@{ 
+    var chkYesNo ="";
+    var userName = Model.UserName;
+    var msg = "This User " + userName + " Is Enabled";
+    var chkBoxMsg = "Disable User";
+    
+    if (Model.IsDisabled)
+    {
+        chkYesNo = "checked='checked'";
+        msg = "This User " + userName + " Is Disabled";
+        chkBoxMsg = "Enable User";
+    }
+    
+    
+}
+
+<input type="checkbox" id="enableDisableUser" name="enableDisableUser" value="enableDisableUser" @chkYesNo class="enableDisableUser" />
+<b>@chkBoxMsg</b>
+@if (Model.IsDisabled)
+{
+    <h1 style="color:red" class="enableDisablstatus">@msg</h1>
+}
+else
+{
+    <h1 style="color:green" class="enableDisablstatus">@msg</h1>
+}

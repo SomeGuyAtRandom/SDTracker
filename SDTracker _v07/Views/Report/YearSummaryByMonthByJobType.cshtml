@@ -1,0 +1,93 @@
+﻿@model IEnumerable<BusinessLayer.Models.Reports.YearSummaryByMonthByJobType>
+
+@{
+    ViewBag.Title = "Year Summary By Month By JobType";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Year Summary By Month By JobType</h2>
+
+
+
+
+<p>
+    @Html.ActionLink("Home", "Index", "Home")
+</p>
+
+
+@using (@Html.BeginForm())
+{
+    @Html.DropDownList("MonthSelectCbo", null, "-month-")
+    @Html.DropDownList("YearSelectCbo", null, "-year-")
+    @Html.DropDownList("ColumnNameCbo", null, "-Type-")
+    <input id="submitBtn" type="submit" value="search" />
+}
+
+@{
+    
+    bool display = Model.Count() > 0;
+    
+}
+
+
+@if (display) { 
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().JobName) 
+                
+            </th>
+
+
+        @for (int i = 0; i < 12; i++)
+        {
+            <th>
+                @Html.DisplayFor(model => model.First().columns[i], "SummaryHeader")
+            </th>
+        }
+
+
+            <th>
+                @Html.DisplayNameFor(model => model.First().SumCell)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.JobName)
+                </td>
+
+                @for (int i = 0; i < 12; i++)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.columns[i], "LinkToDetail")
+                    </td>
+                }
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.SumCell, "LinkToDetail")
+                </td>
+            </tr>
+
+        }
+    </table>
+    
+
+</div>
+
+}
+
+<script type="text/javascript">
+
+
+    $('select').on('change', function () {
+        $('#submitBtn').click();
+    });
+
+
+</script>

@@ -1,0 +1,90 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IPagedList<BusinessLayer.Models.Reports.DetailSummary>
+
+@{
+    ViewBag.Title = "Detail Summary";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Hello</h2>
+
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().CurrRemark)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().ProjNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().JobCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().HeadEngineerInitials)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().DesignEngineerInitials)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().StartDate)
+            </th>
+            <th></th>
+        </tr>
+
+
+        @foreach (var item in Model)
+        {
+            using (Html.BeginForm("Delete", "Report", new { Id = item.Id }))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Location)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CurrRemark)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProjNo)
+                    </td>
+                    <td>
+
+                        @Html.DisplayFor(modelItem => item.JobCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HeadEngineerInitials)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DesignEngineerInitials)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+    @Html.PagedListPager(Model, page => Url.Action("DetailSummary", new
+            {
+                page,
+                reportName = Request.QueryString["reportName"],
+                dateIn = Request.QueryString["dateIn"],
+                JobTypeId = Request.QueryString["JobTypeId"]
+            }))
+
+
+
+</div>
+
+<script type="text/javascript">
+   
+
+</script>

@@ -1,0 +1,42 @@
+﻿@model BusinessLayer.Models.UserLogin
+
+@{
+    ViewBag.Title = "Logon";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Logon</h2>
+
+<div class="container container-fluid">
+    <h2>Use a local account to log in.</h2>
+    @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <div class="row" id="login-container">
+            <div class="col-md-12">
+                <div class="editor-label well">
+                    @Html.LabelFor(model => model.UserName)
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.UserName)
+                </div>
+                <div class="editor-label well">
+                    @Html.LabelFor(model => model.Password)
+                    @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+
+                </div>
+                <div class="editor-field form-group form-inline well">
+                    @Html.CheckBoxFor(m => m.RememberMe)
+                    @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+                    <input type="submit" value="Log in" class="btn btn-danger" />
+                </div>
+            </div>
+        </div>
+
+
+        <p>
+            @Html.ActionLink("Register", "Register") if you don't have an account.
+        </p>
+    }
+</div>

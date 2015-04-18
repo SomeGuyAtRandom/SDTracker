@@ -1,0 +1,14 @@
+﻿@model BusinessLayer.Models.Reports.Cell
+@{
+
+    string year = Model.StartDate.ToString("yy");
+    string month = Model.StartDate.ToString("MMM");
+    string reportName = Model.reportName;
+    string Heading = month + year;
+    
+    
+}
+
+<b>
+    @Html.ActionLink(Heading, reportName, "Report")
+</b>

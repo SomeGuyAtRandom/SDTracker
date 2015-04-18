@@ -1,0 +1,178 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<BusinessLayer.Models.Project>
+
+@{
+    ViewBag.Title = "Projects";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var searchDate = ViewBag.searchDate;
+}
+<h2>Search Projects</h2>
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-md btn-success" })
+</p>
+
+<div class="container">
+    @using (@Html.BeginForm())
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.Label("Search", new { @for = "txtSearch"})
+                    @Html.TextBox("searchTerm", null, new {  id = "txtSearch", @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    @Html.Label("Filter District", new { @for = "Districts" })
+                    @Html.DropDownList("Districts", null, "-select a district-", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.Label("Filter Job Types", new { @for = "JobTypes" })
+                    @Html.DropDownList("JobTypes", null, "-select a Job Type-", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    
+                    @Html.DropDownList("Field", null, "", new { @class = "form-control" })
+                   @Html.DisplayFor(model => searchDate, "DatePicker")
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    @Html.Label("", new { @for = "submitBtn" })
+                    <input id="submitBtn" type="submit" class="btn btn-md btn-success" value="search" />
+                </div>
+            </div>
+        </div>
+
+            
+
+    }
+</div>
+
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Location)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().CurrRemark)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().ProjNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().JobType.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().HeadEngineerId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().DesignEngineerId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().StartDate)
+                </th>
+                <th></th>
+            </tr>
+
+
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Location)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CurrRemark)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProjNo)
+                    </td>
+                    <td>
+
+                        @Html.DisplayFor(modelItem => item.JobType.JobCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HeadEngineer.Initials)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DesignEngineer.Initials)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-sm btn-info" })
+                    </td>
+                </tr>
+
+            }
+        </table>
+        @Html.PagedListPager(Model, page => Url.Action("Table", new
+            {
+                page,
+                searchTerm = Request.QueryString["searchTerm"],
+                Districts = Request.QueryString["Districts"],
+                JobTypes = Request.QueryString["JobTypes"],
+                searchDate = Request.QueryString["searchDate"]
+            }))
+
+
+
+    </div>
+
+    <script type="text/javascript">
+
+        $(function () {
+            $.validator.addMethod('date',
+            function (value, element) {
+                if (this.optional(element)) {
+                    return true;
+                }
+                var valid = true;
+                try {
+                    $.datepicker.parseDate('mm/dd/yy', value);
+                }
+                catch (err) {
+                    valid = false;
+                }
+                return valid;
+            });
+            $(".datetype").datepicker({ dateFormat: 'mm/dd/yy' });
+        });
+
+        $(function () {
+            $("#txtSearch").autocomplete({
+                source: '@Url.Action("GetProjectsSearch")',
+                minLength: 1
+            });
+        });
+
+
+        $(document).ready(function () {
+            $('#txtSearch').keypress(function (e) {
+                if (e.keyCode == 13)
+                    $('#submitBtn').click();
+            });
+        });
+
+        $('select').on('change', function () {
+            $('#submitBtn').click();
+        });
+
+
+
+
+        $(function () {
+            $('.dp').datepicker();;
+        });
+
+    </script>

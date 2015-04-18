@@ -1,0 +1,38 @@
+﻿@using SDTracker.Common;
+
+@{
+    ViewBag.Title = "TempErrorPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>TempErrorPage</h2>
+
+@if (SDTRoleProvider.UserIsInRole(ViewContext, "DesignEngineer"))
+{
+    <h2>Admin</h2>
+}
+else
+{ <h2 style="color:red">Admin</h2> }
+
+
+@if (SDTRoleProvider.UserIsInRole(ViewContext, "DesignEngineer"))
+{
+    <h2>Design Engineer</h2>
+}
+else
+{ <h2 style="color:red">Design Engineer</h2> }
+
+@if (SDTRoleProvider.UserIsInRole(ViewContext, "Guest"))
+{
+    <h2>Guest</h2>
+}
+else
+{ <h2 style="color:red">Guest</h2> }
+
+
+@if (SDTRoleProvider.UserIsInRole(ViewContext, "Guest,Admin"))
+{
+    <h2>Head Engineer</h2>
+}
+else
+{ <h2 style="color:red">Engineer</h2> }

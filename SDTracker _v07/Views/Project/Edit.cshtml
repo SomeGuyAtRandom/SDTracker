@@ -1,0 +1,261 @@
+﻿@model BusinessLayer.Models.Project
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>
+    @Html.ValueFor(model => model.Location)
+
+</h1>
+      
+
+    
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-1">
+            <div class="form-group">
+                @Html.ActionLink("Back to List", "Table", null, new { @class = "btn btn-sm btn-primary" })
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-group">
+                @using (Html.BeginForm("Delete", "Project", new { Id = Model.Id }))
+                {
+                    <input type="submit" value="Delete" class="btn btn-sm btn-warning" onclick="return confirm('Create new project with = @Model.Location');" />
+                }
+            </div>
+        </div>
+     </div>   
+
+    @using (Html.BeginForm())
+    { @Html.AntiForgeryToken()  @Html.ValidationSummary(true)    
+        @Html.HiddenFor(model => model.Id)
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+            </div>
+        </div>
+    </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Location)
+                    @Html.TextBoxFor(model => model.Location, new { @class = "form-control", onchange = "javascript:test(this);" })
+                    @Html.ValidationMessageFor(model => model.Location)
+                </div>
+            </div>
+        </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.District)
+                @Html.DropDownList("Districts", null, "-select a district-", new { @class = "form-control" })
+                
+                @Html.ValidationMessageFor(model => model.DistrictId)
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.CurrRemark)
+                @Html.TextBoxFor(model => model.CurrRemark, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CurrRemark)
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group form-inline">
+                @Html.LabelFor(model => model.Rush)
+                @Html.CheckBoxFor(model => model.Rush, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Rush)
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ProjNo)
+                @Html.TextBoxFor(model => model.ProjNo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ProjNo)
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.FiveDigit)
+                @Html.TextBoxFor(model => model.FiveDigit, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.FiveDigit)
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group form-inline">
+                @Html.LabelFor(model => model.CDs)
+                @Html.ListBoxFor(model => model.SelectedCDs, new MultiSelectList(Model.AllCDs), new { @class = "form-control", Multiple = "multiple" }) 
+                @Html.ValidationMessageFor(model => model.CDs)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.JobType)
+                @Html.DropDownList("JobTypes", null, "-select a Job Type -", new { @class = "form-control" })
+
+                @Html.ValidationMessageFor(model => model.JobType)
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.HeadEngineer)
+                @Html.DropDownList("HeadEngineers", null, "-select an engineer-", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.DesignEngineer)
+                @Html.DropDownList("DesignEngineers", null, "-select an engineer-", new { @class = "form-control" })
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 col-md-push-8">
+            <div class="form-group ">
+                @Html.LabelFor(model => model.DateAssigned)
+                @Html.DisplayFor(model => model.DateAssigned, "DatePicker")
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.CurrentComment)
+                @Html.TextBoxFor(model => model.CurrentComment, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CurrentComment)
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.StartDate)
+                @Html.DisplayFor(model => model.StartDate, "DatePicker")
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.DateCreated)
+                @Html.DisplayFor(model => model.DateCreated, "DateDisabled")
+            </div>
+        </div>
+    </div>
+        
+    <div class="row well">
+        <table class="table table-striped">
+            @foreach (var item in Model.Requirements)
+            {
+                <tr>
+                    @Html.DisplayFor(modelItem => item, "RequirementDisplay")
+                </tr>
+            }
+       </table>
+    </div>
+
+    }
+
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $.validator.addMethod('date',
+        function (value, element) {
+            if (this.optional(element)) {
+                return true;
+            }
+            var valid = true;
+            try {
+                $.datepicker.parseDate('mm/dd/yy', value);
+            }
+            catch (err) {
+                valid = false;
+            }
+            return valid;
+        });
+        $(".datetype").datepicker({ dateFormat: 'mm/dd/yy' });
+    });
+
+    $('input').on('input propertychange paste', function () {
+        var objID = $("[name='Id']").attr('value');
+        var fieldName = $(this).attr('id');
+        var txtValue = $(this).val();
+        runAjax(objID, fieldName, txtValue);
+    });
+
+
+
+    $("select").change(function () {
+        var objID = $("[name='Id']").attr('value');
+        var fieldName = $(this).attr('id');
+        var txtValue = $(this).val();
+
+        runAjax(objID, fieldName, txtValue);
+        
+    });
+
+    $(".datePicker").change(function () {
+
+        var objID = $("[name='Id']").attr('value');
+        var fieldName = $(this).attr('id');
+        var txtValue = $(this).val();
+        runAjax(objID, fieldName, txtValue)
+
+    });
+
+
+
+    function runAjax(objID, fieldName, txtValue) {
+        $.ajax({
+            type: 'POST',
+            url: '/SDTracker/Project/SaveField',
+            dataType: 'json',
+            timeout: 10000,
+            data: { 'objID': objID, 'fieldName': fieldName, 'txtValue': txtValue },
+            success: function (result) {
+                if (result) {
+                    if (result.IsUpdated) {
+                        // OK
+                    }
+                    else { alert("Error response from controller :" + result.Msg); }
+
+                } else {
+                    alert("Error response from server :");
+                }
+            },
+            error: function (x, t, m) {
+                if (t === "timeout") {
+                    alert("internet connection timed out");
+                } else {
+                    alert(t);
+                }
+            }
+        });
+    }
+
+    function tester(objID, fieldName, txtValue) {
+        var msg = "";
+        msg += " objID:" + objID;
+        msg += " fieldName:" + fieldName;
+        msg += " txtValue:" + txtValue;
+        alert(msg);
+    }
+
+</script>
+

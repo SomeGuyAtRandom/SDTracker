@@ -32,4 +32,18 @@ System.Configuration v 4.0.0.0
 To resolve Imports on the Web Project SDTracker
 
 Added Microsoft.AspNet.Web.Optimization Via NuGet
+
+Microsoft.AspNet.Web.Optimization
+as A result of this you will need to add
+<add namespace="System.Web.Optimization" /> 
+to the View/Web.Config
+
 Also note that you will need to replace the auto generated Global.asax file because it uses the namespace "SDTracker_vXX"
+
+In Properties You need to change the Name Space
+This modifies the Global.asax and xml
+
+Web.Config
+OK..
+
+At this point the web application is ready to run. Depending on the status of the DB of course.

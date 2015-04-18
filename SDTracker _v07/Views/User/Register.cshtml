@@ -1,0 +1,58 @@
+﻿@model BusinessLayer.Models.UserPassword
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container container-fluid">
+    <form class="form-inline" role="form">
+        
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <fieldset>
+           
+            <div class="page-header" style="padding:10px">
+                <h1>
+                    Register New User
+                </h1>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.UserName)
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(model => model.UserName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.UserName)
+                        </div>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Password)
+                        </div>
+                        <div class="editor-field">
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Password)
+                        </div>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.ConfirmPassword)
+                        </div>
+                        <div class="editor-field">
+                            @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                        </div>
+                    </div>
+
+                    <div class="editor-label">
+                        <input formmethod="post" type="submit" value="Next" />
+                    </div>
+
+                </div>
+            </div>
+        </fieldset>
+    }
+        
+    </form>
+ </div>

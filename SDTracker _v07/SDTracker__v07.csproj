@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SDTracker__v07</RootNamespace>
-    <AssemblyName>SDTracker__v07</AssemblyName>
+    <RootNamespace>SDTracker</RootNamespace>
+    <AssemblyName>SDTracker</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -271,10 +271,49 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="Views\Admin\EditProfile.cshtml" />
+    <Content Include="Views\Admin\UserList.cshtml" />
+    <Content Include="Views\Engineer\EditProfile.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Index_old.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\NoAccess.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Home\TestPage.cshtml" />
+    <Content Include="Views\Project\Create.cshtml" />
+    <Content Include="Views\Project\Edit.cshtml" />
+    <Content Include="Views\Project\Table.cshtml" />
+    <Content Include="Views\Report\DetailSummary.cshtml" />
+    <Content Include="Views\Report\YearSummaryByMonthByJobType.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\TempErrorPage.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout_old.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\AllRoles.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DateDisabled.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DatePicker.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DisableUser.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\LinkToDetail.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\RequirementDisplay.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\ShortDate.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SummaryHeader.cshtml" />
+    <Content Include="Views\Shared\MenuBarItems\_AdminUser.cshtml" />
+    <Content Include="Views\Shared\MenuBarItems\_LoginLogoff.cshtml" />
+    <Content Include="Views\Shared\MenuBarItems\_Projects.cshtml" />
+    <Content Include="Views\Shared\MenuBarItems\_Reports.cshtml" />
+    <Content Include="Views\Shared\MenuBarItems\_UserProfile.cshtml" />
+    <Content Include="Views\User\Admin.cshtml" />
+    <Content Include="Views\User\DesignEngineer.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Register.cshtml" />
+    <Content Include="Views\User\RegisterInfo.cshtml" />
+    <Content Include="Views\User\Secure.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

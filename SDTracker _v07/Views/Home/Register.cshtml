@@ -1,0 +1,145 @@
+﻿@model BusinessLayer.Models.RegisterUser
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container container-fluid">
+    <form class="form-inline" role="form">
+        
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <fieldset>
+           
+            <div class="page-header" style="padding:10px">
+                <h1>
+                    Register New User
+                </h1>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.UserName)
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", onkeyup = "UserNameTestClientSide(this)" })
+                            @Html.ValidationMessageFor(model => model.UserName, null, new { @id = "spanUserName" })
+                        </div>
+                        <div class="editor-label">
+                            <label id="passwordCheck">
+
+                            </label>
+                        </div>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Email)
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Email, null, new { @id = "spanEmail" })
+                        </div>
+
+
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.ConfirmEmail)
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(model => model.ConfirmEmail, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ConfirmEmail)
+                        </div>
+
+                        
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Password)
+                        </div>
+
+                        <div class="editor-label">
+                            <label id="passwordCheck">
+
+                            </label>
+
+                        </div>
+
+                        <div class="editor-field">
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Password)
+                        </div>
+                        
+                        
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.ConfirmPassword)
+                        </div>
+                        <div class="editor-field">
+                            @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                        </div>
+
+                    </div>
+
+                    <div class="editor-label">
+                        <input formmethod="post" type="submit" value="Next" />
+                    </div>
+
+                </div>
+            </div>
+        </fieldset>
+    }
+        
+    </form>
+ </div>
+<script type="text/javascript">
+
+    function isEmpty(str) {
+        return (!str || 0 === str.length);
+    }
+
+    function UserNameTestClientSide(obj)
+    {
+        var sVal = obj.value;
+        sVal = sVal.trim();
+        var msg = '';
+
+        $('#UserName').css('background-color', 'yellow');
+
+        if (isEmpty(sVal))
+        {
+            msg = 'User name is required.';
+        }
+
+        if (sVal.length < 6) {
+            msg = 'User name must atleast 6 charaters';
+        }
+
+        if (sVal.length > 10) {
+            msg = 'User can have no more than 10 charaters.';
+        }
+
+        var regex = new RegExp('^[a-zA-Z0-9]+$');
+
+        if (!regex.test(sVal)) {
+            msg = 'Not vvvv';
+        }
+
+        alert(msg + "v2");
+        $('#passwordCheck').text(msg);
+        $('#spanUserName span').contents().replaceWith('Do it again ');
+
+
+    }
+    
+    
+
+    $(document).ready(function () {
+        $('#Password').keyup(function (e) {
+            $('#Password').css("background-color", "yellow");
+            $("#Password").text("Hello");
+        });
+    });
+
+    
+
+</script>
+
