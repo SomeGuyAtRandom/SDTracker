@@ -36,9 +36,38 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -69,6 +98,13 @@
     <Compile Include="MockDbs\ReportDb.cs" />
     <Compile Include="MockDbs\UserDb.cs" />
     <Compile Include="Models\AdminUser.cs" />
+    <Compile Include="Models\Config\District.cs" />
+    <Compile Include="Models\Config\JobType.cs" />
+    <Compile Include="Models\Config\Place.cs" />
+    <Compile Include="Models\Config\Project.cs" />
+    <Compile Include="Models\Config\Requirement.cs" />
+    <Compile Include="Models\Config\Role.cs" />
+    <Compile Include="Models\Config\UserLogin.cs" />
     <Compile Include="Models\District.cs" />
     <Compile Include="Models\Engineer.cs" />
     <Compile Include="Models\JobType.cs" />
@@ -76,6 +112,10 @@
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\ProjectFilter.cs" />
     <Compile Include="Models\RegisterUser.cs" />
+    <Compile Include="Models\Reports\Config\DetailSummary.cs" />
+    <Compile Include="Models\Reports\Config\YearSummaryByMonthByJobType.cs" />
+    <Compile Include="Models\Reports\DetailSummary.cs" />
+    <Compile Include="Models\Reports\YearSummaryByMonthByJobType.cs" />
     <Compile Include="Models\Requirement.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\UserDetail.cs" />
