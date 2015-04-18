@@ -1,0 +1,20 @@
+﻿Note from Michael:
+I setup an account for you on a TEST/DEV MS SQL Express 2012 Server, connect via SQL Authentication
+
+servername: 94DOTSQLDEV01.DOT.CW.CI.LA.CA.US\SQLEXPRESS
+username: RAndrade 
+password: redgenius123
+
+IP ADDRESS 10.94.14.194 -> Web Server
+IP ADDRESS 10.94.14.94 -> Database Server
+Files for development can be found on the Web Server
+
+Notes for notes:
+- Database schema
+- Field and range defitions
+- Data flow diagram
+- Work flow diagram
+-General descriptions:
+   Overall System purpose
+   Platform components
+   Security handling

@@ -1,0 +1,24 @@
+﻿The Visual Studio Environment I created at home uses Windows 7
+Git
+IIS
+SQL Server
+Starting with a Blank MVC 4 ASP.NET Web Application.
+Named it SDTracker _vXX.
+Add to source control? (Around v07). Still only Visual Studio Unit Test
+Use Razor
+Create Test Project? (Around v04).
+Make sure you have checked Create a unit test project in the set up.
+After you have installed Git (on the system) and then added the Git server provider trough NuGet
+This point you will get the pop up and select Git.
+Adding the Models Project:
+In design I choose to create a different project for the Models called the BusinessLayer.
+BusinessLayer is a C# class library.
+Thus I deleted the file Class1.cs
+Setting Up JavaScript, Bootstrap and JQuery:
+This part will be new as of version 8 (use 7+ files to populate).
+Add a Shared folder to Views.
+
+
+//TODO: Look at creating_the_project_from_scratch and move contents into here and combine as one file
+
+

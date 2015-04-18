@@ -1,0 +1,14 @@
+﻿ASP.NET MVC unit tests directly call methods of the MVC controllers. When a unit test calls an action method in a controller, you can validate that the correct view is returned (although you do not validate the HTML) and that view data is returned. You can also test whether a method correctly redirects to another controller or view.
+Because I want to explore TTD.
+I decided that I would use the pre-baked project provided by VS2013 and these are the steps to create that project.
+File -> New -> Project
+Installed -> Visual C# -> Web -> ASP.NET MVC 4 Web Application
+Name: Same Naming Convention
+OK
+Here I select Internet Application. 
+This option will give me all the required scaffolding for a working Internet Application.
+I make sure the Create a unit test project is checked.
+The only selection I have is Visual Studio Unit Tests
+OK
+My first step will to strip out the models.
+So I add a new Class Library Called BusinessLayer, here I will place the DbContext and the Models.

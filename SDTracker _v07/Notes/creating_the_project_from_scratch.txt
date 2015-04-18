@@ -1,0 +1,27 @@
+﻿Creating the Project from scratch.
+File -> New -> Project
+
+In the combo .NET Framework 4
+In this project I am using .NET Framework 4. 4.5 is available as a select of my Windows install and version 5 is also available, but I was not able to include version 5 on both my home machine and Windows virtual server 2012 
+On the Left navigation tree 
+Installed ->Templates -> Visual C# -> Web
+In the center template panel Select ASP.NET MVC 4 Web Application
+At the bottom:
+Name: SDTracker
+Location:
+Solution Name: SDTracker
+Please note that the Solution name can be different from the Name.
+The Solution name will be the host folder name and the Name, will be the created namespace.
+In this case the name space will be SDTracker and the Solution folders will be of the form SDTracker_vXX 
+Create a directory for solution checked. 
+Did not add to a source control
+
+In the next window are the Project Template
+Select Empty,
+Razor
+Create a Unit Test.
+Visual Studio Unit Test
+OK
+
+
+//TODO: Look at setup and combine as one file
