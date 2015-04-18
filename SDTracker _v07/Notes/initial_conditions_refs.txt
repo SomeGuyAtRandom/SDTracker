@@ -2,11 +2,9 @@
 
 Tools -> NuGit Package Manager -> Manage NuGet Packages for solution
 
-
 Microsoft.Web.Mvc.FixedDisplayModes
 System.Net.Http.Formatting
 System.Net.Http.WebRequest
-
 
 Json.NET 
 Newtonsoft.Json v 4.5.11
@@ -14,14 +12,11 @@ Newtonsoft.Json v 4.5.11
 Microsoft.NET Framework 4 HTTP Client Libraries 
 System.Net.Http v 2.0.20710.0
 
-
 Microsoft ASP.NET MVC 4
 Microsoft.AspNet.Mvc V 4.0.30506.0
 
-
 Microsoft ASP.NET MVC Fixed DisplayModels 
 Microsoft.AspNet.Mvc.DisplayModels  V 1.0
-
 
 Microsoft ASP.NET Razor 2
 Microsoft.AspNet.Razor  V 2.0.30506
@@ -35,22 +30,16 @@ Microsoft.AspNet.WebApi.Core
 Microsoft ASP.NET Web API Web Host
 Microsoft.AspNet.WebApi.WebHost v 4.0.30506.0
 
-
 Microsoft ASP.NET Web API Core Libraries
 Microsoft.AspNet.WebApi v 4.0.30506.0
-
 
 Microsoft ASP.NET Web Pages 2
 Microsoft.AspNet.WebPages v 2.030506.0
 
-
 Microsoft.Web.Infrastructure
 Microsoft.Web.Infrastructure v 1.0.0
 
-
-
 These are the inital conditions of the project
-
 For references the following are found in the project bin folder:
 
 Microsoft.Web.Infrastructure
@@ -108,5 +97,3 @@ DIR FROM the packages folder:
 04/18/2015  08:46 AM    <DIR>          Newtonsoft.Json.4.5.11
 
 This list matches the package.config xml file. at this point monitor git history
-
-

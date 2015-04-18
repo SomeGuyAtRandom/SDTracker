@@ -9,4 +9,6 @@ This opens the Graph viewer. In this window you can add objects by selecting ite
 Note that when the document is created, the name is Graph1.dgml
 The dgml file can be found in the 
 [User]\AppData\Local\Temp\~vs[some random value].dgml
-Directory. This is just a temporary file. If you close the project now, you will not get a warning to save the file. And if you re-open the project and create the same file again, it will have the same, original, default name but most likely a different random temporary name.
+Directory. This is just a temporary file. If you close the project now, you will not get a warning to save the file. 
+And if you re-open the project and create the same file again, it will have the same, original, default name but most likely 
+a different random temporary name.

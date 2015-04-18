@@ -2,7 +2,9 @@
 File -> New -> Project
 
 In the combo .NET Framework 4
-In this project I am using .NET Framework 4. 4.5 is available as a select of my Windows install and version 5 is also available, but I was not able to include version 5 on both my home machine and Windows virtual server 2012 
+In this project I am using .NET Framework 4. 4.5 is available as a select of my Windows install and version 5 is also available, 
+but I was not able to include version 5 on both my home machine and Windows virtual server 2012 
+
 On the Left navigation tree 
 Installed ->Templates -> Visual C# -> Web
 In the center template panel Select ASP.NET MVC 4 Web Application

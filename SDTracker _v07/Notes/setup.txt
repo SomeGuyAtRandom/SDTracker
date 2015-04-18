@@ -21,4 +21,5 @@ Add a Shared folder to Views.
 
 //TODO: Look at creating_the_project_from_scratch and move contents into here and combine as one file
 
-
+Next I did Tool -> Options -> Source Control -> Plug-in Secion:
+And selected Git Source Control Provider

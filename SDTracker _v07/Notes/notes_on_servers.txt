@@ -1,6 +1,7 @@
 ﻿Note from Michael:
 I setup an account for you on a TEST/DEV MS SQL Express 2012 Server, connect via SQL Authentication
 
+
 servername: 94DOTSQLDEV01.DOT.CW.CI.LA.CA.US\SQLEXPRESS
 username: RAndrade 
 password: redgenius123
