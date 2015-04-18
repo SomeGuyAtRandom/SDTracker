@@ -67,6 +67,8 @@
     <Content Include="SQL_scripts\Insert\spAddJobType.sql" />
     <Content Include="SQL_scripts\Insert\spAddProject.sql" />
     <Content Include="SQL_scripts\Insert\spAddUserPassword.sql" />
+    <Content Include="SQL_scripts\migrateProjects.sql" />
+    <Content Include="SQL_scripts\ReportBuilder.sql" />
     <Content Include="SQL_scripts\Reports\rptYearSummaryByMonthByJobType.sql" />
     <Content Include="SQL_scripts\Select\spGetAdminUserById.sql" />
     <Content Include="SQL_scripts\Select\spGetAllDesignEngineers.sql" />
@@ -92,6 +94,9 @@
     <Content Include="SQL_scripts\Select\spGetUserPasswordByUserName.sql" />
     <Content Include="SQL_scripts\Select\spGetUserRoles.sql" />
     <Content Include="SQL_scripts\Select\spGetUsersWithSearch.sql" />
+    <Content Include="SQL_scripts\spUserIsInRole.sql" />
+    <Content Include="SQL_scripts\spUserIsValid.sql" />
+    <Content Include="SQL_scripts\SummaryReport.sql" />
     <Content Include="SQL_scripts\Tables\tblDistricts.sql" />
     <Content Include="SQL_scripts\Tables\tblEngineers.sql" />
     <Content Include="SQL_scripts\Tables\tblJobTypes.sql" />
@@ -102,6 +107,8 @@
     <Content Include="SQL_scripts\Tables\tblRoles.sql" />
     <Content Include="SQL_scripts\Tables\tblUserPasswords.sql" />
     <Content Include="SQL_scripts\Tables\tblUserRoles.sql" />
+    <Content Include="SQL_scripts\testArea.sql" />
+    <Content Include="SQL_scripts\testSummeryReport.sql" />
     <Content Include="SQL_scripts\Update\spEnableDisableUser.sql" />
     <Content Include="SQL_scripts\Update\spSaveDistrict.sql" />
     <Content Include="SQL_scripts\Update\spSaveEngineer.sql" />
