@@ -66,20 +66,7 @@ namespace SDTracker.tests.Controllers
         
 
 
-        [Test]
-        public void Logout_Redirects_To_Home()
-        {
-            // Setup  
-            var accountController = new AccountController();
-
-            // Test Result  
-            var result = accountController.LogOff() as RedirectToRouteResult;
-
-            // Assert
-            Assert.NotNull(result);
-            Assert.AreEqual("Index", result.RouteValues["Action"]);
-            Assert.AreEqual("Home", result.RouteValues["controller"]);
-        }
+       
 
         [Test]
         public void Login_Returns_ViewResult()

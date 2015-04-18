@@ -25,3 +25,12 @@ Folder Controllers
 
 Build And Save..
 Test does requre SDTracker web and BusinessLayer
+
+Make sure both are refernced.
+NuGet - install Moq: an enjoyable mocking library
+Id: Moq
+4.2.1502.0911
+
+Adding Moq caused changes in the packages.config
+
+The test runs should pass.
