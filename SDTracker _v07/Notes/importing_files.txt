@@ -29,3 +29,7 @@ System.Configuration resolved at adding references
 In Assemblies:
 System.Configuration v 4.0.0.0
 
+To resolve Imports on the Web Project SDTracker
+
+Added Microsoft.AspNet.Web.Optimization Via NuGet
+Also note that you will need to replace the auto generated Global.asax file because it uses the namespace "SDTracker_vXX"

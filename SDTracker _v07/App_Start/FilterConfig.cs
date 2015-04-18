@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace SDTracker__v07
+namespace SDTracker
 {
     public class FilterConfig
     {
