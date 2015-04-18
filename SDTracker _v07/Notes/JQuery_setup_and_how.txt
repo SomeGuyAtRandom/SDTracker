@@ -1,6 +1,38 @@
-﻿This file contains not only the JQuery configuation but bootstrap confiuration also.
-Other itmes will be JQuery validate (unobtrusive)
+﻿This file contains not only the JQuery configuration but bootstrap configuration also.
+Other items will be JQuery validate (unobtrusive)
 PageListings and others.
 
 
+// TODO: Restore one file to a previous state.
 
+Entity Framework
+PagedList.MVC
+
+Boostrap version 3.3.2 - note this requires jQuery >= 1.9
+JQuery Validation with Bootstrap requires jQuery >= 1.9
+
+jQuery UI (Combined Library)
+jQuery Validation
+JQuery version 1.9.1
+Microsoft jQuery Unobtrusive Ajax
+Microsoft jQuery Unobtrusive Validation
+
+Install First
+Boostrap
+
+When I first looked for bootstrap, it could not find it (I'd selected all)
+But, if you select nuget.org node and then re-search for bootstrap the correct select is revield
+Version 3.3.4 Note it requires jQuery 1.9.1 and thus Nuget will install the required dependencies
+
+Next..
+JQuery Validation
+To find JQuery Validation use the id jquery.valadate.bootstrap
+Note that this requires 
+Microsoft jQuery Unobtrusive Ajax
+Microsoft jQuery Unobtrusive Validation
+
+
+Last..
+jQuery UI (Combined Library)
+
+Note the packages folder has been modified according to suspicion. 
