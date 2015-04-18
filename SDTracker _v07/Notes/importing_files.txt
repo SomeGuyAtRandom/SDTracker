@@ -10,3 +10,6 @@ Models
 
 Add respective files
 
+After adding the files (first folder level) I had noticed that Git had some changes in the Web Project part of this soulution.
+Made a commit.
+Git Recognitions seems to be slow. working on importing files
