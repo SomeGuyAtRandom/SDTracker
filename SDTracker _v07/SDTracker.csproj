@@ -241,6 +241,7 @@
     <Content Include="Notes\JQuery_setup_and_how.txt" />
     <Content Include="Notes\notes_on_servers.txt" />
     <Content Include="Notes\renaming_project_name.txt" />
+    <Content Include="Notes\running_ADOTransfer.txt" />
     <Content Include="Notes\setup.txt" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -25,7 +25,7 @@ DROP TABLE dbo.Engineers;
 	Id int FOREIGN KEY REFERENCES UserPasswords(Id) default null,
 	FirstName nvarchar(30),
 	LastName nvarchar(30),
-	Email nvarchar(100),
+	Email nvarchar(100) not null,
 	Initials nvarchar(5),
 	UserName nvarchar(30) not null,
 	Phone nvarchar(20),

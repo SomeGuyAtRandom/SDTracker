@@ -1,0 +1,13 @@
+﻿The process for data migration from the MySql Server to the MySql Server
+run from ADOTransfer/SQL_scripts
+
+Debug/delete_stored_procs
+Debug/delete_tables
+Build/_BuildTables
+Build/_BuildStoredProc
+
+Then Run ADOTransfer
+
+and run the  ADOTransfer/SQL_scripts/Build/BuildAddData
+
+ 
