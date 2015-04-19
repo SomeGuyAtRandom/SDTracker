@@ -26,11 +26,11 @@
                             @Html.LabelFor(model => model.UserName)
                         </div>
                         <div class="editor-field">
-                            @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", onkeyup = "UserNameTestClientSide(this)" })
+                            @Html.TextBoxFor(model => model.UserName, new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.UserName, null, new { @id = "spanUserName" })
                         </div>
                         <div class="editor-label">
-                            <label id="passwordCheck">
+                            <label id="UserNameCheck">
 
                             </label>
                         </div>
@@ -41,6 +41,11 @@
                             @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Email, null, new { @id = "spanEmail" })
                         </div>
+                        <div class="editor-label">
+                            <label id="EmailCheck">
+
+                            </label>
+                        </div>
 
 
                         <div class="editor-label">
@@ -50,24 +55,25 @@
                             @Html.TextBoxFor(model => model.ConfirmEmail, new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.ConfirmEmail)
                         </div>
+                        <div class="editor-label">
+                            <label id="ConfirmEmailCheck">
 
+                            </label>
+                        </div>
                         
                         <div class="editor-label">
                             @Html.LabelFor(model => model.Password)
                         </div>
-
-                        <div class="editor-label">
-                            <label id="passwordCheck">
-
-                            </label>
-
-                        </div>
-
                         <div class="editor-field">
                             @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Password)
                         </div>
-                        
+                        <div class="editor-label">
+                            <label id="PasswordCheck">
+
+                            </label>
+                        </div>
+
                         
                         <div class="editor-label">
                             @Html.LabelFor(model => model.ConfirmPassword)
@@ -76,11 +82,16 @@
                             @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.ConfirmPassword)
                         </div>
+                        <div class="editor-label">
+                            <label id="ConfirmPasswordCheck">
+
+                            </label>
+                        </div>
 
                     </div>
 
                     <div class="editor-label">
-                        <input formmethod="post" type="submit" value="Next" />
+                        <input formmethod="post" type="submit" disabled="disabled" value="Next" />
                     </div>
 
                 </div>
@@ -96,47 +107,218 @@
         return (!str || 0 === str.length);
     }
 
-    function UserNameTestClientSide(obj)
+    // Compair to HomeDbImp.ValidateUserNameAtServer()
+    function UserNameClientValidation(DoSetMessage)
     {
-        var sVal = obj.value;
-        sVal = sVal.trim();
-        var msg = '';
-
-        $('#UserName').css('background-color', 'yellow');
-
-        if (isEmpty(sVal))
-        {
-            msg = 'User name is required.';
-        }
-
-        if (sVal.length < 6) {
-            msg = 'User name must atleast 6 charaters';
-        }
-
-        if (sVal.length > 10) {
-            msg = 'User can have no more than 10 charaters.';
-        }
+        if (DoSetMessage) { $('#UserName').css("background-color", "yellow"); }
+        var sVal = $('#UserName').val();
 
         var regex = new RegExp('^[a-zA-Z0-9]+$');
 
-        if (!regex.test(sVal)) {
-            msg = 'Not vvvv';
+        if (isEmpty(sVal)) {
+            if (DoSetMessage) { $('#UserNameCheck').text('User name is required.'); }
+            return false;
         }
 
-        alert(msg + "v2");
-        $('#passwordCheck').text(msg);
-        $('#spanUserName span').contents().replaceWith('Do it again ');
+        if (sVal.length < 6) {
+            if (DoSetMessage) { $('#UserNameCheck').text('User name must atleast 6 charaters'); }
+            return false;
+        }
+
+        if (sVal.length > 10) {
+            if (DoSetMessage) { $('#UserNameCheck').text('User can have no more than 10 charaters.'); }
+            return false;
+        }
+
+        if (!regex.test(sVal)) {
+            $('#UserNameCheck').text('User name must only be letters or digits.');
+            return false;
+        }
 
 
+        if (DoSetMessage) { $('#UserNameCheck').text(""); }
+        return true;
     }
-    
-    
 
+    // Compair to HomeDbImp.ValidateEmailAtServer()
+    function EmailClientValidation(DoSetMessage)
+    {
+        if (DoSetMessage) { $('#Email').css("background-color", "yellow"); }
+        var sVal = $('#Email').val();
+
+        var regex = /^([\w-]+(?:\.[\w-]+)*)@@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+
+        //var re = new RegExp('/^([\w-]+(?:\.[\w-]+)*)@@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i');
+
+        if (isEmpty(sVal)) {
+            if (DoSetMessage) { $('#EmailCheck').text('Email is required.'); }
+            return false;
+        }
+
+        if (!regex.test(sVal)) {
+            if (DoSetMessage) { $('#EmailCheck').text('Not a valid Email Address.'); }
+            return false;
+        }
+
+        if (DoSetMessage) { $('#EmailCheck').text("Email OK") };
+        return true;
+    }
+
+    function ConfirmEmailClientValidation(DoSetMessage)
+    {
+        if (DoSetMessage) { $('#ConfirmEmail').css('background-color', 'yellow'); }
+
+        
+        var sEmail = $('#Email').val();
+        var sConfirmEmail = $('#ConfirmEmail').val();
+        if (sEmail != sConfirmEmail) {
+            $('#ConfirmEmail').text('The Email and confirmation Email do not match.');
+            return false;
+        }
+
+        $('#ConfirmEmail').text("");
+        return true;
+    }
+
+    function PasswordClientValidation(DoSetMessage)
+    {
+        if (DoSetMessage) { $('#Password').css('background-color', 'yellow'); }
+        var sVal = $('#Password').val();
+
+        if (sVal.length < 8) {
+            if (DoSetMessage) { $('#PasswordCheck').text('Passwrord must be greater than 8 chatcers'); }
+            return false;
+        }
+
+        if (sVal.length > 10) {
+            if (DoSetMessage) { $('#PasswordCheck').text('Password cannot be greater than 10 chatcers'); }
+            return false;
+        }
+
+
+        var captialLetterRegex = /^(?=.*[A-Z])/
+        //var captialLetterRegex = new RegExp('^([A-Z]+)$');
+        if (!captialLetterRegex.test(sVal)) {
+            if (DoSetMessage) { $('#PasswordCheck').text('Password must have at least one Uppercase letter'); }
+            return false;
+        }
+
+        var numbersRegex = /^(?=.*[0-9])/
+        if (!numbersRegex.test(sVal)) {
+            if (DoSetMessage) { $('#PasswordCheck').text('Password must have at least one numeric digit.'); }
+            return false;
+        }
+
+        var whitespaceRegex = /^(?=.*[\s])/
+        if (whitespaceRegex.test(sVal)) {
+            if (DoSetMessage) { $('#PasswordCheck').text('Password cannot have any white space.'); }
+            return false;
+        }
+
+
+        //var specialcharatersRegex = /^(?=.*[\u0021-\u002b])/
+        ////var specialcharatersRegex = new RegExp('[\u0021-\u002b]+');
+        //if (!specialcharatersRegex.test(sVal)) {
+        //    if (DoSetMessage) { $('#PasswordCheck').text('At least one special chacter"'); }
+        //    return false;
+        //}
+
+        if (DoSetMessage) { $('#PasswordCheck').text(''); }
+        return true;
+    }
+
+    function ConfirmPasswordClientValidation(DoSetMessage) {
+
+        if (DoSetMessage) { $('#ConfirmPassword').css('background-color', 'yellow'); }
+
+        var sPassword = $('#ConfirmPassword').val();
+        var sConfirmPassword = $('#ConfirmPassword').val();
+        if (sPassword != sConfirmPassword) {
+            if (DoSetMessage) { $('#ConfirmPassword').text('The password and confirmation password do not match.'); }
+            return false;
+        }
+
+        if (DoSetMessage) { $('#ConfirmPassword').text(""); } 
+        return true;
+    }
+
+
+    function FormIsValid()
+    {
+        var bReturn = UserNameClientValidation(false) && EmailClientValidation(false) && ConfirmEmailClientValidation(false) && PasswordClientValidation(false) && ConfirmPasswordClientValidation(false);
+        if (bReturn) { $('input[type="submit"]').removeAttr('disabled'); }
+        return bReturn;
+    }
     $(document).ready(function () {
-        $('#Password').keyup(function (e) {
-            $('#Password').css("background-color", "yellow");
-            $("#Password").text("Hello");
+
+        $('input[type="submit"]').attr('disabled', 'disabled');
+
+        $('#UserName').keyup(function (e) {
+            $("#UserName").val(($("#UserName").val()).toLowerCase());
+            UserNameClientValidation(true);
+            
         });
+
+        $('#Email').keyup(function (e) {
+            $("#Email").val(($("#Email").val()).toLowerCase());
+            EmailClientValidation(true);
+        });
+
+        $('#ConfirmEmail').keyup(function (e) {
+            $('#ConfirmEmail').css('background-color', 'yellow');
+            ConfirmEmailClientValidation(true);
+
+        });
+
+        $('#Password').keyup(function (e) {
+            PasswordClientValidation(true);
+        });
+
+        $('#ConfirmPassword').keyup(function (e) {
+            $('#ConfirmPassword').css('background-color', 'yellow');
+            ConfirmPasswordClientValidation();
+        });
+
+        $('#UserName').blur(function (e) {
+            if (FormIsValid() || UserNameClientValidation(true)) {
+                $('#UserName').css("background-color", "white");
+            } else {
+                $('#UserName').css("background-color", "pink");
+            }
+        });
+
+        $('#Email').blur(function (e) {
+            if (FormIsValid() || EmailClientValidation(true)) {
+                $('#Email').css("background-color", "white");
+            } else {
+                $('#Email').css("background-color", "pink");
+            }
+        });
+
+        $('#ConfirmEmail').blur(function (e) {
+            if (FormIsValid() || ConfirmEmailClientValidation(true)) {
+                $('#ConfirmEmail').css("background-color", "white");
+            } else {
+                $('#ConfirmEmail').css("background-color", "pink");
+            }
+        });
+
+        $('#Password').blur(function (e) {
+            if (FormIsValid() || PasswordClientValidation(true)) {
+                $('#Password').css("background-color", "white");
+            } else {
+                $('#Password').css("background-color", "pink");
+            }
+        });
+
+        $('#ConfirmPassword').blur(function (e) {
+            if (FormIsValid() || ConfirmPasswordClientValidation(true)) {
+                $('#ConfirmPassword').css("background-color", "white");
+            } else {
+                $('#ConfirmPassword').css("background-color", "pink");
+            }
+        });
+
     });
 
     

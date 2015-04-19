@@ -1,3 +1,4 @@
 ﻿USE [SignalDB];
+SELECT * FROM Engineers
+-- Save this file as add new user..
 
-exec spGetUserPasswordByUserName @UserName= 'account'

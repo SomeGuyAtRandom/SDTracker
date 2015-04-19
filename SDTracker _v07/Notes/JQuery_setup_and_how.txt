@@ -4,7 +4,6 @@ PageListings and others.
 
 
 // TODO: Restore one file to a previous state.
-
 Entity Framework
 PagedList.MVC
 bostrap version 3.3.2 - note this requires jQuery >= 1.9
@@ -51,3 +50,12 @@ I did a restart and now I feel it works to my satifaction.
 Viewed history and it appears the added Jquery files are in Git Repository
 
 next note file: init_EF_and_others
+
+
+jquery.validate.bootstrap.js
+Uninstalled 1.0.0.002
+
+Was prometed to also remove it's dependancies.
+Replied No
+
+Installed 1.4.0 id =BootstrapValidate

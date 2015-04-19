@@ -78,7 +78,7 @@ namespace BusinessLayer.DbImp
             return roles;
         }
 
-        public Boolean UserExists(String UserName)
+        private Boolean UserExists(String UserName)
         {
             Boolean bReturn = false;
             using (SqlConnection con = new SqlConnection(connectionString))
@@ -124,7 +124,41 @@ namespace BusinessLayer.DbImp
             return bReturn;
         }
 
-        public String ValidateUserNameSelection(String UserName)
+        // For the Home/Login view
+        public Boolean UserIsValid(UserLogin user)
+        {
+            Boolean bReturn = false;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("spUserIsValid", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SqlParameter pUserName = new SqlParameter();
+                pUserName.ParameterName = "@UserName";
+                pUserName.Value = user.UserName;
+                cmd.Parameters.Add(pUserName);
+
+                SqlParameter pPassword = new SqlParameter();
+                pPassword.ParameterName = "@Password";
+                pPassword.Value = user.Password;
+                cmd.Parameters.Add(pPassword);
+                con.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                if (rdr.Read())
+                {
+                    if (!(rdr[0] is DBNull))
+                    {
+                        bReturn = Convert.ToBoolean(rdr[0]);
+                    }
+                }
+            }
+
+            return bReturn;
+        }
+
+        // For the Home/Register view
+        public String ValidateUserNameAtServer(String UserName)
         {
 
             string testUser = UserName.ToLower().Trim();
@@ -160,18 +194,16 @@ namespace BusinessLayer.DbImp
                 msg = "The user " + testUser + " is in use.";
             }
 
-            return msg;
+            return "true";
 
         }
 
-
-
-
-        public String ValidateEmailSelection(String Email)
+        // For the Home/Register view
+        public String ValidateEmailAtServer(String Email)
         {
             string testUser = Email.ToLower().Trim();
-            String msg = "The user name " + testUser + " is avaliable.";
-            string emailRegex =  @"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*" + "@" + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$";
+            String msg = "Email OK";
+            string emailRegex = @"^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$";
 
 
             Regex regex = new Regex(emailRegex);
@@ -180,24 +212,82 @@ namespace BusinessLayer.DbImp
             if (String.IsNullOrEmpty(testUser))
             {
                 msg = "Email is required.";
+                return msg;
             }
 
             if (!match.Success)
             {
                 msg = "Not a valid Email Address.";
+                return msg;
             }
-
-
-            if (EmailExists(testUser))
+            if (EmailExists(Email))
             {
-                msg = "The Email " + testUser + " is in use.";
+                msg = "This email is in use by another user.";
+ 
             }
-
-            return msg;
+            return "true";
 
         }
 
-        public Boolean EmailExists(String Email)
+        // For the Home/Register view
+        public String ValidatePasswordAtServer(String Password)
+        {
+            string testUser = Password;
+            String msg = "";
+
+            if (Password.Length < 8)
+            {
+                msg = "Password must be greater than 8 chatcers";
+                return msg;
+            }
+
+            if (Password.Length > 10)
+            {
+                msg = "Passwrord cannot be greater than 10 chatcers";
+                return msg;
+            }
+
+            string captialLetterRegex = @"^(?=.*[A-Z])";
+            Regex regex = new Regex(captialLetterRegex);
+            Match match = regex.Match(testUser);
+            if (!match.Success)
+            {
+                msg = "Password must have at least one Uppercase letter.";
+                return msg;
+            }
+
+            string numbersRegex = @"^(?=.*[0-9])";
+            regex = new Regex(numbersRegex);
+            match = regex.Match(testUser);
+            if (!match.Success)
+            {
+                msg = "Password must have at least one numeric digit.";
+                return msg;
+            }
+
+            string whitespaceRegex = @"^(?=.*[\s])";
+            regex = new Regex(whitespaceRegex);
+            match = regex.Match(testUser);
+            if (match.Success)
+            {
+                msg = "Password cannot have any white space.";
+                return msg;
+            }
+
+
+            //string specialcharatersRegex = @"^(?=.*[\u0021-\u002b])";
+            //regex = new Regex(specialcharatersRegex);
+            //match = regex.Match(testUser);
+            //if (!match.Success)
+            //{
+            //    msg = "At least one special chacter";
+            //    return msg;
+            //}
+
+            return "true";
+        }
+
+        private Boolean EmailExists(String Email)
         {
 
             // @"^\(\d{3}\)\s\d{3}-\d{4}"
@@ -224,38 +314,6 @@ namespace BusinessLayer.DbImp
                     }
                 }
             }
-            return bReturn;
-        }
-
-        public Boolean UserIsValid(UserLogin user)
-        {
-            Boolean bReturn = false;
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand("spUserIsValid", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                SqlParameter pUserName = new SqlParameter();
-                pUserName.ParameterName = "@UserName";
-                pUserName.Value = user.UserName;
-                cmd.Parameters.Add(pUserName);
-
-                SqlParameter pPassword = new SqlParameter();
-                pPassword.ParameterName = "@Password";
-                pPassword.Value = user.Password;
-                cmd.Parameters.Add(pPassword);
-                con.Open();
-                SqlDataReader rdr = cmd.ExecuteReader();
-
-                if (rdr.Read())
-                {
-                    if (!(rdr[0] is DBNull))
-                    {
-                        bReturn = Convert.ToBoolean(rdr[0]);
-                    }
-                }
-            }
-
             return bReturn;
         }
 
@@ -307,18 +365,20 @@ namespace BusinessLayer.DbImp
 
         public Boolean IsServerSideValid(RegisterUser user)
         {
-            Boolean bReturn = true;
-            // User Name
-            String testPhrase = "The user name " + user.UserName + " is avaliable.";
-            String realPhrase = ValidateUserNameSelection(user.UserName);
-            if(!testPhrase.Equals(realPhrase))
-            {
-                return false;
-            }
+            string test = "";
 
+            test = ValidateUserNameAtServer(user.UserName);
+            if (test != "true") { return false;  }
 
-            return bReturn;
+            test = ValidateEmailAtServer(user.Email);
+            if (test != "true") { return false; }
+
+            test = ValidatePasswordAtServer(user.Password);
+            if (test != "true") { return false; }
+
+            return true;
         }
 
+        
     }
 }

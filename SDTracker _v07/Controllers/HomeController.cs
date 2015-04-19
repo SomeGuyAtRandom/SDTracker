@@ -33,7 +33,8 @@ namespace SDTracker.Controllers
         [HttpPost]
         public ActionResult Register(RegisterUser user)
         {
-            if (ModelState.IsValid)
+            //TODO : Add Serverside Valiadation
+            if (ModelState.IsValid && dbRepo.IsServerSideValid(user))
             {
                 if (dbRepo.AddNewUser(user))
                 {
@@ -48,7 +49,6 @@ namespace SDTracker.Controllers
             var model = TempData["UserPassword"] as UserDetail;
             return View("RegisterInfo", model);
         }
-
 
         public ViewResult Login(string returnUrl)
         {
@@ -108,35 +108,31 @@ namespace SDTracker.Controllers
 
         }
 
-
-        
-        public JsonResult UserNameAlreadyExists(string UserName)
-        {
-            bool chkUser = false;
-            chkUser = dbRepo.UserExists(UserName.ToLower());
-            if (chkUser)
-            {
-                return Json("User name is already registered ", JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return Json(true, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        public JsonResult EmailAlreadyExists(string Email)
-        {
-            string msg = dbRepo.ValidateEmailSelection(Email);
-            return Json(msg, JsonRequestBehavior.AllowGet);
-        }
-
+        // This method is coupled with the model object RegisterUser.UserName
         public JsonResult ValidateUserAtServer(string UserName)   /* ([Bind(Prefix = "UserName ")] string UserName) */
         {
-            string msg = dbRepo.ValidateUserNameSelection(UserName);
+            string msg = dbRepo.ValidateUserNameAtServer(UserName);
             return Json(msg, JsonRequestBehavior.AllowGet);
         }
-        
 
+        // This method is coupled with the model object RegisterUser.Email
+        public JsonResult ValidateEmailAtServer(string Email)
+        {
+            string msg = dbRepo.ValidateEmailAtServer(Email);
+            if (msg == "") { return Json(true, JsonRequestBehavior.AllowGet); }
+            return Json(msg, JsonRequestBehavior.AllowGet);
+        }
+
+ 
+        // This method is coupled with the model object RegisterUser.Email
+        public JsonResult ValidatePasswordAtServer(string Password)
+        {
+            string msg = dbRepo.ValidatePasswordAtServer(Password);
+            return Json(msg, JsonRequestBehavior.AllowGet);
+        }
+
+
+        
 
     }
 }

@@ -10,15 +10,17 @@ namespace BusinessLayer.MockDbs
     {
         private HomeDbImp context = new HomeDbImp();
 
-        public String ValidateEmailSelection(String Email)
+        public String ValidateEmailAtServer(String Email)
         {
-            return context.ValidateEmailSelection(Email);
+            return context.ValidateEmailAtServer(Email);
         }
-        public String ValidateUserNameSelection(String UserName)
+
+        public String ValidateUserNameAtServer(String UserName)
         {
-            return context.ValidateUserNameSelection(UserName);
+            return context.ValidateUserNameAtServer(UserName);
  
         }
+        
         public Boolean AddNewUser(RegisterUser user)
         {
             return context.AddNewUser(user);
@@ -34,16 +36,12 @@ namespace BusinessLayer.MockDbs
             return context.DoAuthen();
         }
 
-        public Boolean UserExists(String UserName)
-        {
-            return context.UserExists(UserName);
-        }
-
-        public Boolean EmailExists(String Email)
-        {
-            return context.EmailExists(Email);
-        }
         
+
+        public String ValidatePasswordAtServer(String Password)
+        {
+            return context.ValidatePasswordAtServer(Password);
+        }
         public Boolean UserIsValid(UserLogin model)
         {
             return context.UserIsValid(model);
@@ -54,5 +52,9 @@ namespace BusinessLayer.MockDbs
             return context.GetRoles(UserName);
         }
 
+        public Boolean IsServerSideValid(RegisterUser user)
+        {
+            return context.IsServerSideValid(user);
+        }
     }
 }
