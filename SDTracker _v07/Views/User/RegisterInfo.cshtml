@@ -1,11 +1,9 @@
-﻿@model BusinessLayer.Models.UserDetail
+﻿@model BusinessLayer.Models.Engineer
 
 @{
     ViewBag.Title = "RegisterInfo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
 
 <div class="container container-fluid">
 
@@ -105,4 +103,53 @@
             </div>
         </fieldset>
     </form>
+
+    
 </div>
+<script type="text/javascript">
+
+    $('input').on('input propertychange paste', function () {
+        var objID = $("[name='Id']").attr('value');
+        var fieldName = $(this).attr('id');
+        var txtValue = $(this).val();
+        runAjax(objID, fieldName, txtValue);
+    });
+
+    function runAjax2(objID, fieldName, txtValue)
+    {
+        var msg = '';
+        msg += 'objID: ' + objID;
+        msg += 'fieldName: ' + fieldName;
+        msg += 'txtValue: ' + txtValue;
+        alert(msg);
+    }
+    function runAjax(objID, fieldName, txtValue) {
+        $.ajax({
+            type: 'POST',
+            url: '/SDTracker/User/SaveField',
+            // url: '~/User/SaveField',
+            dataType: 'json',
+            timeout: 10000,
+            data: { 'objID': objID, 'fieldName': fieldName, 'txtValue': txtValue },
+            success: function (result) {
+                if (result) {
+                    if (result.IsUpdated) {
+                        // OK
+                    }
+                    else { alert("Error response from controller :" + result.Msg); }
+
+                } else {
+                    alert("Error response from server :");
+                }
+            },
+            error: function (x, t, m) {
+                if (t === "timeout") {
+                    alert("internet connection timed out");
+                } else {
+                    alert(t);
+                }
+            }
+        });
+    }
+
+</script>

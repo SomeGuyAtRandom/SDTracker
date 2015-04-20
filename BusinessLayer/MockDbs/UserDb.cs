@@ -21,5 +21,10 @@ namespace BusinessLayer.MockDbs
             return context.UserExists(UserName);
         }
 
+        public bool SaveField(int id, string FieldName, string Value)
+        {
+            return context.SaveField( id,  FieldName,  Value);
+        }
+
     }
 }

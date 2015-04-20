@@ -24,30 +24,36 @@ namespace SDTracker.Controllers
             this.dbRepo = dbRepo;
         }
 
-
         public ViewResult Register()
         {
             return View("Register");
         }
 
+
+        // Once the new user has given a username and password, then entries are made in the fallowing tables
+        // Engineers, UserPassword, UserRoles.
+        // The table Engineers is were the user profile is kept. The user is now redirected to the User/RegisterInfo page
+        // to fill out the remaning information. Meanwhile, the user is also Logged in as a guest
         [HttpPost]
         public ActionResult Register(RegisterUser user)
         {
             //TODO : Add Serverside Valiadation
             if (ModelState.IsValid && dbRepo.IsServerSideValid(user))
             {
+                // Add new user to the tables: ngineers, UserPassword & UserRoles
                 if (dbRepo.AddNewUser(user))
                 {
-                    return RedirectToAction("", "User", user);
+                    if (dbRepo.DoAuthen()) { FormsAuthentication.SetAuthCookie(user.UserName, false); }
+                    // Map RegisterUser to a New Engineer object
+                    Engineer engineer = dbRepo.getEngineerByUserName(user.UserName);
+
+                    // For URL Redirect
+                    user.Password = null;
+
+                    return RedirectToAction("RegisterInfo", "User", engineer);
                 }
             }
             return View("Register");
-        }
-
-        public ActionResult RegisterInfo()
-        {
-            var model = TempData["UserPassword"] as UserDetail;
-            return View("RegisterInfo", model);
         }
 
         public ViewResult Login(string returnUrl)
@@ -91,6 +97,9 @@ namespace SDTracker.Controllers
             return View("Login", model);
         }
 
+        // A private method use in Login
+        // If the user is attempting to access a url but is not logged in, They will redirected to Login to
+        // authenticate.. If authentication is accepted, then they will continue to the initial request
         private ActionResult RedirectToLocal(string returnUrl)
         {
             if (Url == null)
@@ -130,6 +139,7 @@ namespace SDTracker.Controllers
             string msg = dbRepo.ValidatePasswordAtServer(Password);
             return Json(msg, JsonRequestBehavior.AllowGet);
         }
+
 
 
         

@@ -56,5 +56,11 @@ namespace BusinessLayer.MockDbs
         {
             return context.IsServerSideValid(user);
         }
+
+        public Engineer getEngineerByUserName(String UserName)
+        {
+            return context.getEngineerByUserName(UserName);
+ 
+        }
     }
 }

@@ -55,7 +55,6 @@ namespace SDTracker.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
         #region Helpers
 
 
@@ -81,7 +80,6 @@ namespace SDTracker.Controllers
 
         }
         #endregion
-
 
         public JsonResult UserNameAlreadyExists(string UserName)
         {
@@ -117,6 +115,43 @@ namespace SDTracker.Controllers
         {
  
         }
+
+        // This action is called via GET
+        // To cleare the password from the URL - I beleive ther is a masking attribute/method
+        // But for now.. the password will be set to null at the redirection
+        // See 
+        public ViewResult RegisterInfo(Engineer engineer)
+        {
+            return View("RegisterInfo", engineer);
+        }
+
+        // save field is used in the RegisterInfo View
+        [HttpPost]
+        public JsonResult SaveField(string objID, string fieldName, string txtValue)
+        {
+            bool bReturn = false;
+            int id = 0;
+            string sMsg = "";
+            try
+            {
+                id = Int32.Parse(objID);
+
+                bReturn = dbRepo.SaveField(id, fieldName, txtValue);
+                if (bReturn) { sMsg = "Good"; }
+            }
+            catch (Exception e)
+            {
+                string msg = e.ToString();
+                sMsg = msg;
+                //TODO: ADD some logging function
+                bReturn = false;
+            }
+            return Json(new { IsUpdated = bReturn, Msg = sMsg });
+        }
+
+
+        
+
 
     }
 }

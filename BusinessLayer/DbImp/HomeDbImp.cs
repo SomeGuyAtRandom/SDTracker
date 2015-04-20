@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
+using BusinessLayer.Common;
 
 namespace BusinessLayer.DbImp
 {
@@ -32,6 +33,14 @@ namespace BusinessLayer.DbImp
                 pEmail.ParameterName = "@Email";
                 pEmail.Value = user.Email;
                 cmd.Parameters.Add(pEmail);
+
+
+                SqlParameter pPassword = new SqlParameter();
+                pPassword.ParameterName = "@Password";
+                pPassword.Value = Crypto.Encryptdata(user.Password);
+                cmd.Parameters.Add(pPassword);
+
+
                 con.Open();
                 cmd.ExecuteNonQuery();
                 bReturn = true;
@@ -78,32 +87,6 @@ namespace BusinessLayer.DbImp
             return roles;
         }
 
-        private Boolean UserExists(String UserName)
-        {
-            Boolean bReturn = false;
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand("spGetUserPasswordByUserName", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                SqlParameter pUserName = new SqlParameter();
-                pUserName.ParameterName = "@UserName";
-                pUserName.Value = UserName;
-                cmd.Parameters.Add(pUserName);
-
-                con.Open();
-
-                SqlDataReader rdr = cmd.ExecuteReader();
-                if (rdr.Read())
-                {
-                    if (!(rdr["Id"] is DBNull))
-                    {
-                        bReturn = (Convert.ToInt32(rdr["Id"]) > 0);
-                    }
-                }
-            }
-            return bReturn;
-        }
 
         private bool userNameIsOk(string UserName)
         {
@@ -140,7 +123,7 @@ namespace BusinessLayer.DbImp
 
                 SqlParameter pPassword = new SqlParameter();
                 pPassword.ParameterName = "@Password";
-                pPassword.Value = user.Password;
+                pPassword.Value = Crypto.Encryptdata(user.Password);
                 cmd.Parameters.Add(pPassword);
                 con.Open();
                 SqlDataReader rdr = cmd.ExecuteReader();
@@ -363,6 +346,7 @@ namespace BusinessLayer.DbImp
 
         }
 
+        // For the Home/Register view
         public Boolean IsServerSideValid(RegisterUser user)
         {
             string test = "";
@@ -377,6 +361,99 @@ namespace BusinessLayer.DbImp
             if (test != "true") { return false; }
 
             return true;
+        }
+
+        private Boolean UserExists(String UserName)
+        {
+            Boolean bReturn = false;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("spGetUserPasswordByUserName", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SqlParameter pUserName = new SqlParameter();
+                pUserName.ParameterName = "@UserName";
+                pUserName.Value = UserName;
+                cmd.Parameters.Add(pUserName);
+
+                con.Open();
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+                if (rdr.Read())
+                {
+                    if (!(rdr["Id"] is DBNull))
+                    {
+                        bReturn = (Convert.ToInt32(rdr["Id"]) > 0);
+                    }
+                }
+            }
+            return bReturn;
+        }
+
+
+        //Engineer
+        public Engineer getEngineerByUserName(String UserName)
+        {
+            Engineer user = new Engineer();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("spGetEngineerByUserName", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SqlParameter pUserName = new SqlParameter();
+                pUserName.ParameterName = "@UserName";
+                pUserName.Value = UserName;
+                cmd.Parameters.Add(pUserName);
+
+                con.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                if (rdr.Read())
+                {
+                    user = setEngineerToReader(rdr);
+                }
+                SetSubObjects(user);
+            }
+            return user;
+        }
+
+        // This is the same in the EngineerDbImp
+        private Engineer setEngineerToReader(SqlDataReader rdr)
+        {
+            Engineer user = new Engineer();
+
+            user.Id = Convert.ToInt32(rdr["Id"]);
+            user.FirstName = rdr["FirstName"].ToString();
+            user.LastName = rdr["LastName"].ToString();
+            user.Email = rdr["Email"].ToString();
+            user.Initials = rdr["Initials"].ToString();
+            user.UserName = rdr["UserName"].ToString();
+
+            if (!(rdr["Phone"] is DBNull))
+            {
+                user.Phone = rdr["Phone"].ToString();
+            }
+
+            try
+            {
+
+                if (!(rdr["IsDisabled"] is DBNull))
+                {
+                    user.IsDisabled = Convert.ToBoolean(rdr["IsDisabled"]);
+                }
+
+            }
+            catch { user.IsDisabled = false; }
+
+            user.DateCreated = Convert.ToDateTime(rdr["DateCreated"]);
+            user.DateUpdated = Convert.ToDateTime(rdr["DateUpdated"]);
+            return user;
+
+        }
+
+        // This is the same in the EngineerDbImp
+        private void SetSubObjects(Engineer user)
+        {
+
         }
 
         

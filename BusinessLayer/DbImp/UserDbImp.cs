@@ -63,6 +63,43 @@ namespace BusinessLayer.DbImp
             }
             return bReturn;
         }
-        
+
+
+        public bool SaveField(int id, string FieldName, string Value)
+        {
+            bool bReturn = false;
+            
+            SqlParameter pId = new SqlParameter();
+            pId.ParameterName = "@Id";
+            pId.Value = id;
+
+            SqlParameter pColumnName = new SqlParameter();
+            pColumnName.ParameterName = "@columnName";
+            pColumnName.Value = FieldName;
+
+            SqlParameter pValueIn = new SqlParameter();
+            pValueIn.ParameterName = "@StringIn";
+            pValueIn.Value = Value;
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("spUpdateUserField", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(pId);
+                cmd.Parameters.Add(pColumnName);
+                cmd.Parameters.Add(pValueIn);
+                try
+                {
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+                bReturn = true;
+            }
+            return bReturn;
+        }
     }
 }

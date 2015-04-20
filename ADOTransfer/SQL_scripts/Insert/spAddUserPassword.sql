@@ -3,14 +3,11 @@ GO
 
 IF OBJECT_ID('spAddUserPassword', 'P') IS NOT NULL
 DROP PROCEDURE spAddUserPassword;
-
 GO
-
 CREATE PROC spAddUserPassword
 
 @UserName nvarchar(20),
 @Password nvarchar(20),
-
 @FirstName nvarchar(30)= null,
 @LastName nvarchar(30)= null,
 @Email nvarchar(100)= null,
@@ -19,18 +16,24 @@ CREATE PROC spAddUserPassword
 
 AS
 BEGIN  
-
-DECLARE @ReturnValue int = 0
+DECLARE @Id int
+DECLARE @table table (id int)
 
  INSERT INTO UserPasswords 
- (UserName,Password,DateCreated,DateUpdated,DateAccessed )  
- VALUES (@UserName,@Password,GETDATE(), GETDATE(), GETDATE())  ;
+ (UserName,Password,IsDisabled,DateCreated,DateUpdated,DateAccessed )  
+ OUTPUT inserted.id into @table
+ VALUES (@UserName,@Password,0,GETDATE(), GETDATE(), GETDATE())  ;
 
+ SELECT @Id = id from @table
+ 
   INSERT INTO Engineers 
  (Id,FirstName,LastName,Email,Initials,UserName,Phone,
  DateCreated,DateUpdated )  
- VALUES ( @@IDENTITY, @FirstName,@LastName,@Email,@Initials,@UserName,@Phone,GETDATE(), GETDATE())  ;
+ VALUES ( @Id, @FirstName,@LastName,@Email,@Initials,@UserName,@Phone,GETDATE(), GETDATE());
 
- END;
+ -- RoleId=2 is the Guest Role
+ INSERT INTO UserRoles(UserId,RoleId) VALUES (@Id,2);
+
+ END
 
 GO

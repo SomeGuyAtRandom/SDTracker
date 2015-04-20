@@ -71,7 +71,7 @@ namespace ADOTransfer
                     MScmd.Parameters.Add(pDistrictId);
                     MScmd.Parameters.Add(pPlace);
 
-                    Console.WriteLine("To save : " + rs.GetString(rs.GetOrdinal("FiveDigit")));
+                    Console.WriteLine("Adding Route / 5-Digit : " + rs.GetString(rs.GetOrdinal("FiveDigit")));
 
                     try { MScmd.ExecuteNonQuery(); }
                     catch (SqlException ex) { Console.WriteLine(ex); }
@@ -146,7 +146,7 @@ namespace ADOTransfer
                         //System.DateTime
                         MScmd.Parameters.Add(p);
                     }
-                    Console.WriteLine("To save : " + rs[0].ToString());
+                    Console.WriteLine("Saving Project Id : " + rs[0].ToString());
                     MScmd.ExecuteNonQuery();
 
                 }

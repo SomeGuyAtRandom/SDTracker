@@ -9,7 +9,6 @@ namespace BusinessLayer.DbInterfaces
         Boolean AddNewUser(RegisterUser user);
         UserDetail GetUserDetail(String UserName);
         Boolean DoAuthen();
-        
 
         Boolean UserIsValid(UserLogin model);
         IEnumerable<Role> GetRoles(String UserName);
@@ -18,8 +17,9 @@ namespace BusinessLayer.DbInterfaces
         String ValidateEmailAtServer(String Email);
         String ValidatePasswordAtServer(String Password);
 
-
         Boolean IsServerSideValid(RegisterUser user);
 
+
+        Engineer getEngineerByUserName(String UserName);
     }
 }

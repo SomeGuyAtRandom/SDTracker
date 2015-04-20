@@ -8,6 +8,7 @@ Build/_BuildStoredProc
 
 Then Run ADOTransfer
 
-and run the  ADOTransfer/SQL_scripts/Build/BuildAddData
+and run the  ADOTransfer/SQL_scripts/Build/BuildAddData   
+
 
  

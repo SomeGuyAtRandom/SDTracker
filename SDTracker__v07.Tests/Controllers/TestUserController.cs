@@ -16,6 +16,8 @@ using BusinessLayer.DbImp;
 using BusinessLayer.Models;
 using System.Web.Security;
 
+using BusinessLayer.DbInterfaces;
+
 using Moq;
 //using Rhino.Mocks;
 
@@ -152,6 +154,50 @@ namespace SDTracker.tests.Controllers
         public void Login_IsValid_And_RedirectToLocal_Url()
         {
             
+
+        }
+
+        [Test]
+        public void Register_xx()
+        {
+            //Setup
+            Mock<IUserDb> mock = new Mock<IUserDb>();
+            var repository = Rhino.Mocks.MockRepository.GenerateStub<IUserDb>();
+
+            Engineer engineer = new Engineer()
+            {
+                UserName = "account",
+                Email = "aa@bb.com"
+            };
+            UserController controller = new UserController(repository);
+
+            // Get result 
+            var result = controller.RegisterInfo(engineer);
+
+            // Test Result
+            
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOf<ViewResult>(result);
+
+            Assert.AreEqual("RegisterInfo", result.ViewName);
+            
+
+
+        }
+
+        [Test]
+        public void Register_Returns_ViewResult()
+        {
+            //Set up
+            HomeController controller = new HomeController(null);
+            var result = controller.Register();
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOf<ViewResult>(result);
+
 
         }
 

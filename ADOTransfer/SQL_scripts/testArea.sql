@@ -1,18 +1,19 @@
 ﻿USE [SignalDB];
 
--- Save this file as add new user..
--- Do not drop sdn_main_projects this is required by ADO Transfer
--- Do not drop Places this is required by ADO Transfer
+-- Test with :
+-- UserName : account
+-- Password : Account@1
+-- Email    : aa@ab.com
 
-SELECT * FROM INFORMATION_SCHEMA.TABLES
+-- EXEC testRemoveUserAccount @UserName='account'
+GO
 
+-- EXEC spAddUserPassword  @UserName='account', @Password='BettyDavis', @Email='xxx1'
+GO
 
+-- EXEC testUserRegistration  @UserName='account'
+GO
 
+SELECT * FROM UserRoles where UserId >22 OR UserId IS NULL;
+DELETE FROM UserRoles WHERE UserId IS NULL;
 
--- For now leave the following tables untouched.
--- I let them stand as part if inital setup 
---   webpages_OAuthMembership
---   webpages_Membership
---   webpages_Roles
-
---   webpages_UsersInRoles

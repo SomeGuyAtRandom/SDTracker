@@ -56,6 +56,8 @@
     <Content Include="SQL_scripts\ADODebug\delete_tables.sql" />
     <Content Include="SQL_scripts\ADODebug\spTransferPlaces.sql" />
     <Content Include="SQL_scripts\ADODebug\spTransferProjects.sql" />
+    <Content Include="SQL_scripts\ADODebug\testRemoveUserAccount.sql" />
+    <Content Include="SQL_scripts\ADODebug\testUserRegistration.sql" />
     <Content Include="SQL_scripts\Delete\spDeleteDistrict.sql" />
     <Content Include="SQL_scripts\Delete\spDeleteEngineer.sql" />
     <Content Include="SQL_scripts\Delete\spDeleteEngineerByUserName.sql" />
@@ -82,6 +84,7 @@
     <Content Include="SQL_scripts\Select\spGetAllUserDetails.sql" />
     <Content Include="SQL_scripts\Select\spGetDistrict.sql" />
     <Content Include="SQL_scripts\Select\spGetEngineerById.sql" />
+    <Content Include="SQL_scripts\Select\spGetEngineerByUserName.sql" />
     <Content Include="SQL_scripts\Select\spGetJobType.sql" />
     <Content Include="SQL_scripts\Select\spGetPlacesWithSearch.sql" />
     <Content Include="SQL_scripts\Select\spGetProject.sql" />

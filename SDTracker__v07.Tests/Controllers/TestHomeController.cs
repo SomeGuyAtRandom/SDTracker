@@ -8,18 +8,11 @@ using BusinessLayer.DbImp;
 using BusinessLayer.Models;
 using BusinessLayer.DbInterfaces;
 
-
-//using Microsoft.VisualStudio.TestTools.UnitTesting;
-//using System.Text;
-//using System.Collections.Generic;
-//using PagedList;
-//using PagedList.Mvc;
-//using System.Web.Security;
-
-
 using Moq;
 using Rhino.Mocks;
 
+
+// Note: This Test class uses Moq, Rhino.Mocks & NUnit..
 namespace SDTracker.tests.Controllers
 {
     [TestFixture]
@@ -63,10 +56,6 @@ namespace SDTracker.tests.Controllers
  
         }
 
-        
-
-
-       
 
         [Test]
         public void Login_Returns_ViewResult()
@@ -90,13 +79,14 @@ namespace SDTracker.tests.Controllers
         {
             Mock<IHomeDb> mock = new Mock<IHomeDb>();
             var repository = Rhino.Mocks.MockRepository.GenerateStub<IHomeDb>();
-
+            
             UserLogin user = new UserLogin()
             {
                 UserName = "account",
-                Password = "Account#@1",
-                RememberMe = true
+                Password = "somepassword"
             };
+
+            
 
             repository.Stub(r => r.UserIsValid(user)).Return(true);
             repository.Stub(r => r.DoAuthen()).Return(false);
@@ -115,6 +105,8 @@ namespace SDTracker.tests.Controllers
             //controller.Stub(c => c.Url.IsLocalUrl("return url")).Return(true);
 
             // Test Result
+            // Login(UserLogin model, string returnUrl)
+
             var result = controller.Login(user, "return url") as RedirectToRouteResult;
 
             // Assert
@@ -123,6 +115,8 @@ namespace SDTracker.tests.Controllers
             Assert.AreEqual("Home", result.RouteValues["controller"]);
 
         }
+
+
 
     }
 }
