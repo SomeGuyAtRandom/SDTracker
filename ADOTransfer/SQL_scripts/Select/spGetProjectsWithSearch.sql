@@ -5,7 +5,6 @@ DROP PROCEDURE spGetProjectsWithSearch;
 
 GO
 
-
 CREATE PROC spGetProjectsWithSearch  
 @word0 nvarchar(80) = null,
 @word1 nvarchar(80) = null,
@@ -21,38 +20,33 @@ CREATE PROC spGetProjectsWithSearch
 @districtId int = 0,
 @jobTypeId int = 0,
 @FieldSelected nvarchar(80),
-
 @startDate DateTime
 AS
 
 BEGIN
-        SELECT TOP 100 *
+        SELECT TOP 40 *
         FROM Projects
         WHERE
 
 		CASE @FieldSelected
-					WHEN 'StartDate' THEN StartDate
-					WHEN 'DateCreated' THEN DateCreated
-					WHEN 'DateUpdated' THEN DateUpdated
-					ELSE NULL
-		END >= @StartDate AND
-
-                (@word0 IS NULL OR (Location LIKE '%' + @word0 + '%' ))
-            AND (@word1 IS NULL OR (Location LIKE '%' + @word1 + '%' ))
-			AND (@word2 IS NULL OR (Location LIKE '%' + @word2 + '%' ))
-			AND (@word3 IS NULL OR (Location LIKE '%' + @word3 + '%' ))
-			AND (@word4 IS NULL OR (Location LIKE '%' + @word4 + '%' ))
-			AND (@word5 IS NULL OR (Location LIKE '%' + @word5 + '%' ))
-			AND (@word6 IS NULL OR (Location LIKE '%' + @word6 + '%' ))
-			AND (@word7 IS NULL OR (Location LIKE '%' + @word7 + '%' ))
-			AND (@word8 IS NULL OR (Location LIKE '%' + @word8 + '%' ))
-			AND (@word9 IS NULL OR (Location LIKE '%' + @word9 + '%' ))
-			AND (@districtId = 0 OR (DistrictId = @districtId))
-			AND (@jobTypeId = 0 OR (JobTypeId = @jobTypeId))
-
-
-			
-
+			WHEN 'StartDate' THEN StartDate 
+			WHEN 'DateCreated' THEN DateCreated 
+			WHEN 'DateUpdated' THEN DateUpdated 
+			ELSE @StartDate
+		END >= @StartDate 
+		
+		AND (@word0 IS NULL OR (Location LIKE '%' + @word0 + '%' ))
+		AND (@word1 IS NULL OR (Location LIKE '%' + @word1 + '%' ))
+		AND (@word2 IS NULL OR (Location LIKE '%' + @word2 + '%' ))
+		AND (@word3 IS NULL OR (Location LIKE '%' + @word3 + '%' ))
+		AND (@word4 IS NULL OR (Location LIKE '%' + @word4 + '%' ))
+		AND (@word5 IS NULL OR (Location LIKE '%' + @word5 + '%' ))
+		AND (@word6 IS NULL OR (Location LIKE '%' + @word6 + '%' ))
+		AND (@word7 IS NULL OR (Location LIKE '%' + @word7 + '%' ))
+		AND (@word8 IS NULL OR (Location LIKE '%' + @word8 + '%' ))
+		AND (@word9 IS NULL OR (Location LIKE '%' + @word9 + '%' ))
+		AND (@districtId = 0 OR (DistrictId = @districtId))
+		AND (@jobTypeId = 0 OR (JobTypeId = @jobTypeId))
 			
 
         -- OPTION (RECOMPILE) ---<<<<use if on for SQL 2008 SP1 CU5 (10.0.2746) and later

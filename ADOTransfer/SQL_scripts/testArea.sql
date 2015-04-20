@@ -1,25 +1,12 @@
 ﻿USE [SignalDB];
 
--- Test with :
--- UserName : account
--- Email    : aa@ab.com
--- Password : Account@1
-
-SELECT * FROM Engineers
-
--- SELECT * FROM Roles
--- EXEC testRemoveUserAccount @UserName='account'
+SELECT TOP 100 * FROM Projects
 GO
 
---EXEC spAddUserPassword  @UserName='account', @Password='BettyDavis', @Email='xxx1'
+EXEC spGetProjectsWithSearch 
+	@word1 ='a',
+	@districtId=0, 
+	@jobTypeId=0, 
+	@FieldSelected='xxx', 
+	@startDate='4/20/1990'
 GO
-
--- Old password QWNjb3VudEAx
--- Password#1 UGFzc3dvcmQjMQ==
--- 
--- UPDATE UserPasswords SET Password='UGFzc3dvcmQjMQ==' WHERE Id=15;
-EXEC testUserRegistration  @UserName='jvarghese'
-
-
-GO
-

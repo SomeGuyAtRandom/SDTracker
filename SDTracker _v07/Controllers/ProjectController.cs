@@ -32,35 +32,33 @@ namespace SDTracker.Controllers
         }
 
 
-        [HttpGet]
-        [ActionName("Table")]
-        public ViewResult Table(int? page)
+        //[HttpGet]
+        //public ViewResult Table(int? page)
+        //{
+           
+        //    IPagedList<Project> projects
+        //        = dbRepo.Projects().ToList().ToPagedList<Project>(1, numRows);
+
+        //    ViewData["Districts"] = GetDistrictCbo(0);
+        //    ViewData["JobTypes"] = GetJobTypeCbo(0);
+        //    ViewData["Field"] = GetFieldsCbo("");
+
+        //    return View("Table",projects);
+        //}
+
+
+
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult Table(string searchTerm, string Districts, string JobTypes, string Fields, string searchDateObj, int? page)
         {
-            
-            int showPage = page ?? 1;
-            IPagedList<Project> projects
-                = dbRepo.Projects().ToList().ToPagedList<Project>(showPage, numRows);
+            int iPage = page ?? 1;
 
-            ViewData["Districts"] = GetDistrictCbo(0);
-            ViewData["JobTypes"] = GetJobTypeCbo(0);
-            ViewData["Field"] = GetFieldsCbo("");
-
-
-            return View("Table",projects);
-        }
-
-
-        [HttpPost]
-        [ActionName("Table")]
-        public ActionResult Table(string searchTerm, string Districts, string JobTypes, string Field, string searchDate, int? page)
-        {
-            
             DateTime d = DateTime.Now.AddYears(-25);
             int distId = 0;
             int jobTypeId = 0;
             try
             {
-                d = DateTime.Parse(searchDate);
+                d = DateTime.Parse(searchDateObj);
             }
             catch { }
 
@@ -76,22 +74,56 @@ namespace SDTracker.Controllers
             }
             catch { }
 
-            string fieldSelected = Field;
+
+            string fieldSelected = Fields;
+            if (fieldSelected == null)
+            {
+                fieldSelected = "";
+            }
+            if (searchTerm == null)
+            {
+                searchTerm = "";
+            }
+
+            
+
+            //searchTerm
+            // Combo Boxes
+            // Note tags are plural
+            ViewData["Districts"] = GetDistrictCbo(distId);
+            ViewData["JobTypes"] = GetJobTypeCbo(jobTypeId);
+            ViewData["Fields"] = GetFieldsCbo(fieldSelected);
+            ViewData["searchDateObj"] = d;
 
 
+            // Note tags are singular
+            ViewBag.searchTerm = searchTerm;
+            ViewBag.District = distId;
+            ViewBag.JobType = jobTypeId;
+            ViewBag.Field = fieldSelected;
+            ViewBag.searchDateString = searchDateObj;
 
             List<Project> projects = dbRepo.GetProjectsWithSearch(searchTerm, distId, jobTypeId, fieldSelected, d).ToList();
 
-
-            ViewData["JobTypes"] = GetJobTypeCbo(jobTypeId);
-            ViewData["Districts"] = GetDistrictCbo(distId);
-            ViewData["Field"] = GetFieldsCbo(fieldSelected);
-            ViewData["searchDate"] = d;
-
-
-            return View("Table", projects.ToPagedList(page ?? 1, numRows));
+            return View("Table", projects.ToPagedList(iPage, numRows));
         }
 
+
+        // Used in Project/Table
+        // to return a list of Places as auto complete
+        public JsonResult GetProjectsSearch(string term, string Districts)
+        {
+
+            List<Project> projects;
+            projects = dbRepo.GetProjectsWithSearch(term, 0, 0, "noFieldSelected", DateTime.Now.AddYears(-25)).ToList();
+            List<string> returnVals = new List<string>();
+            foreach (Project p in projects)
+            {
+                returnVals.Add(p.Location);
+            }
+
+            return Json(returnVals, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
         [ActionName("Create")]
@@ -192,20 +224,7 @@ namespace SDTracker.Controllers
         }
 
 
-        [HttpGet]
-        public JsonResult GetProjectsSearch(string term, string Districts)
-        {
-            
-            List<Project> projects;
-            projects = dbRepo.GetProjectsWithSearch(term, 0, 0, "noFieldSelected", DateTime.Now.AddYears(-25)).ToList();
-            List<string> returnVals = new List<string>();
-            foreach (Project p in projects)
-            {
-                returnVals.Add(p.Location);
-            }
-
-            return Json(returnVals, JsonRequestBehavior.AllowGet);
-        }
+        
 
 
         [HttpGet]

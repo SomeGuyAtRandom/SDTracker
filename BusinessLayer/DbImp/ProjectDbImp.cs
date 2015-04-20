@@ -203,43 +203,6 @@ namespace BusinessLayer.DbImp
 
         }
 
-        public IEnumerable<Place> GetPlacesWithSearch(String searchTerm, int districtId)
-        {
-            string[] words = searchTerm.Split(' ');
-            List<Place> places = new List<Place>();
-
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand("spGetPlacesWithSearch", con);
-
-                cmd.CommandType = CommandType.StoredProcedure;
-                int i = 0;
-                while (i < words.Length && i <= 10) /* Look at stored procedure to understand this limitation */
-                {
-                    SqlParameter word = new SqlParameter();
-                    word.ParameterName = "@word" + i;
-                    word.Value = words[i];
-                    cmd.Parameters.Add(word);
-                    i++;
-                }
-
-                SqlParameter pDistrictId = new SqlParameter();
-                pDistrictId.ParameterName = "@districtId";
-                pDistrictId.Value = districtId;
-                cmd.Parameters.Add(pDistrictId);
-
-                con.Open();
-                SqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
-                {
-                    places.Add(setGetPlace(rdr));
-                }
-
-            }
-
-            return places;
-        }
-
         public IEnumerable<Project> Projects()
         {
             List<Project> projects = new List<Project>();
@@ -332,7 +295,6 @@ namespace BusinessLayer.DbImp
             return district;
         }
 
-
         public IEnumerable<JobType> JobTypes()
         {
             List<JobType> jobTypes = new List<JobType>();
@@ -350,7 +312,8 @@ namespace BusinessLayer.DbImp
             return jobTypes;
         }
 
-
+        // Used in Project/Table
+        // to return a list of Places as auto complete
         public IEnumerable<Project> GetProjectsWithSearch(String searchTerm, int districtId, int jobTypeId, String Field, DateTime startDate)
         {
             string[] words = searchTerm.Split(' ');
@@ -405,6 +368,43 @@ namespace BusinessLayer.DbImp
                 SetSubObjectsForProject(project);
             }
             return projects;
+        }
+
+        public IEnumerable<Place> GetPlacesWithSearch(String searchTerm, int districtId)
+        {
+            string[] words = searchTerm.Split(' ');
+            List<Place> places = new List<Place>();
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("spGetPlacesWithSearch", con);
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                int i = 0;
+                while (i < words.Length && i <= 10) /* Look at stored procedure to understand this limitation */
+                {
+                    SqlParameter word = new SqlParameter();
+                    word.ParameterName = "@word" + i;
+                    word.Value = words[i];
+                    cmd.Parameters.Add(word);
+                    i++;
+                }
+
+                SqlParameter pDistrictId = new SqlParameter();
+                pDistrictId.ParameterName = "@districtId";
+                pDistrictId.Value = districtId;
+                cmd.Parameters.Add(pDistrictId);
+
+                con.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    places.Add(setGetPlace(rdr));
+                }
+
+            }
+
+            return places;
         }
 
         public Project GetProject(int Id)

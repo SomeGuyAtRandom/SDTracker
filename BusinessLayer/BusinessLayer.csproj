@@ -101,7 +101,6 @@
     <Compile Include="Models\Config\District.cs" />
     <Compile Include="Models\Config\JobType.cs" />
     <Compile Include="Models\Config\Place.cs" />
-    <Compile Include="Models\Config\Project.cs" />
     <Compile Include="Models\Config\Requirement.cs" />
     <Compile Include="Models\Config\Role.cs" />
     <Compile Include="Models\Config\UserLogin.cs" />

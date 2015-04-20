@@ -6,15 +6,17 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web.Mvc;
 
+using System.ComponentModel.DataAnnotations;
+
 namespace BusinessLayer.Models
 {
-    public partial class Project
+    [MetadataType(typeof(ProjectConfig))]
+    public class Project
     {
         public Project() 
         {
             // Start out with empty constructor
         }
-
 
         public string[] AllCDs
         {
@@ -72,8 +74,7 @@ namespace BusinessLayer.Models
 
         public District District { get; set; }
         public int DistrictId { get; set; }
-        
-        
+
         public string CurrRemark { get; set; }
         public bool Rush { get; set; }
         public string ProjNo { get; set; }
@@ -119,4 +120,69 @@ namespace BusinessLayer.Models
         }
 
     }
+
+    public class ProjectConfig
+    {
+        [Display(Name = "Design Engineer")]
+        public int DesignEngineerId { get; set; }
+
+        [Display(Name = "Head Engineer")]
+        public int HeadEngineerId { get; set; }
+
+
+        [Display(Name = "Location")]
+        public string Location { get; set; }
+
+        [Display(Name = "District")]
+        public District District { get; set; }
+
+        [Display(Name = "Remark")]
+        public string CurrRemark { get; set; }
+
+        [Display(Name = "Rush")]
+        public bool Rush { get; set; }
+
+        [Display(Name = "Proj No")]
+        public string ProjNo { get; set; }
+
+        [Display(Name = "5-digit")]
+        public string FiveDigit { get; set; }
+
+        [Display(Name = "Council Dist")]
+        public string CDs { get; set; }
+
+        [Display(Name = "Job Type")]
+        public JobType JobType { get; set; }
+
+        [Display(Name = "Head Engineer")]
+        public AdminUser HeadEngineer { get; set; }
+
+        [Display(Name = "Design Engineer")]
+        public AdminUser DesignEngineer { get; set; }
+
+        [Display(Name = "Comment")]
+        public string CurrentComment { get; set; }
+
+
+
+        [Display(Name = "Date Assigned")]
+        [DataType(DataType.Date)]
+        [Range(typeof(DateTime), "01/01/2000", "01/01/2020")]
+        public Nullable<DateTime> DateAssigned { get; set; }
+
+        [Display(Name = "Start Date")]
+        [DataType(DataType.Date)]
+        [Range(typeof(DateTime), "01/01/2000", "01/01/2020")]
+        public Nullable<DateTime> StartDate { get; set; }
+
+        [Display(Name = "Date Created")]
+        [DataType(DataType.Date)]
+        public DateTime DateCreated { get; set; }
+
+        [Display(Name = "Updated")]
+        [DataType(DataType.Date)]
+        public DateTime DateUpdated { get; set; }
+
+    }
+ 
 }

@@ -35,7 +35,7 @@ namespace SDTracker.tests.Controllers
             //List<SelectListItem> 
 
             var controller = new ProjectController(mockDistrict.Object);
-            var ar = controller.Table(1) as ViewResult;
+            //var ar = controller.Table(1) as ViewResult;
         }
     }
 }

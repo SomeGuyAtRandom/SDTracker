@@ -5,13 +5,21 @@
 @{
     ViewBag.Title = "Projects";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var searchDateObj = ViewBag.searchDateObj;
     var searchDate = ViewBag.searchDate;
+    var District = ViewBag.District;
+    var JobType = ViewBag.JobType;
+    var Field = ViewBag.Field;
+    
 }
 <h2>Search Projects</h2>
 <p>
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-md btn-success" })
 </p>
 
+
+<input type="button" onclick="makeHide()" value="button"/>
 <div class="container">
     @using (@Html.BeginForm())
     {
@@ -37,8 +45,8 @@
             <div class="col-md-2">
                 <div class="form-group">
                     
-                    @Html.DropDownList("Field", null, "", new { @class = "form-control" })
-                   @Html.DisplayFor(model => searchDate, "DatePicker")
+                    @Html.DropDownList("Fields", null, "", new { @class = "form-control" })
+                   @Html.DisplayFor(model => searchDateObj, "DatePicker")
                 </div>
             </div>
             <div class="col-md-1">
@@ -56,7 +64,7 @@
 
 
     <div class="table-responsive">
-        <table class="table table-striped">
+        <table id="tblList" class="table table-striped">
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.First().Location)
@@ -76,9 +84,16 @@
                 <th>
                     @Html.DisplayNameFor(model => model.First().DesignEngineerId)
                 </th>
-                <th>
+                <th class="toggleStartDate">
                     @Html.DisplayNameFor(model => model.First().StartDate)
                 </th>
+                <th class="toggleDateCreated">
+                    @Html.DisplayNameFor(model => model.First().DateCreated)
+                </th>
+                <th class="toggleDateUpdated">
+                    @Html.DisplayNameFor(model => model.First().DateUpdated)
+                </th>
+
                 <th></th>
             </tr>
 
@@ -106,9 +121,16 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.DesignEngineer.Initials)
                     </td>
-                    <td>
+                    <td class="toggleStartDate">
                         @Html.DisplayFor(modelItem => item.StartDate)
                     </td>
+                    <td class="toggleDateCreated">
+                        @Html.DisplayFor(modelItem => item.DateCreated)
+                    </td>
+                    <td class="toggleDateUpdated">
+                        @Html.DisplayFor(modelItem => item.DateUpdated)
+                    </td>
+
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-sm btn-info" })
                     </td>
@@ -119,17 +141,44 @@
         @Html.PagedListPager(Model, page => Url.Action("Table", new
             {
                 page,
-                searchTerm = Request.QueryString["searchTerm"],
-                Districts = Request.QueryString["Districts"],
-                JobTypes = Request.QueryString["JobTypes"],
-                searchDate = Request.QueryString["searchDate"]
+                searchTerm =ViewBag.searchTerm,
+                Districts = ViewBag.District,
+                JobTypes = ViewBag.JobType,
+                Fields = ViewBag.Field,
+                searchDate = ViewBag.searchDateString
+                
             }))
-
-
 
     </div>
 
     <script type="text/javascript">
+
+        function setColumnHideShow(fieldColumn)
+        {
+            $('.toggleStartDate').hide();
+            $('.toggleDateCreated').hide();
+            $('.toggleDateUpdated').hide();
+            var toggleCol = '.toggle' + fieldColumn;
+            $(toggleCol).show();
+        }
+
+        $(document).ready(function () {
+
+            $('#txtSearch').keypress(function (e) {
+                if (e.keyCode == 13)
+                    $('#submitBtn').click();
+            });
+
+            var toggleCol = '.toggle' + $('#Field').val();
+            setColumnHideShow(toggleCol)
+        });
+
+
+        $('#Field').on('change', function () {
+            var toggleCol = '.toggle' + $('#Field').val();
+            setColumnHideShow(toggleCol)
+        });
+
 
         $(function () {
             $.validator.addMethod('date',
@@ -155,21 +204,6 @@
                 minLength: 1
             });
         });
-
-
-        $(document).ready(function () {
-            $('#txtSearch').keypress(function (e) {
-                if (e.keyCode == 13)
-                    $('#submitBtn').click();
-            });
-        });
-
-        $('select').on('change', function () {
-            $('#submitBtn').click();
-        });
-
-
-
 
         $(function () {
             $('.dp').datepicker();;

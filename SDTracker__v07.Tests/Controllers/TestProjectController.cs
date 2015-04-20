@@ -56,40 +56,37 @@ namespace SDTracker.tests.Controllers
             Assert.AreEqual("Table", result.RouteValues["Action"]);
             Assert.AreEqual("Project", result.RouteValues["controller"]);
 
-
-
-
         }
 
         [Test]
         public void Table_Returns_ViewResult_And_IPagedList()
         {
 
-            // Setup
-            Mock<IProjectDb> mockProjects = new Mock<IProjectDb>();
-            mockProjects.Setup(m => m.Projects()).Returns(new Project[]
-            {
-                new Project { Id = 1, AllCDs=null, DateUpdated = DateTime.Now, CDs="", CouncilDistricts=null,CurrentComment="",CurrRemark="",DateAssigned= DateTime.Now,DateCreated= DateTime.Now,DesignEngineer=null, DesignEngineerId=0,District=null, DistrictId=0, FiveDigit="",HeadEngineer=null, HeadEngineerId=0,JobType=null,JobTypeId=0,Location="",ProjNo="", Requirements=null, Rush=false, SelectedCDs= null, StartDate= DateTime.Now },
-                new Project { Id = 2, AllCDs=null, DateUpdated = DateTime.Now, CDs="", CouncilDistricts=null,CurrentComment="",CurrRemark="",DateAssigned= DateTime.Now,DateCreated= DateTime.Now,DesignEngineer=null, DesignEngineerId=0,District=null, DistrictId=0, FiveDigit="",HeadEngineer=null, HeadEngineerId=0,JobType=null,JobTypeId=0,Location="",ProjNo="", Requirements=null, Rush=false, SelectedCDs= null, StartDate= DateTime.Now },
-                new Project { Id = 3, AllCDs=null, DateUpdated = DateTime.Now, CDs="", CouncilDistricts=null,CurrentComment="",CurrRemark="",DateAssigned= DateTime.Now,DateCreated= DateTime.Now,DesignEngineer=null, DesignEngineerId=0,District=null, DistrictId=0, FiveDigit="",HeadEngineer=null, HeadEngineerId=0,JobType=null,JobTypeId=0,Location="",ProjNo="", Requirements=null, Rush=false, SelectedCDs= null, StartDate= DateTime.Now }
-            }.AsEnumerable());
+            //// Setup
+            //Mock<IProjectDb> mockProjects = new Mock<IProjectDb>();
+            //mockProjects.Setup(m => m.Projects()).Returns(new Project[]
+            //{
+            //    new Project { Id = 1, AllCDs=null, DateUpdated = DateTime.Now, CDs="", CouncilDistricts=null,CurrentComment="",CurrRemark="",DateAssigned= DateTime.Now,DateCreated= DateTime.Now,DesignEngineer=null, DesignEngineerId=0,District=null, DistrictId=0, FiveDigit="",HeadEngineer=null, HeadEngineerId=0,JobType=null,JobTypeId=0,Location="",ProjNo="", Requirements=null, Rush=false, SelectedCDs= null, StartDate= DateTime.Now },
+            //    new Project { Id = 2, AllCDs=null, DateUpdated = DateTime.Now, CDs="", CouncilDistricts=null,CurrentComment="",CurrRemark="",DateAssigned= DateTime.Now,DateCreated= DateTime.Now,DesignEngineer=null, DesignEngineerId=0,District=null, DistrictId=0, FiveDigit="",HeadEngineer=null, HeadEngineerId=0,JobType=null,JobTypeId=0,Location="",ProjNo="", Requirements=null, Rush=false, SelectedCDs= null, StartDate= DateTime.Now },
+            //    new Project { Id = 3, AllCDs=null, DateUpdated = DateTime.Now, CDs="", CouncilDistricts=null,CurrentComment="",CurrRemark="",DateAssigned= DateTime.Now,DateCreated= DateTime.Now,DesignEngineer=null, DesignEngineerId=0,District=null, DistrictId=0, FiveDigit="",HeadEngineer=null, HeadEngineerId=0,JobType=null,JobTypeId=0,Location="",ProjNo="", Requirements=null, Rush=false, SelectedCDs= null, StartDate= DateTime.Now }
+            //}.AsEnumerable());
 
 
-            ProjectController controller = new ProjectController(mockProjects.Object);
+            //ProjectController controller = new ProjectController(mockProjects.Object);
 
-            // Test Result
-            var result = controller.Table(1);
-            var model = result.Model;
+            //// Test Result
+            //var result = controller.Table(1);
+            //var model = result.Model;
 
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOf<ViewResult>(result);
-            Assert.AreEqual("Table", result.ViewName);
-            Assert.IsInstanceOf<IPagedList<Project>>(model);
+            //// Assert
+            //Assert.IsNotNull(result);
+            //Assert.IsInstanceOf<ViewResult>(result);
+            //Assert.AreEqual("Table", result.ViewName);
+            //Assert.IsInstanceOf<IPagedList<Project>>(model);
 
-            Assert.IsInstanceOf<List<SelectListItem>>(result.ViewData["Districts"]);
-            Assert.IsInstanceOf<List<SelectListItem>>(result.ViewData["JobTypes"]);
-            Assert.IsInstanceOf<List<SelectListItem>>(result.ViewData["Field"]);
+            //Assert.IsInstanceOf<List<SelectListItem>>(result.ViewData["Districts"]);
+            //Assert.IsInstanceOf<List<SelectListItem>>(result.ViewData["JobTypes"]);
+            //Assert.IsInstanceOf<List<SelectListItem>>(result.ViewData["Field"]);
 
            
  
