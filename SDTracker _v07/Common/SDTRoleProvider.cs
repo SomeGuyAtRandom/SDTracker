@@ -30,6 +30,12 @@ namespace SDTracker.Common
 
         }
 
+        public static bool UserIsSpecial(ViewContext view)
+        {
+            string userName = view.HttpContext.User.Identity.Name;
+            return userName=="randrade";
+        }
+
         public static bool UserIsInRole(string userName, string roleName) 
         {
             UserRoleDbContext db = new UserRoleDbContext();
@@ -47,6 +53,8 @@ namespace SDTracker.Common
 
 
         }
+
+
         private UserRoleDbContext dbDbContext;
         public override string[] GetRolesForUser(string username)
         {

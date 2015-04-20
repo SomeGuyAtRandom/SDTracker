@@ -2,18 +2,24 @@
 
 -- Test with :
 -- UserName : account
--- Password : Account@1
 -- Email    : aa@ab.com
+-- Password : Account@1
 
+SELECT * FROM Engineers
+
+-- SELECT * FROM Roles
 -- EXEC testRemoveUserAccount @UserName='account'
 GO
 
--- EXEC spAddUserPassword  @UserName='account', @Password='BettyDavis', @Email='xxx1'
+--EXEC spAddUserPassword  @UserName='account', @Password='BettyDavis', @Email='xxx1'
 GO
 
--- EXEC testUserRegistration  @UserName='account'
-GO
+-- Old password QWNjb3VudEAx
+-- Password#1 UGFzc3dvcmQjMQ==
+-- 
+-- UPDATE UserPasswords SET Password='UGFzc3dvcmQjMQ==' WHERE Id=15;
+EXEC testUserRegistration  @UserName='jvarghese'
 
-SELECT * FROM UserRoles where UserId >22 OR UserId IS NULL;
-DELETE FROM UserRoles WHERE UserId IS NULL;
+
+GO
 

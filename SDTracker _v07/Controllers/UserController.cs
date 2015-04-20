@@ -8,6 +8,7 @@ using BusinessLayer.Models;
 using BusinessLayer.DbImp;
 
 using System.Web.Security;
+using System.Security.Principal;
 using DotNetOpenAuth.AspNet;
 using SDTracker.Common;
 
@@ -111,9 +112,33 @@ namespace SDTracker.Controllers
             return Json(msg, JsonRequestBehavior.AllowGet);
         }
 
-        public void ChangePassword()
+        public ViewResult ChangePassword()
         {
- 
+            string userName = System.Web.HttpContext.Current.User.Identity.Name;
+            UserPassword user = new UserPassword()
+            {
+                ConfirmPassword = "",
+                OriginalPassword = "",
+                Password = "",
+                Email = "dummy-value",
+                UserName = userName
+            };
+            return View("ChangePassword", user);
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword(UserPassword user)
+        {
+            if (ModelState.IsValid)
+            {
+                if (dbRepo.ChangePassword(user))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            
+            
+            return View("ChangePassword", user);
         }
 
         // This action is called via GET
@@ -122,6 +147,15 @@ namespace SDTracker.Controllers
         // See 
         public ViewResult RegisterInfo(Engineer engineer)
         {
+            return View("RegisterInfo", engineer);
+        }
+
+        // Also Called with git but no aurgument;
+        public ViewResult EditProfile()
+        {
+            Engineer engineer = new Engineer();
+            string userName = System.Web.HttpContext.Current.User.Identity.Name;
+            engineer = dbRepo.GetEngineerByUserName(userName);
             return View("RegisterInfo", engineer);
         }
 

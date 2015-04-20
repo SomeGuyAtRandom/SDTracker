@@ -17,6 +17,12 @@ namespace SDTracker.Controllers
     {
         private IAdminDb dbRepo;
 
+        public ActionResult Create()
+        {
+            return RedirectToAction("Register", "Home");
+        }
+
+
         public AdminController(IAdminDb dbRepo)
         {
             this.dbRepo = dbRepo;

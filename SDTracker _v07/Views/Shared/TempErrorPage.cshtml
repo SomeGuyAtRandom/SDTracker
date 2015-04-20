@@ -7,7 +7,7 @@
 
 <h2>TempErrorPage</h2>
 
-@if (SDTRoleProvider.UserIsInRole(ViewContext, "DesignEngineer"))
+@if (SDTRoleProvider.UserIsInRole(ViewContext, "Admin"))
 {
     <h2>Admin</h2>
 }
@@ -15,7 +15,7 @@ else
 { <h2 style="color:red">Admin</h2> }
 
 
-@if (SDTRoleProvider.UserIsInRole(ViewContext, "DesignEngineer"))
+@if (SDTRoleProvider.UserIsInRole(ViewContext, "Design Engineer"))
 {
     <h2>Design Engineer</h2>
 }
@@ -30,9 +30,9 @@ else
 { <h2 style="color:red">Guest</h2> }
 
 
-@if (SDTRoleProvider.UserIsInRole(ViewContext, "Guest,Admin"))
+@if (SDTRoleProvider.UserIsInRole(ViewContext, "Head Engineer,Design Engineer"))
 {
     <h2>Head Engineer</h2>
 }
 else
-{ <h2 style="color:red">Engineer</h2> }
+{ <h2 style="color:red">Head Engineer</h2> }

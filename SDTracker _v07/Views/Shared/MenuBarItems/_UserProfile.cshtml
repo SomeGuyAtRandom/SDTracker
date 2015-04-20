@@ -9,19 +9,6 @@
         <li>@Html.ActionLink("Change Password", "ChangePassword", "User")</li>
         <li>@Html.ActionLink("Logout", "Logout", "User")</li>
 
-        @if (SDTRoleProvider.UserIsInRole(ViewContext, "Admin"))
-        {
-        <li>@Html.ActionLink("Admin", "EditProfile", "User")</li>
-        }
-        @if (SDTRoleProvider.UserIsInRole(ViewContext, "Guest,Admin"))
-        {
-            <li>@Html.ActionLink("Guest,Admin", "EditProfile", "Guest,Admin")</li>
-        }
-        @if (SDTRoleProvider.UserIsInRole(ViewContext, "Guest"))
-        {
-            <li>@Html.ActionLink("Guest", "EditProfile", "User")</li>
-        }
-
     </ul>
     
     

@@ -116,8 +116,7 @@ namespace SDTracker.Controllers
 
 
         [HttpGet]
-        [ActionName("Create")]
-        public ActionResult Create_Get(int? page)
+        public ActionResult Create(int? page)
         {
             
             int showPage = page ?? 1;
@@ -134,8 +133,6 @@ namespace SDTracker.Controllers
         [ActionName("CreateItem")]
         public ActionResult CreateItem(int Id, int? page)
         {
-
-
             int iProjectId = dbRepo.CreateProject(Id);
             return RedirectToAction("Edit", new { Id = iProjectId });
         }

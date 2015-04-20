@@ -1,0 +1,39 @@
+﻿@using SDTracker.Common;
+@if (SDTRoleProvider.UserIsSpecial(ViewContext))
+{
+
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Test Pages<span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            @Html.ActionLink("Test Index Page - removed", "Index", "Test")
+        </li>
+        <li class="divider">Test User Privs</li>
+        <li>
+            @Html.ActionLink("Secure Page", "Secure", "User")
+        </li>
+        <li>
+            @Html.ActionLink("Non-Secure Page", "Index", "User")
+        </li>
+        <li>
+            @Html.ActionLink("Admin", "Admin", "User")
+        </li>
+
+        <li>
+            @Html.ActionLink("Design Engineer", "DesignEngineer", "User")
+        </li>
+
+        <li>
+            @Html.ActionLink("Table of Users", "Table", "Project")
+        </li>
+
+
+        <li>
+            @Html.ActionLink("View Style", "TestPage", "Home")
+        </li>
+        <li class="divider"></li>
+        <li><a href="~/ASPWebForms/TestWebForm.aspx">Test Web Form</a></li>
+        <li><a href="~/ASPWebForms/UserEntity.aspx">User Entity</a></li>
+
+
+    </ul>
+}

@@ -120,6 +120,7 @@
     <Content Include="SQL_scripts\Update\spUpdateProjectField.sql" />
     <Content Include="SQL_scripts\Update\spUpdateUserDetail.sql" />
     <Content Include="SQL_scripts\Update\spUpdateUserField.sql" />
+    <Content Include="SQL_scripts\Update\spUpdateUserPassword.sql" />
     <Content Include="SQL_scripts\Update\spUpdateUserRole.sql" />
   </ItemGroup>
   <ItemGroup />

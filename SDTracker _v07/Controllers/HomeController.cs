@@ -12,7 +12,7 @@ using SDTracker.Common;
 //using WebMatrix.WebData;
 using BusinessLayer.DbInterfaces;
 using System.Text.RegularExpressions;
-
+using System.Web;
 
 namespace SDTracker.Controllers
 {
@@ -43,7 +43,16 @@ namespace SDTracker.Controllers
                 // Add new user to the tables: ngineers, UserPassword & UserRoles
                 if (dbRepo.AddNewUser(user))
                 {
-                    if (dbRepo.DoAuthen()) { FormsAuthentication.SetAuthCookie(user.UserName, false); }
+                    
+
+                    string userName = System.Web.HttpContext.Current.User.Identity.Name;
+                    bool IsAuthenticated = System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
+
+                    if (!IsAuthenticated) 
+                    {
+                        if (dbRepo.DoAuthen()) { FormsAuthentication.SetAuthCookie(user.UserName, false); }
+                    }
+                    
                     // Map RegisterUser to a New Engineer object
                     Engineer engineer = dbRepo.getEngineerByUserName(user.UserName);
 

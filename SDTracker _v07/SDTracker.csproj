@@ -315,6 +315,8 @@
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\User\RegisterInfo.cshtml" />
     <Content Include="Views\User\Secure.cshtml" />
+    <Content Include="Views\User\ChangePassword.cshtml" />
+    <Content Include="Views\Shared\MenuBarItems\_Tests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

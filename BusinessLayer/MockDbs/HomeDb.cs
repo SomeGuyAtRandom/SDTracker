@@ -35,13 +35,12 @@ namespace BusinessLayer.MockDbs
         {
             return context.DoAuthen();
         }
-
-        
-
+ 
         public String ValidatePasswordAtServer(String Password)
         {
             return context.ValidatePasswordAtServer(Password);
         }
+        
         public Boolean UserIsValid(UserLogin model)
         {
             return context.UserIsValid(model);
@@ -62,5 +61,6 @@ namespace BusinessLayer.MockDbs
             return context.getEngineerByUserName(UserName);
  
         }
+    
     }
 }

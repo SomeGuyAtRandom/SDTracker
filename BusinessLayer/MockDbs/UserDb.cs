@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using BusinessLayer.DbInterfaces;
 using BusinessLayer.DbImp;
-
+using BusinessLayer.Models;
 
 namespace BusinessLayer.MockDbs
 {
@@ -25,6 +25,13 @@ namespace BusinessLayer.MockDbs
         {
             return context.SaveField( id,  FieldName,  Value);
         }
-
+        public bool ChangePassword(UserPassword user) 
+        {
+            return context.ChangePassword(user);
+        }
+        public Engineer GetEngineerByUserName(String UserName)
+        {
+            return context.GetEngineerByUserName(UserName);
+        }
     }
 }

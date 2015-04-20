@@ -9,6 +9,8 @@ using System.Text.RegularExpressions;
 
 using BusinessLayer.Common;
 
+using System.Web;
+
 namespace BusinessLayer.DbImp
 {
     public class HomeDbImp : DbContext 
@@ -77,6 +79,7 @@ namespace BusinessLayer.DbImp
             return true;
         }
 
+        
         public IEnumerable<Role> GetRoles(String UserName)
         {
             List<Role> roles = new List<Role>();
@@ -86,7 +89,6 @@ namespace BusinessLayer.DbImp
             roles.Add(admin);
             return roles;
         }
-
 
         private bool userNameIsOk(string UserName)
         {
