@@ -46,45 +46,23 @@ namespace SDTracker.Controllers
         //    return View("Table",projects);
         //}
 
-
-
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult Table(string searchTerm, string Districts, string JobTypes, string Fields, string searchDateObj, int? page)
         {
-            int iPage = page ?? 1;
-
-            DateTime d = DateTime.Now.AddYears(-25);
+            
+            int iYear = DateTime.Now.Year - 2;
+            DateTime searchDate = DateTime.Parse("1/1/" + iYear);
             int distId = 0;
             int jobTypeId = 0;
-            try
-            {
-                d = DateTime.Parse(searchDateObj);
-            }
-            catch { }
 
-            try
-            {
-                distId = Int32.Parse(Districts);
-            }
+            if (searchTerm == null) { searchTerm = ""; }
+            try { distId = Int32.Parse(Districts); }
             catch {  }
-
-            try
-            {
-                jobTypeId = Int32.Parse(JobTypes);
-            }
+            try { jobTypeId = Int32.Parse(JobTypes); }
             catch { }
-
-
-            string fieldSelected = Fields;
-            if (fieldSelected == null)
-            {
-                fieldSelected = "";
-            }
-            if (searchTerm == null)
-            {
-                searchTerm = "";
-            }
-
+            if (Fields == null) { Fields = ""; }
+            try { searchDate = DateTime.Parse(searchDateObj); }
+            catch { }
             
 
             //searchTerm
@@ -92,19 +70,20 @@ namespace SDTracker.Controllers
             // Note tags are plural
             ViewData["Districts"] = GetDistrictCbo(distId);
             ViewData["JobTypes"] = GetJobTypeCbo(jobTypeId);
-            ViewData["Fields"] = GetFieldsCbo(fieldSelected);
-            ViewData["searchDateObj"] = d;
+            ViewData["Fields"] = GetFieldsCbo(Fields);
+            ViewData["searchDateObj"] = searchDate;
 
 
             // Note tags are singular
             ViewBag.searchTerm = searchTerm;
             ViewBag.District = distId;
             ViewBag.JobType = jobTypeId;
-            ViewBag.Field = fieldSelected;
+            ViewBag.Field = Fields;
             ViewBag.searchDateString = searchDateObj;
 
-            List<Project> projects = dbRepo.GetProjectsWithSearch(searchTerm, distId, jobTypeId, fieldSelected, d).ToList();
+            List<Project> projects = dbRepo.GetProjectsWithSearch(searchTerm, distId, jobTypeId, Fields, searchDate).ToList();
 
+            int iPage = page ?? 1;
             return View("Table", projects.ToPagedList(iPage, numRows));
         }
 
@@ -125,39 +104,26 @@ namespace SDTracker.Controllers
             return Json(returnVals, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        [ActionName("Create")]
-        public ActionResult Create_Post(string searchTerm, string Districts, int? page)
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult Create(string searchTerm, string Districts, int? page)
         {
-            
+
+            if (searchTerm == null) { searchTerm = ""; }
             int distId = 0;
-
-            try
-            {
-                distId = Int32.Parse(Districts);
-            }
+            try { distId = Int32.Parse(Districts); }
             catch { }
+
+
             List<Place> places = dbRepo.GetPlacesWithSearch(searchTerm, distId).ToList();
-
-            ViewData["Districts"] = GetDistrictCbo(distId); 
-
-
-            return View("Create", places.ToPagedList(page ?? 1, numRows));
-
-        }
-
-
-        [HttpGet]
-        public ActionResult Create(int? page)
-        {
+            ViewData["Districts"] = GetDistrictCbo(distId);
             
-            int showPage = page ?? 1;
-            IPagedList<Place> places
-                = dbRepo.Places().ToList().ToPagedList<Place>(showPage, numRows);
+            ViewBag.searchTerm = searchTerm;
+            ViewBag.District = distId;
 
-            ViewData["Districts"] = GetDistrictCbo(0); 
+            
+            int iPage = page ?? 1;
+            return View("Create", places.ToPagedList(iPage, numRows));
 
-            return View("Create", places);
         }
 
 
@@ -222,9 +188,6 @@ namespace SDTracker.Controllers
             }
             return Json(new { IsUpdated = bReturn, Msg = sMsg });
         }
-
-
-        
 
 
         [HttpGet]

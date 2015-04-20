@@ -1,6 +1,7 @@
 ﻿USE [SignalDB];
 -- This script will create the database from scratch.
 
+
 CREATE TABLE UserPasswords
 (
 	Id int primary key identity,

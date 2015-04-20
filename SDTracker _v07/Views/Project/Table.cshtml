@@ -19,7 +19,7 @@
 </p>
 
 
-<input type="button" onclick="makeHide()" value="button"/>
+
 <div class="container">
     @using (@Html.BeginForm())
     {
@@ -52,7 +52,9 @@
             <div class="col-md-1">
                 <div class="form-group">
                     @Html.Label("", new { @for = "submitBtn" })
+                    
                     <input id="submitBtn" type="submit" class="btn btn-md btn-success" value="search" />
+                    <input type="button" onclick="resetSearch()" class="btn btn-md btn-warning" value="reset" />
                 </div>
             </div>
         </div>
@@ -152,6 +154,20 @@
     </div>
 
     <script type="text/javascript">
+
+        function resetSearch()
+        {
+            $('.toggleStartDate').hide();
+            $('.toggleDateCreated').hide();
+            $('.toggleDateUpdated').hide();
+            $('#txtSearch').val('');
+            $('#searchDateObj').val('');
+
+            $('#Districts').prop('selectedIndex', 0);
+            $('#JobTypes').prop('selectedIndex', 0);
+            $('#Fields').prop('selectedIndex', 0);
+
+        }
 
         function setColumnHideShow(fieldColumn)
         {

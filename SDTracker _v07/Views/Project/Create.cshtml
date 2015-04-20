@@ -5,6 +5,9 @@
 @{
     ViewBag.Title = "Create New Project";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var District = ViewBag.District;
+    
 }
 
 <div class="container">
@@ -72,20 +75,14 @@
             </td>
         </tr>
 
-
-    
-
-
-
-
 }
             
         </table>
         @Html.PagedListPager(Model, page => Url.Action("Create", new
             {
                 page,
-                searchTerm = Request.QueryString["searchTerm"],
-                Districts = Request.QueryString["Districts"]
+                searchTerm = ViewBag.searchTerm,
+                Districts = ViewBag.District
             }))
      </div>
 </div>

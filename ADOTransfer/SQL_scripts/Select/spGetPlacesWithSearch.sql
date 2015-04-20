@@ -23,20 +23,20 @@ CREATE PROC spGetPlacesWithSearch
 AS
 
 BEGIN
-        SELECT *
-        FROM Places
-        WHERE
-                (@word0 IS NULL OR (PlaceLocation LIKE '%' + @word0 + '%' ))
-            AND (@word1 IS NULL OR (PlaceLocation LIKE '%' + @word1 + '%' ))
-			AND (@word2 IS NULL OR (PlaceLocation LIKE '%' + @word2 + '%' ))
-			AND (@word3 IS NULL OR (PlaceLocation LIKE '%' + @word3 + '%' ))
-			AND (@word4 IS NULL OR (PlaceLocation LIKE '%' + @word4 + '%' ))
-			AND (@word5 IS NULL OR (PlaceLocation LIKE '%' + @word5 + '%' ))
-			AND (@word6 IS NULL OR (PlaceLocation LIKE '%' + @word6 + '%' ))
-			AND (@word7 IS NULL OR (PlaceLocation LIKE '%' + @word7 + '%' ))
-			AND (@word8 IS NULL OR (PlaceLocation LIKE '%' + @word8 + '%' ))
-			AND (@word9 IS NULL OR (PlaceLocation LIKE '%' + @word9 + '%' ))
+    SELECT TOP 40 *
+    FROM Places
+    WHERE
+            (@word0 IS NULL OR (PlaceLocation LIKE '%' + @word0 + '%' ))
+        AND (@word1 IS NULL OR (PlaceLocation LIKE '%' + @word1 + '%' ))
+		AND (@word2 IS NULL OR (PlaceLocation LIKE '%' + @word2 + '%' ))
+		AND (@word3 IS NULL OR (PlaceLocation LIKE '%' + @word3 + '%' ))
+		AND (@word4 IS NULL OR (PlaceLocation LIKE '%' + @word4 + '%' ))
+		AND (@word5 IS NULL OR (PlaceLocation LIKE '%' + @word5 + '%' ))
+		AND (@word6 IS NULL OR (PlaceLocation LIKE '%' + @word6 + '%' ))
+		AND (@word7 IS NULL OR (PlaceLocation LIKE '%' + @word7 + '%' ))
+		AND (@word8 IS NULL OR (PlaceLocation LIKE '%' + @word8 + '%' ))
+		AND (@word9 IS NULL OR (PlaceLocation LIKE '%' + @word9 + '%' ))
 			
             
-        -- OPTION (RECOMPILE) ---<<<<use if on for SQL 2008 SP1 CU5 (10.0.2746) and later
-    END
+    -- OPTION (RECOMPILE) ---<<<<use if on for SQL 2008 SP1 CU5 (10.0.2746) and later
+END
