@@ -1,0 +1,35 @@
+﻿@model BusinessLayer.Models.Reports.CellSummaryReport
+@{
+    string sTotal = "" + Model.Total;
+    string CD = "" + Model.CD;
+    string HeadEngineerId = "" + Model.HeadEngineerId;
+    string DesignEngineerId = "" + Model.DesignEngineerId;
+    string JobTypeId = "" + Model.JobTypeId;
+    string Month = "" + Model.Month;
+    string Year = "" + Model.Year;
+    string reportName = Model.reportName;
+    string columnName = "";
+}
+
+
+@{
+    if (Model.Total == 0)
+    {
+        @Html.ActionLink(sTotal, reportName, "Report")
+    }
+    else
+    {
+        @Html.ActionLink(sTotal, "DetailSummary", "Report",
+        new
+        {
+            CD = CD,
+            Month = Month,
+            Year = Year,
+            HeadEngineerId = HeadEngineerId,
+            DesignEngineerId = DesignEngineerId,
+            JobTypeId = JobTypeId,
+            reportName = reportName,
+            columnName = columnName
+        }, null)
+    }
+}

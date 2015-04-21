@@ -126,7 +126,7 @@ namespace SDTracker.Controllers
 
         }
 
-        private List<SelectListItem> GetCDsCbo(string selectedId)
+        private List<SelectListItem> GetCDsCbo(int selectedId)
         {
             List<SelectListItem> CDsCboCbo = new List<SelectListItem>();
             SelectListItem[] items = new SelectListItem[16];
@@ -145,7 +145,7 @@ namespace SDTracker.Controllers
                 {
                     Text = sText,
                     Value = sValues,
-                    Selected = (selectedId == sValues)
+                    Selected = (selectedId == i)
                 };
 
             }
@@ -259,12 +259,12 @@ namespace SDTracker.Controllers
 
             List<SummaryReport> rpt = dbRepo.rptSummaryReport(iCD, iHeadEngineer, iDesignEngineer, iMonth, iYear, ColumnName).ToList();
 
-            ViewBag.CDsCbo = GetCDsCbo("");
-            ViewBag.HeadEngineersCbo = GetHeadEngineersCbo(0);
-            ViewBag.DesignEngineersCbo = GetDesignEngineersCbo(0);
-            ViewBag.MonthSelectCbo = GetMonthSelectCbo(0);
-            ViewBag.YearSelectCbo = GetYearSelectCbo(0);
-            ViewBag.ColumnNameCbo = GetColumnNameCbo("");
+            ViewBag.CD = GetCDsCbo(iCD);
+            ViewBag.HeadEngineer = GetHeadEngineersCbo(iHeadEngineer);
+            ViewBag.DesignEngineer = GetDesignEngineersCbo(iDesignEngineer);
+            ViewBag.Month = GetMonthSelectCbo(iMonth);
+            ViewBag.Year = GetYearSelectCbo(iYear);
+            ViewBag.ColumnName = GetColumnNameCbo("");
 
             return View("SummaryReport", rpt);
         }

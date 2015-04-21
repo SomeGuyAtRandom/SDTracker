@@ -14,12 +14,12 @@ namespace BusinessLayer.Models.Reports
     {
         public SummaryReport()
         {
-            columns = new CellSummaryReport[12];
-            for (int i = 0; i < 12; i++)
-            {
-                columns[i] = new CellSummaryReport();
+            //columns = new CellSummaryReport[12];
+            //for (int i = 0; i < 12; i++)
+            //{
+            //    columns[i] = new CellSummaryReport();
  
-            }
+            //}
  
         }
         public string JobName { get; set; }
@@ -29,9 +29,26 @@ namespace BusinessLayer.Models.Reports
         public int HeadEngineerId { get; set; }
         public int DesignEngineerId { get; set; }
 
+        public int Total { get; set; }
 
-        public CellSummaryReport[] columns { get; set; }
+        public int Month { get; set; }
+        public int Year { get; set; }
+        public DateTime StartDate { get; set; }
 
+        public CellSummaryReport column0 { get; set; }
+        public CellSummaryReport column1 { get; set; }
+        public CellSummaryReport column2 { get; set; }
+        public CellSummaryReport column3 { get; set; }
+        public CellSummaryReport column4 { get; set; }
+        public CellSummaryReport column5 { get; set; }
+        public CellSummaryReport column6 { get; set; }
+        public CellSummaryReport column7 { get; set; }
+        public CellSummaryReport column8 { get; set; }
+        public CellSummaryReport column9 { get; set; }
+        public CellSummaryReport column10 { get; set; }
+        public CellSummaryReport column11 { get; set; }
+        
+        
         public CellSummaryReport SumCell { get; set; }
     }
     public class SummaryReportConfig
@@ -47,20 +64,12 @@ namespace BusinessLayer.Models.Reports
         {
 
         }
-        public CellSummaryReport(int Total, DateTime StartDate, int JobTypeId, int CD, int HeadEngineerId, int DesignEngineerId)
-        {
-            this.Total = Total;
-            this.StartDate = StartDate;
-            this.JobTypeId = JobTypeId;
-
-            this.CD = CD;
-            this.HeadEngineerId = HeadEngineerId;
-            this.DesignEngineerId = DesignEngineerId;
-
-        }
         public int Total { get; set; }
         public DateTime StartDate { get; set; }
-        
+
+        public int Month { get; set; }
+        public int Year { get; set; }
+
         public int JobTypeId { get; set; }
 
         public int CD { get; set; }

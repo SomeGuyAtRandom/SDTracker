@@ -1,5 +1,27 @@
 ﻿USE [SignalDB];
 
+
+IF OBJECT_ID('spUpdateUserPassword', 'P') IS NOT NULL
+DROP PROCEDURE spUpdateUserPassword;
+GO
+
+CREATE PROC spUpdateUserPassword
+	@UserName nvarchar(20),
+	@PassWord nvarchar(20)
+	AS
+BEGIN  
+UPDATE UserPasswords
+	SET 
+		PassWord= @PassWord,
+		DateUpdated= GETDATE()
+	WHERE
+		UserName = @UserName;
+
+END
+
+GO
+
+
 IF OBJECT_ID('spGetPlacesWithSearch', 'P') IS NOT NULL
 DROP PROCEDURE spGetPlacesWithSearch;
 
@@ -41,6 +63,7 @@ BEGIN
 -- OPTION (RECOMPILE) ---<<<<use if on for SQL 2008 SP1 CU5 (10.0.2746) and later
 END
 
+GO
 
 
 IF OBJECT_ID('spGetEngineerByUserName', 'P') IS NOT NULL
@@ -1342,6 +1365,7 @@ END;
 
 GO
 
+
 IF OBJECT_ID('spAddUserPassword', 'P') IS NOT NULL
 DROP PROCEDURE spAddUserPassword;
 GO
@@ -1351,7 +1375,7 @@ CREATE PROC spAddUserPassword
 @Password nvarchar(20),
 @FirstName nvarchar(30)= null,
 @LastName nvarchar(30)= null,
-@Email nvarchar(100)= null,
+@Email nvarchar(100),
 @Initials nvarchar(5)= null,
 @Phone nvarchar(20)= null
 
@@ -1361,11 +1385,11 @@ DECLARE @Id int
 DECLARE @table table (id int)
 
  INSERT INTO UserPasswords 
- (UserName,Password,IsDisabled,DateCreated,DateUpdated,DateAccessed )  
+ (UserName,Password,RememberMe, IsDisabled,DateCreated,DateUpdated,DateAccessed )  
  OUTPUT inserted.id into @table
- VALUES (@UserName,@Password,0,GETDATE(), GETDATE(), GETDATE())  ;
+ VALUES (@UserName,@Password,1,0,GETDATE(), GETDATE(), GETDATE())  ;
 
- SELECT @Id = id from @table
+ SELECT @Id = id from @table;
  
   INSERT INTO Engineers 
  (Id,FirstName,LastName,Email,Initials,UserName,Phone,
@@ -1378,6 +1402,7 @@ DECLARE @table table (id int)
  END
 
 GO
+
 
 
 IF OBJECT_ID('spDeleteEngineerByUserName', 'P') IS NOT NULL

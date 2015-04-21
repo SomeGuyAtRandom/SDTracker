@@ -11,30 +11,35 @@ GO
 
 INSERT INTO UserPasswords 
 (Id,UserName,Password,RememberMe,IsDisabled,DateCreated,DateUpdated,DateAccessed) VALUES 
-(1,'acuevas','acuevas',1,1,GETDATE(), GETDATE(),GETDATE()),
-(2,'amashian','amashian',1,1,GETDATE(), GETDATE(),GETDATE()),
-(3,'bhicks','bhicks' ,1,1,GETDATE(), GETDATE(),GETDATE()),
-(4,'bwheeler','bwheeler',1,1,GETDATE(), GETDATE(),GETDATE()),
-(5,'chan','chan',1,1,GETDATE(), GETDATE(),GETDATE()),
-(6,'chrishy','chrishy',1,1,GETDATE(), GETDATE(),GETDATE()),
-(7,'cquan','cquan',1,1,GETDATE(), GETDATE(),GETDATE()),
-(8,'dnolasco','dnolasco',1,1,GETDATE(), GETDATE(),GETDATE()),
-(9,'eaghajani','eaghajani',1,1,GETDATE(), GETDATE(),GETDATE()),
-(10,'echow','echow',1,1,GETDATE(), GETDATE(),GETDATE()),
-(11,'ehermoso','ehermoso',1,1,GETDATE(), GETDATE(),GETDATE()),
-(12,'epena','epena',1,1,GETDATE(), GETDATE(),GETDATE()),
-(13,'eworkneh','eworkneh',1,1,GETDATE(), GETDATE(),GETDATE()),
-(14,'farias','farias',1,1,GETDATE(), GETDATE(),GETDATE()),
-(15,'jvarghese','jvarghese',1,1,GETDATE(), GETDATE(),GETDATE()),
-(16,'manaya','manaya',1,1,GETDATE(), GETDATE(),GETDATE()),
-(17,'mdelpasand','mdelpasand',1,1,GETDATE(), GETDATE(),GETDATE()),
-(18,'mmoshksar','mmoshksar',1,1,GETDATE(), GETDATE(),GETDATE()),
-(19,'randrade','x',1,1,GETDATE(), GETDATE(),GETDATE()),
-(20,'rlarios','rlarios',1,1,GETDATE(), GETDATE(),GETDATE()),
-(21,'rmolato','rmolato',1,1,GETDATE(), GETDATE(),GETDATE()),
-(22,'rrivera','rrivera',1,1,GETDATE(), GETDATE(),GETDATE()),
-(23,'x','x',1,1,GETDATE(), GETDATE(),GETDATE()),
-(24,'account','Account#@1' ,1,1,GETDATE(), GETDATE(),GETDATE());
+(1,'acuevas'    ,'',1,0,GETDATE(), GETDATE(),GETDATE()),
+(2,'amashian'   ,'',1,0,GETDATE(), GETDATE(),GETDATE()),
+(3,'bhicks'     ,'',1,0,GETDATE(), GETDATE(),GETDATE()),
+(4,'bwheeler'   ,'',1,0,GETDATE(), GETDATE(),GETDATE()),
+(5,'chan'       ,'',1,0,GETDATE(), GETDATE(),GETDATE()),
+(6,'chrishy'    ,'',1,0,GETDATE(), GETDATE(),GETDATE()),
+(7,'cquan'      ,'',1,0,GETDATE(), GETDATE(),GETDATE()),
+(8,'dnolasco'   ,'',1,0,GETDATE(), GETDATE(),GETDATE()),
+(9,'eaghajani'  ,'',1,0,GETDATE(), GETDATE(),GETDATE()),
+(10,'echow'     ,'',1,0,GETDATE(), GETDATE(),GETDATE()),
+(11,'ehermoso'  ,'',1,0,GETDATE(), GETDATE(),GETDATE()),
+(12,'epena'     ,'',1,0,GETDATE(), GETDATE(),GETDATE()),
+(13,'eworkneh'  ,'',1,0,GETDATE(), GETDATE(),GETDATE()),
+(14,'farias'    ,'',1,0,GETDATE(), GETDATE(),GETDATE()),
+(15,'jvarghese' ,'',1,0,GETDATE(), GETDATE(),GETDATE()),
+(16,'manaya'    ,'',1,0,GETDATE(), GETDATE(),GETDATE()),
+(17,'mdelpasand','',1,0,GETDATE(), GETDATE(),GETDATE()),
+(18,'mmoshksar' ,'',1,0,GETDATE(), GETDATE(),GETDATE()),
+(19,'randrade'  ,'',1,0,GETDATE(), GETDATE(),GETDATE()),
+(20,'rlarios'   ,'',1,0,GETDATE(), GETDATE(),GETDATE()),
+(21,'rmolato'   ,'',1,0,GETDATE(), GETDATE(),GETDATE()),
+(22,'rrivera'   ,'',1,0,GETDATE(), GETDATE(),GETDATE()),
+(23,'x'         ,'',1,0,GETDATE(), GETDATE(),GETDATE()),
+(24,'account'   ,'',1,0,GETDATE(), GETDATE(),GETDATE());
+
+
+-- UGFzc3dvcmQjMQ==
+
+UPDATE UserPasswords SET Password='UGFzc3dvcmQjMQ==';
 
 SET IDENTITY_INSERT UserPasswords OFF
 

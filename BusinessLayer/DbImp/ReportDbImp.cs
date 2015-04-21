@@ -85,9 +85,6 @@ namespace BusinessLayer.DbImp
         public IEnumerable<SummaryReport> rptSummaryReport(int CD, int HeadEngineerId, int DesignEngineerId, int Month, int Year, string ColumnName)
         {
 
-            
-
-
             List<SummaryReport> rows = new List<SummaryReport>();
 
             DateTime dateIn = new DateTime();
@@ -101,20 +98,32 @@ namespace BusinessLayer.DbImp
                 SqlCommand cmd = new SqlCommand("rptSummaryReport", con);
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                SqlParameter pHeadEngineerId = new SqlParameter();
-                pHeadEngineerId.ParameterName = "@HeadEngineerId";
-                pHeadEngineerId.Value = HeadEngineerId;
-                cmd.Parameters.Add(pHeadEngineerId);
+                if(HeadEngineerId !=0 )
+                { 
+                    SqlParameter pHeadEngineerId = new SqlParameter();
+                    pHeadEngineerId.ParameterName = "@HeadEngineerId";
+                    pHeadEngineerId.Value = HeadEngineerId;
+                    cmd.Parameters.Add(pHeadEngineerId);
+                }
 
+                if (DesignEngineerId != 0)
+                { 
                 SqlParameter pDesignEngineerId = new SqlParameter();
                 pDesignEngineerId.ParameterName = "@DesignEngineerId";
                 pDesignEngineerId.Value = DesignEngineerId;
                 cmd.Parameters.Add(pDesignEngineerId);
+                }
 
-                SqlParameter pCD = new SqlParameter();
-                pCD.ParameterName = "@CD";
-                pCD.Value = CD;
-                cmd.Parameters.Add(pCD);
+                if (CD != 0)
+                {
+                    SqlParameter pCD = new SqlParameter();
+                    pCD.ParameterName = "@CD";
+                    pCD.Value = CD;
+                    cmd.Parameters.Add(pCD);
+                }
+
+                
+
 
                 SqlParameter pMonth = new SqlParameter();
                 pMonth.ParameterName = "@MonthId";
@@ -136,7 +145,7 @@ namespace BusinessLayer.DbImp
                 SqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    rows.Add(SetRowSummaryReport(ColumnName, CD, HeadEngineerId, DesignEngineerId, rdr, dateIn));
+                    rows.Add(SetRowSummaryReport(ColumnName, CD, HeadEngineerId, DesignEngineerId, rdr, Month, Year));
                 }
             }
 
@@ -249,29 +258,59 @@ namespace BusinessLayer.DbImp
 
         }
 
-        private SummaryReport SetRowSummaryReport(String columnName, int CD, int HeadEngineerId, int DesignEngineerId, SqlDataReader rdr, DateTime dateIn)
+        private SummaryReport SetRowSummaryReport(String columnName, int CD, int HeadEngineerId, int DesignEngineerId, SqlDataReader rdr, int Month, int Year)
         {
             SummaryReport rowItem = new SummaryReport();
 
             rowItem.JobName = rdr.GetString(rdr.GetOrdinal("JobName"));
             rowItem.JobCode = rdr.GetString(rdr.GetOrdinal("JobCode"));
-            rowItem.columns = new CellSummaryReport[12];
-            DateTime StartDate = dateIn.AddYears(-1);
-
-            string datestring = "" + StartDate.ToString("MM");
-            datestring += "-01";
-            datestring += "-" + StartDate.ToString("yyyy");
-            StartDate = DateTime.Parse(datestring);
             int JobTypeId = Convert.ToInt32(rdr["JobTypeId"]);
+            DateTime StartDate = new DateTime(Year, Month, 1);
+
 
             for (int i = 0; i < 12; i++)
             {
                 string month = StartDate.ToString("MMM");
-                int total = Convert.ToInt32(rdr[month + "Total"]);
-                DateTime sDate = rdr.GetDateTime(rdr.GetOrdinal(month + "Date"));
 
-                rowItem.columns[i] = new CellSummaryReport(total, sDate, JobTypeId, CD, HeadEngineerId, DesignEngineerId);
-                rowItem.columns[i].columnName = columnName;
+                if (month.Equals("Jul") && JobTypeId==1)
+                {
+                    month = "Jul";
+ 
+                }
+                int total = Convert.ToInt32(rdr[month + "Total"]);
+
+                // 
+                DateTime sDate = rdr.GetDateTime(rdr.GetOrdinal(month + "Date"));
+                CellSummaryReport cell = 
+                new CellSummaryReport()
+                {
+                    CD = CD,
+                    columnName = columnName,
+                    DesignEngineerId = DesignEngineerId,
+                    HeadEngineerId = HeadEngineerId,
+                    JobTypeId = JobTypeId,
+                    StartDate = sDate,
+                    Month = Month,
+                    Year = Year,
+                    Total = total
+                };
+                switch (i)
+                {
+                    case 0 : { rowItem.column0 = cell; break; }
+                    case 1 : { rowItem.column1 = cell; break; }
+                    case 2 : { rowItem.column2 = cell; break; }
+                    case 3 : { rowItem.column3 = cell; break; }
+                    case 4 : { rowItem.column4 = cell; break; }
+                    case 5 : { rowItem.column5 = cell; break; }
+                    case 6 : { rowItem.column6 = cell; break; }
+                    case 7 : { rowItem.column7 = cell; break; }
+                    case 8 : { rowItem.column8 = cell; break; }
+                    case 9 : { rowItem.column9 = cell; break; }
+                    case 10 : { rowItem.column10 = cell; break; }
+                    case 11: { rowItem.column11 = cell; break; }
+                }
+                
+
                 StartDate = StartDate.AddMonths(1);
 
             }

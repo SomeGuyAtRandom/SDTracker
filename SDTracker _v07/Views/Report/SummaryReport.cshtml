@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<BusinessLayer.Models.Reports.SummaryReport>
 
 @{
-    ViewBag.Title = "Year Summary By Month By JobType";
+    ViewBag.Title = "Summary Report";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h2>Summary Report</h2>
@@ -16,12 +16,12 @@
 
 @using (@Html.BeginForm())
 {
-    @Html.DropDownList("CDsCbo", null, "-CDs-")
-    @Html.DropDownList("HeadEngineersCbo", null, "-HeadEngineer-")
-    @Html.DropDownList("DesignEngineersCbo", null, "-DesignEngineer-")
-
-    @Html.DropDownList("MonthSelectCbo", null, "-Month-")
-    @Html.DropDownList("ColumnNameCbo", null, "-Date Focus-")
+    @Html.DropDownList("CD", null, "-CDs-")
+    @Html.DropDownList("HeadEngineer", null, "-HeadEngineer-")
+    @Html.DropDownList("DesignEngineer", null, "-DesignEngineer-")
+    @Html.DropDownList("Month", null, "-Month-")
+    @Html.DropDownList("Year", null, "-Year-")
+    @Html.DropDownList("ColumnName", null, "-Date Focus-")
 
     <input id="submitBtn" type="submit" value="search" />
 }
@@ -45,17 +45,42 @@
                 </th>
 
 
-                @for (int i = 0; i < 12; i++)
-                {
-                    <th>
-                        @Html.DisplayFor(model => model.First().columns[i], "SummaryHeader")
-                    </th>
-                }
-
-
                 <th>
-                    @Html.DisplayNameFor(model => model.First().SumCell)
+                    @Html.DisplayFor(model => model.First().column1, "HeaderCellSummaryReport")
                 </th>
+                <th>
+                    @Html.DisplayFor(model => model.First().column2, "HeaderCellSummaryReport")
+                </th>
+                <th>
+                    @Html.DisplayFor(model => model.First().column3, "HeaderCellSummaryReport")
+                </th>
+                <th>
+                    @Html.DisplayFor(model => model.First().column4, "HeaderCellSummaryReport")
+                </th>
+                <th>
+                    @Html.DisplayFor(model => model.First().column5, "HeaderCellSummaryReport")
+                </th>
+                <th>
+                    @Html.DisplayFor(model => model.First().column6, "HeaderCellSummaryReport")
+                </th>
+                <th>
+                    @Html.DisplayFor(model => model.First().column7, "HeaderCellSummaryReport")
+                </th>
+                <th>
+                    @Html.DisplayFor(model => model.First().column8, "HeaderCellSummaryReport")
+                </th>
+                <th>
+                    @Html.DisplayFor(model => model.First().column9, "HeaderCellSummaryReport")
+                </th>
+                <th>
+                    @Html.DisplayFor(model => model.First().column10, "HeaderCellSummaryReport")
+                </th>
+                <th>
+                    @Html.DisplayFor(model => model.First().column11, "HeaderCellSummaryReport")
+                </th>
+
+
+                
             </tr>
 
             @foreach (var item in Model)
@@ -67,16 +92,50 @@
                         @Html.DisplayFor(modelItem => item.JobName)
                     </td>
 
-                    @for (int i = 0; i < 12; i++)
-                    {
-                        <td>
-                            @Html.DisplayFor(modelItem => item.columns[i], "LinkToDetail")
-                        </td>
-                    }
+                    <td>
+                        @Html.DisplayFor(modelItem => item.column0, "CellSummaryReport")
+                    </td>
 
                     <td>
-                        @Html.DisplayFor(modelItem => item.SumCell, "LinkToDetail")
+                        @Html.DisplayFor(modelItem => item.column0, "CellSummaryReport")
                     </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.column1, "CellSummaryReport")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.column2, "CellSummaryReport")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.column3, "CellSummaryReport")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.column4, "CellSummaryReport")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.column5, "CellSummaryReport")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.column6, "CellSummaryReport")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.column7, "CellSummaryReport")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.column8, "CellSummaryReport")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.column9, "CellSummaryReport")
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.column10, "CellSummaryReport")
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.column11, "CellSummaryReport")
+                    </td>
+
+                    
                 </tr>
 
             }
