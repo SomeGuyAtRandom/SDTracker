@@ -114,6 +114,7 @@
     <Compile Include="Models\Reports\Config\DetailSummary.cs" />
     <Compile Include="Models\Reports\Config\YearSummaryByMonthByJobType.cs" />
     <Compile Include="Models\Reports\DetailSummary.cs" />
+    <Compile Include="Models\Reports\SummaryReport.cs" />
     <Compile Include="Models\Reports\YearSummaryByMonthByJobType.cs" />
     <Compile Include="Models\Requirement.cs" />
     <Compile Include="Models\Role.cs" />

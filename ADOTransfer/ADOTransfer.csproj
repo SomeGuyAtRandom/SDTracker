@@ -69,6 +69,7 @@
     <Content Include="SQL_scripts\Insert\spAddJobType.sql" />
     <Content Include="SQL_scripts\Insert\spAddProject.sql" />
     <Content Include="SQL_scripts\Insert\spAddUserPassword.sql" />
+    <Content Include="SQL_scripts\Reports\rptSummaryReport.sql" />
     <Content Include="SQL_scripts\Testing\migrateProjects.sql" />
     <Content Include="SQL_scripts\Testing\ReportBuilder.sql" />
     <Content Include="SQL_scripts\Reports\rptYearSummaryByMonthByJobType.sql" />

@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList.Mvc;
 using PagedList;
+using BusinessLayer.Models;
 
 using BusinessLayer.DbInterfaces;
 
@@ -20,6 +21,23 @@ namespace SDTracker.Controllers
             this.dbRepo = dbRepo;
         }
 
+        private List<SelectListItem> GetHeadEngineersCbo(int selectedId)
+        {
+            List<SelectListItem> headEngineerCbo = new List<SelectListItem>();
+            foreach (Engineer headEng in dbRepo.HeadEngineers())
+            {
+                SelectListItem item = new SelectListItem
+                {
+                    Text = headEng.FirstName + " " + headEng.LastName,
+                    Value = "" + headEng.Id,
+                    Selected = (selectedId == headEng.Id)
+                };
+                headEngineerCbo.Add(item);
+
+            }
+            return headEngineerCbo;
+
+        }
 
         private List<SelectListItem> GetMonthSelectCbo(int selectedId)
         {
@@ -107,7 +125,58 @@ namespace SDTracker.Controllers
             return fieldCbo;
 
         }
-        
+
+        private List<SelectListItem> GetCDsCbo(string selectedId)
+        {
+            List<SelectListItem> CDsCboCbo = new List<SelectListItem>();
+            SelectListItem[] items = new SelectListItem[16];
+
+            for (int i = 0; i < 16; i++)
+            {
+                string sText = "" + i;
+                string sValues = sText;
+                if (i == 0)
+                {
+                    sText = "-CDs";
+ 
+                }
+
+                items[i] = new SelectListItem
+                {
+                    Text = sText,
+                    Value = sValues,
+                    Selected = (selectedId == sValues)
+                };
+
+            }
+
+            foreach (SelectListItem item in items)
+            {
+                CDsCboCbo.Add(item);
+            }
+
+            return CDsCboCbo;
+
+        }
+
+        private List<SelectListItem> GetDesignEngineersCbo(int selectedId)
+        {
+            List<SelectListItem> DesignEngineersCbo = new List<SelectListItem>();
+            foreach (Engineer headEng in dbRepo.DesignEngineers())
+            {
+                SelectListItem item = new SelectListItem
+                {
+                    Text = headEng.FirstName + " " + headEng.LastName,
+                    Value = "" + headEng.Id,
+                    Selected = (selectedId == headEng.Id)
+                };
+                DesignEngineersCbo.Add(item);
+
+            }
+            return DesignEngineersCbo;
+
+        }
+
         public ActionResult YearSummaryByMonthByJobType()
         {
 
@@ -164,6 +233,40 @@ namespace SDTracker.Controllers
             List<DetailSummary> rpt = dbRepo.rptDetailSummary(columnName, d, jId).ToList();
             return View("DetailSummary", rpt.ToPagedList(page ?? 1, 5));
  
+        }
+        
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult SummaryReport(int? page, string CD, string HeadEngineer, string DesignEngineer, string Month, string Year, string ColumnName)
+        {
+            
+            int iCD = 0;
+            int iHeadEngineer = 0;
+            int iDesignEngineer = 0;
+            int iMonth = 0;
+            int iYear = 0;
+            if (ColumnName == null) { ColumnName = ""; }
+
+            try { iCD = Int32.Parse(CD); }
+            catch { }
+            try { iHeadEngineer = Int32.Parse(HeadEngineer); }
+            catch { }
+            try { iDesignEngineer = Int32.Parse(DesignEngineer); }
+            catch { }
+            try { iMonth = Int32.Parse(Month); }
+            catch { }
+            try { iYear = Int32.Parse(Year); }
+            catch { }
+
+            List<SummaryReport> rpt = dbRepo.rptSummaryReport(iCD, iHeadEngineer, iDesignEngineer, iMonth, iYear, ColumnName).ToList();
+
+            ViewBag.CDsCbo = GetCDsCbo("");
+            ViewBag.HeadEngineersCbo = GetHeadEngineersCbo(0);
+            ViewBag.DesignEngineersCbo = GetDesignEngineersCbo(0);
+            ViewBag.MonthSelectCbo = GetMonthSelectCbo(0);
+            ViewBag.YearSelectCbo = GetYearSelectCbo(0);
+            ViewBag.ColumnNameCbo = GetColumnNameCbo("");
+
+            return View("SummaryReport", rpt);
         }
 
     }

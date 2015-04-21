@@ -4,7 +4,8 @@
 {
     <a href="~/User/Logout" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Reports<span class="caret"></span></a>
     <ul class="dropdown-menu" role="menu">
-        <li>@Html.ActionLink("Report - General View 1", "Index", "Report")</li>
+        <li>@Html.ActionLink("Summary Report", "SummaryReport", "Report")</li>
+        <li>@Html.ActionLink("Year Summary", "YearSummaryByMonthByJobType", "Report")</li>
         <li>@Html.ActionLink("Report - General View 2", "Index", "Report")</li>
         <li>@Html.ActionLink("Report - General View 3", "Index", "Report")</li>
         <li class="divider">Test User Privs</li>

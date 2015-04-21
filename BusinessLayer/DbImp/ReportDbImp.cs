@@ -5,7 +5,7 @@ using System.Data;
 using BusinessLayer.Models.Reports;
 using System.Data.Entity;
 using System.Configuration;
-
+using BusinessLayer.Models;
 
 namespace BusinessLayer.DbImp
 {
@@ -82,6 +82,125 @@ namespace BusinessLayer.DbImp
 
         }
 
+        public IEnumerable<SummaryReport> rptSummaryReport(int CD, int HeadEngineerId, int DesignEngineerId, int Month, int Year, string ColumnName)
+        {
+
+            
+
+
+            List<SummaryReport> rows = new List<SummaryReport>();
+
+            DateTime dateIn = new DateTime();
+
+            try { dateIn = new DateTime(Year, Month, 1); }
+            catch { return rows; }
+
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("rptSummaryReport", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SqlParameter pHeadEngineerId = new SqlParameter();
+                pHeadEngineerId.ParameterName = "@HeadEngineerId";
+                pHeadEngineerId.Value = HeadEngineerId;
+                cmd.Parameters.Add(pHeadEngineerId);
+
+                SqlParameter pDesignEngineerId = new SqlParameter();
+                pDesignEngineerId.ParameterName = "@DesignEngineerId";
+                pDesignEngineerId.Value = DesignEngineerId;
+                cmd.Parameters.Add(pDesignEngineerId);
+
+                SqlParameter pCD = new SqlParameter();
+                pCD.ParameterName = "@CD";
+                pCD.Value = CD;
+                cmd.Parameters.Add(pCD);
+
+                SqlParameter pMonth = new SqlParameter();
+                pMonth.ParameterName = "@MonthId";
+                pMonth.Value = Month;
+                cmd.Parameters.Add(pMonth);
+
+                SqlParameter pYear = new SqlParameter();
+                pYear.ParameterName = "@YearId";
+                pYear.Value = Year;
+                cmd.Parameters.Add(pYear);
+
+                SqlParameter pColumnName = new SqlParameter();
+                pColumnName.ParameterName = "@columnName";
+                pColumnName.Value = ColumnName;
+                cmd.Parameters.Add(pColumnName);
+
+
+                con.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    rows.Add(SetRowSummaryReport(ColumnName, CD, HeadEngineerId, DesignEngineerId, rdr, dateIn));
+                }
+            }
+
+            return rows;
+
+        }
+
+        public IEnumerable<Engineer> HeadEngineers()
+        {
+            List<Engineer> engineers = new List<Engineer>();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("spGetAllHeadEngineers", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                con.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    engineers.Add(setGetUsersToAdmin(rdr));
+                }
+            }
+            return engineers;
+        }
+
+        public IEnumerable<Engineer> DesignEngineers()
+        {
+            List<Engineer> engineers = new List<Engineer>();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("spGetAllDesignEngineers", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                con.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    engineers.Add(setGetUsersToAdmin(rdr));
+                }
+            }
+            return engineers;
+        }
+
+        private Engineer setGetUsersToAdmin(SqlDataReader rdr)
+        {
+            Engineer engineer = new Engineer();
+
+            engineer.Id = Convert.ToInt32(rdr["Id"]);
+            engineer.FirstName = rdr["FirstName"].ToString();
+            engineer.LastName = rdr["LastName"].ToString();
+            engineer.Email = rdr["Email"].ToString();
+            //user.Initials = rdr["Initials"].ToString();
+            engineer.UserName = rdr["UserName"].ToString();
+
+            //if (!(rdr["Phone"] is DBNull))
+            //{
+            //     user.Phone = rdr["Phone"].ToString();
+            //}
+
+            //user.DateCreated = Convert.ToDateTime(rdr["DateCreated"]);
+            //user.DateUpdated = Convert.ToDateTime(rdr["DateUpdated"]);
+
+            return engineer;
+
+        }
+
         private DetailSummary SetRowDetailSummary(SqlDataReader rdr, DateTime dateIn)
         {
             DetailSummary rowItem = new DetailSummary();
@@ -130,6 +249,40 @@ namespace BusinessLayer.DbImp
 
         }
 
+        private SummaryReport SetRowSummaryReport(String columnName, int CD, int HeadEngineerId, int DesignEngineerId, SqlDataReader rdr, DateTime dateIn)
+        {
+            SummaryReport rowItem = new SummaryReport();
+
+            rowItem.JobName = rdr.GetString(rdr.GetOrdinal("JobName"));
+            rowItem.JobCode = rdr.GetString(rdr.GetOrdinal("JobCode"));
+            rowItem.columns = new CellSummaryReport[12];
+            DateTime StartDate = dateIn.AddYears(-1);
+
+            string datestring = "" + StartDate.ToString("MM");
+            datestring += "-01";
+            datestring += "-" + StartDate.ToString("yyyy");
+            StartDate = DateTime.Parse(datestring);
+            int JobTypeId = Convert.ToInt32(rdr["JobTypeId"]);
+
+            for (int i = 0; i < 12; i++)
+            {
+                string month = StartDate.ToString("MMM");
+                int total = Convert.ToInt32(rdr[month + "Total"]);
+                DateTime sDate = rdr.GetDateTime(rdr.GetOrdinal(month + "Date"));
+
+                rowItem.columns[i] = new CellSummaryReport(total, sDate, JobTypeId, CD, HeadEngineerId, DesignEngineerId);
+                rowItem.columns[i].columnName = columnName;
+                StartDate = StartDate.AddMonths(1);
+
+            }
+
+            
+            
+
+
+            return rowItem;
+        }
+
         private YearSummaryByMonthByJobType SetRowYearSummaryByMonthByJobType(String columnName, SqlDataReader rdr, DateTime dateIn)
         {
             YearSummaryByMonthByJobType rowItem = new YearSummaryByMonthByJobType();
@@ -164,6 +317,7 @@ namespace BusinessLayer.DbImp
             return rowItem;
 
         }
+
 
     }
 }
