@@ -58,131 +58,81 @@ namespace BusinessLayer.DbImp
             }
         }
 
-        public bool SaveField(int id, string FieldName, string Value)
+
+        private bool SaveProjectStringField(int id, string FieldName, string Value)
         {
-            bool bReturn = false;
-            string[] reqestItem = FieldName.Split('.');
-
-            int spId = 0;
-            string sFieldName = "";
-            string sp = "";
-
-            DateTime dVal = new DateTime();
-            int iVal = 0;
-            string sVal = "";
-
-            if (reqestItem.Length > 1)
-            {
-                try { spId = Int32.Parse(reqestItem[1]); }
-                catch { throw new Exception("Requseting ID is not an integer."); }
-                sFieldName = reqestItem[0];
-
-                sp = "spUpdateRequirementsFieldById";
-                switch (sFieldName)
-                {
-                    case "StartDate":
-                    case "FinishDate":
-                        {
-                            DateTime d = new DateTime();
-                            try
-                            {
-                                d = DateTime.Parse(Value);
-                                dVal = d;
-                            }
-                            catch { throw new Exception("Value to update to is not a DateTime value."); }
-                            sp += "DateTime";
-                            break;
-                        }
-                    case "CurrentComment":
-                        {
-                            sp += "String";
-                            break;
-                        }
-                }
-
-
-            }
-            else
-            {
-                sp = "spUpdateProjectsFieldById";
-                switch (FieldName)
-                {
-                    case "Location":
-                    case "CurrRemark":
-                    case "ProjNo":
-                    case "FiveDigit":
-                    case "CurrentComment":
-                        {
-                            sVal = Value;
-
-                            sp += "String";
-                            break;
-                        }
-                    case "Districts":
-                    case "JobTypes":
-                    case "HeadEngineers":
-                    case "DesignEngineers":
-                        {
-                            try
-                            {
-                                iVal = Int32.Parse(Value);
-                            }
-                            catch
-                            {
-
-                                iVal = 0;
-
-                            }
-                            sp += "Int";
-                            break;
-                        }
-                    case "DateAssigned":
-                    case "StartDate":
-                        {
-                            try
-                            {
-                                dVal = DateTime.Parse(Value);
-                            }
-                            catch
-                            {
-                                throw new Exception("Value to update to is not a DateTime value.");
-                            }
-                            sp += "DateTime";
-                            break;
-                        }
-                }
-            }
-
-
             SqlParameter pId = new SqlParameter();
             pId.ParameterName = "@Id";
-            pId.Value = spId;
+            pId.Value = id;
 
             SqlParameter pColumnName = new SqlParameter();
             pColumnName.ParameterName = "@columnName";
-            pColumnName.Value = sFieldName;
+            pColumnName.Value = FieldName;
 
             SqlParameter pValueIn = new SqlParameter();
             pValueIn.ParameterName = "@ValueIn";
+            pValueIn.Value = Value;
+            return DoSaveField(pId, pColumnName, pValueIn, "spUpdateProjectStringField");
+        }
 
-            if (sp.EndsWith("DateTime"))
-            {
-                pValueIn.Value = dVal;
-            }
-            if (sp.EndsWith("String"))
-            {
-                pValueIn.Value = sVal;
+        private bool SaveProjectIntField(int id, string FieldName, string Value)
+        {
+            int iValue = 0;
 
-            }
-            if (sp.EndsWith("Int"))
-            {
-                pValueIn.Value = iVal;
-            }
+            try { iValue = Int32.Parse(Value); }
+            catch { return false;  }
 
+            SqlParameter pId = new SqlParameter();
+            pId.ParameterName = "@Id";
+            pId.Value = id;
 
+            SqlParameter pColumnName = new SqlParameter();
+            pColumnName.ParameterName = "@columnName";
+            pColumnName.Value = FieldName;
+
+            SqlParameter pValueIn = new SqlParameter();
+            pValueIn.ParameterName = "@ValueIn";
+            pValueIn.Value = iValue;
+            return DoSaveField(pId, pColumnName, pValueIn, "spUpdateProjectIntField");
+        }
+
+        private bool SaveProjectDateTimeField(int id, string FieldName, string Value)
+        {
+            DateTime dVal = new DateTime();
+
+            try { dVal = DateTime.Parse(Value); }
+            catch { return false; }
+
+            SqlParameter pId = new SqlParameter();
+            pId.ParameterName = "@Id";
+            pId.Value = id;
+
+            SqlParameter pColumnName = new SqlParameter();
+            pColumnName.ParameterName = "@columnName";
+            pColumnName.Value = FieldName;
+
+            SqlParameter pValueIn = new SqlParameter();
+            pValueIn.ParameterName = "@ValueIn";
+            pValueIn.Value = dVal;
+            return DoSaveField(pId, pColumnName, pValueIn, "spUpdateProjectDateTimeField");
+        }
+
+        private bool SaveProjectMultiSelectField(int id, string FieldName, string Value)
+        {
+            return false;
+        }
+
+        private bool SaveProjectComboSelectField(int id, string FieldName, string Value)
+        {
+            return false;
+        }
+
+        private bool DoSaveField(SqlParameter pId, SqlParameter pColumnName, SqlParameter pValueIn, string StoredProccdure)
+        {
+            bool bReturn = false;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand(sp, con);
+                SqlCommand cmd = new SqlCommand(StoredProccdure, con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(pId);
                 cmd.Parameters.Add(pColumnName);
@@ -199,6 +149,60 @@ namespace BusinessLayer.DbImp
                 bReturn = true;
 
             }
+            return bReturn;
+        }
+
+        public bool SaveField(int id, string FieldName, string Value)
+        {
+            bool bReturn = false;
+            string[] reqestItem = FieldName.Split('.');
+
+            int spId = 0;
+            string sFieldName = FieldName;
+            if (reqestItem.Length > 1)
+            {
+                try { spId = Int32.Parse(reqestItem[1]); }
+                catch { throw new Exception("Requseting ID is not an integer."); }
+                sFieldName = "rd_" + reqestItem[0];
+ 
+            }
+
+
+            switch (sFieldName)
+            {
+                case "Location":
+                case "CurrRemark":
+                case "ProjNo":
+                case "FiveDigit":
+                case "CurrentComment":
+                    {
+                        bReturn = SaveProjectStringField(id, FieldName, Value);
+                        break;
+                    }
+                case "JobTypes":
+                case "Districts":
+                case "HeadEngineers":
+                case "DesignEngineers":
+                    {
+                        bReturn = SaveProjectIntField(id, FieldName, Value);
+                        break;
+                    }
+                case "DateAssigned":
+                case "StartDate":
+                    {
+                        bReturn = SaveProjectDateTimeField(id, FieldName, Value);
+                        break;
+                    }
+                case "rd_StartDate":
+                case "rd_FinishDate":
+                    {
+                        bReturn = false;
+                        break;
+                    }
+               
+            }
+
+
             return bReturn;
 
         }

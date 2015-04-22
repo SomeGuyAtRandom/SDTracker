@@ -264,6 +264,46 @@
 </div>
 
 <script type="text/javascript">
+
+    function runAjax(objID, fieldName, txtValue) {
+        $.ajax({
+            type: 'POST',
+            url: '/SDTracker/Project/SaveField',
+            dataType: 'json',
+            // timeout: 10000, // Use default but for debug minimize or maximize depending on the test
+            data: { 'objID': objID, 'fieldName': fieldName, 'txtValue': txtValue },
+            success: function (result) {
+                if (result) {
+                    if (result.IsUpdated) {
+                        // OK
+                    }
+                    else { alert("Error response from controller :" + result.Msg); }
+
+                } else {
+                    alert("Error response from server :");
+                }
+            },
+            error: function (x, t, m) {
+                if (t === "timeout") {
+                    alert("internet connection timed out");
+                } else {
+                    alert(' t : ' + t + '\n x : ' + x + '\n m : ' + m);
+                }
+            }
+        });
+    }
+
+    function tester(objID, fieldName, txtValue) {
+        var msg = "";
+        msg += " objID:" + objID;
+        msg += " fieldName:" + fieldName;
+        msg += " txtValue:" + txtValue;
+        alert(msg);
+    }
+
+
+
+    // date picker utility
     $(function () {
         $.validator.addMethod('date',
         function (value, element) {
@@ -282,6 +322,9 @@
         $(".datetype").datepicker({ dateFormat: 'mm/dd/yy' });
     });
 
+
+    //When Changes happen: 
+
     $('input').on('input propertychange paste', function () {
         var objID = $("[name='Id']").attr('value');
         var fieldName = $(this).attr('id');
@@ -289,15 +332,14 @@
         runAjax(objID, fieldName, txtValue);
     });
 
-
-
+ 
     $("select").change(function () {
         var objID = $("[name='Id']").attr('value');
         var fieldName = $(this).attr('id');
         var txtValue = $(this).val();
 
         runAjax(objID, fieldName, txtValue);
-        
+
     });
 
     $(".datePicker").change(function () {
@@ -308,44 +350,6 @@
         runAjax(objID, fieldName, txtValue)
 
     });
-
-
-
-    function runAjax(objID, fieldName, txtValue) {
-        $.ajax({
-            type: 'POST',
-            url: '/SDTracker/Project/SaveField',
-            dataType: 'json',
-            timeout: 10000,
-            data: { 'objID': objID, 'fieldName': fieldName, 'txtValue': txtValue },
-            success: function (result) {
-                if (result) {
-                    if (result.IsUpdated) {
-                        // OK
-                    }
-                    else { alert("Error response from controller :" + result.Msg); }
-
-                } else {
-                    alert("Error response from server :");
-                }
-            },
-            error: function (x, t, m) {
-                if (t === "timeout") {
-                    alert("internet connection timed out");
-                } else {
-                    alert(t);
-                }
-            }
-        });
-    }
-
-    function tester(objID, fieldName, txtValue) {
-        var msg = "";
-        msg += " objID:" + objID;
-        msg += " fieldName:" + fieldName;
-        msg += " txtValue:" + txtValue;
-        alert(msg);
-    }
 
 </script>
 

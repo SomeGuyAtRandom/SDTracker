@@ -1,6 +1,220 @@
 ﻿USE [SignalDB];
 
 
+IF OBJECT_ID('spAddProject', 'P') IS NOT NULL
+DROP PROCEDURE spAddProject;
+
+GO
+	
+CREATE PROC spAddProject
+
+@FiveDigit nvarchar(10)
+
+AS
+BEGIN  
+
+
+DECLARE @ProjectId int
+DECLARE @table table (id int)
+
+SET NOCOUNT ON
+
+ INSERT INTO Projects (Location,DistrictId,FiveDigit,DateCreated,DateUpdated)  
+ OUTPUT inserted.id into @table
+ SELECT PlaceLocation,DistrictId,FiveDigit,GetDate(),GetDate() FROM Places WHERE FiveDigit=@FiveDigit;
+ 
+SELECT @ProjectId = id from @table;
+
+ INSERT INTO Requirements (RequirementId,ProjectId,DateCreated,DateUpdated)
+ SELECT Id,@ProjectId ,GetDate(),GetDate() FROM RequirementType;
+ 
+SET NOCOUNT OFF
+
+-- Return value:
+SELECT @ProjectId as ProjectId
+END
+
+
+GO
+
+
+
+IF OBJECT_ID('spTransferPlaces', 'P') IS NOT NULL
+DROP PROCEDURE spTransferPlaces;
+
+GO
+
+CREATE PROC spTransferPlaces  
+	@FiveDigit nvarchar(10),
+	@DistrictId int,
+	@PlaceLocation nvarchar(80)
+AS
+BEGIN  
+ INSERT INTO Places 
+ (FiveDigit,DistrictId,PlaceLocation,DateCreated,DateUpdated)
+ VALUES (@FiveDigit,@DistrictId, @PlaceLocation,GetDate(),GetDate());
+
+END
+GO
+
+
+
+
+IF OBJECT_ID('spUpdateProjectDateTimeField', 'P') IS NOT NULL
+DROP PROCEDURE spUpdateProjectDateTimeField
+
+GO
+
+CREATE PROC spUpdateProjectDateTimeField
+@columnName nvarchar(100),
+@Id int,
+@ValueIn DateTime
+
+AS 
+BEGIN
+IF @columnName = 'DateAssigned'
+BEGIN
+	UPDATE Projects SET DateAssigned = @ValueIn, DateUpdated = GetDate() WHERE Id = @Id
+END
+
+IF @columnName = 'StartDate'
+BEGIN
+	UPDATE Projects SET StartDate = @ValueIn, DateUpdated = GetDate() WHERE Id = @Id
+END
+
+END
+
+GO
+
+              
+IF OBJECT_ID('spUpdateProjectStringField', 'P') IS NOT NULL
+DROP PROCEDURE spUpdateProjectStringField
+
+GO
+
+CREATE PROC spUpdateProjectStringField
+@columnName nvarchar(100),
+@Id int,
+@ValueIn nvarchar(255)
+AS 
+BEGIN
+IF @columnName = 'Location'
+BEGIN
+	UPDATE Projects SET Location = @ValueIn, DateUpdated = GetDate() WHERE Id = @Id
+END
+
+IF @columnName = 'CurrRemark'
+BEGIN
+	UPDATE Projects SET CurrRemark = @ValueIn, DateUpdated = GetDate() WHERE Id = @Id
+END
+
+IF @columnName = 'ProjNo'
+BEGIN
+	UPDATE Projects SET ProjNo = @ValueIn, DateUpdated = GetDate() WHERE Id = @Id
+END
+
+IF @columnName = 'FiveDigit'
+BEGIN
+	UPDATE Projects SET FiveDigit = @ValueIn, DateUpdated = GetDate() WHERE Id = @Id
+END
+
+IF @columnName = 'CDs'
+BEGIN
+	UPDATE Projects SET CDs = @ValueIn, DateUpdated = GetDate() WHERE Id = @Id
+END
+
+IF @columnName = 'CurrentComment'
+BEGIN
+	UPDATE Projects SET CurrentComment = @ValueIn, DateUpdated = GetDate() WHERE Id = @Id
+END
+
+END
+
+GO
+
+IF OBJECT_ID('spUpdateProjectIntField', 'P') IS NOT NULL
+DROP PROCEDURE spUpdateProjectIntField
+
+GO
+
+CREATE PROC spUpdateProjectIntField
+@columnName nvarchar(100),
+@Id int,
+@ValueIn int
+AS 
+BEGIN
+IF @columnName = 'Districts'
+BEGIN
+	UPDATE Projects SET DistrictId = @ValueIn, DateUpdated = GetDate() WHERE Id = @Id
+END
+
+IF @columnName = 'JobTypes'
+BEGIN
+	UPDATE Projects SET JobTypeId = @ValueIn, DateUpdated = GetDate() WHERE Id = @Id
+END
+
+IF @columnName = 'HeadEngineers'
+BEGIN
+	UPDATE Projects SET HeadEngineerId = @ValueIn, DateUpdated = GetDate() WHERE Id = @Id
+END
+
+IF @columnName = 'DesignEngineers'
+BEGIN
+	UPDATE Projects SET DesignEngineerId = @ValueIn, DateUpdated = GetDate() WHERE Id = @Id
+END
+
+END
+
+GO
+
+IF OBJECT_ID('spUpdateRequirementsFieldByIdDateTime', 'P') IS NOT NULL
+DROP PROCEDURE spUpdateRequirementsFieldByIdDateTime
+
+GO
+
+CREATE PROC spUpdateRequirementsFieldByIdDateTime
+@columnName nvarchar(100),
+@Id int,
+@ValueIn DateTime
+AS 
+BEGIN
+IF @columnName = 'StartDate'
+BEGIN
+	UPDATE Requirements SET StartDate = @ValueIn, DateUpdated = GetDate() WHERE Id = @Id
+END
+
+IF @columnName = 'FinishDate'
+BEGIN
+	UPDATE Requirements SET FinishDate = @ValueIn, DateUpdated = GetDate() WHERE Id = @Id
+END
+
+END
+
+GO
+
+IF OBJECT_ID('spUpdateRequirementsFieldByIdString', 'P') IS NOT NULL
+DROP PROCEDURE spUpdateRequirementsFieldByIdString
+
+GO
+
+CREATE PROC spUpdateRequirementsFieldByIdString
+@columnName nvarchar(100),
+@Id int,
+@ValueIn nvarchar(255)
+AS 
+BEGIN
+IF @columnName = 'CurrentComment'
+BEGIN
+	UPDATE Requirements SET CurrentComment = @ValueIn, DateUpdated = GetDate() WHERE Id = @Id
+END
+
+END
+
+GO
+
+
+
+
 IF OBJECT_ID('spUpdateUserPassword', 'P') IS NOT NULL
 DROP PROCEDURE spUpdateUserPassword;
 GO
@@ -685,39 +899,6 @@ END;
 
 GO
 
-IF OBJECT_ID('spAddProject', 'P') IS NOT NULL
-DROP PROCEDURE spAddProject;
-
-GO
-	
-CREATE PROC spAddProject
-
-@Location nvarchar(80),
-@DistrictId int,
-@CurrRemark nvarchar(100),
-@Rush bit,
-@ProjNo nvarchar(20),
-@FiveDigit nvarchar(10),
-@CDs nvarchar(16),
-@JobTypeId int,
-@HeadEngineerId int,
-@DesignEngineerId int,
-@CurrentComment nvarchar(255),
-@DateAssigned datetime = null,
-@StartDate datetime = null
---	CreateDate datetime
-AS
-BEGIN  
- INSERT INTO Projects (Location,DistrictId,CurrRemark,Rush,ProjNo,FiveDigit,CDs,JobTypeId,HeadEngineerId,DesignEngineerId,
- CurrentComment,
- DateAssigned,StartDate,DateCreated,DateUpdated)  
- VALUES (@Location,@DistrictId,@CurrRemark,@Rush,@ProjNo,@FiveDigit,@CDs,@JobTypeId,@HeadEngineerId,@DesignEngineerId,
- @CurrentComment,
- @DateAssigned,@StartDate, GETDATE(),GETDATE())  
-END;
-
-GO
-
 
 IF OBJECT_ID('spDeleteDistrict', 'P') IS NOT NULL
 DROP PROCEDURE spDeleteDistrict;
@@ -1132,111 +1313,6 @@ END
 END
 GO
 
-IF OBJECT_ID('spUpdateProjectDateField', 'P') IS NOT NULL
-DROP PROCEDURE spUpdateProjectDateField
-
-GO
-
-CREATE PROC spUpdateProjectDateField
-@columnName nvarchar(100),
-@Id int,
-@DateIn DateTime
-
-AS 
-BEGIN
-IF @columnName = 'DateAssigned'
-BEGIN
-	UPDATE Projects SET DateAssigned = @DateIn, DateUpdated = GetDate() WHERE Id = @Id
-END
-
-IF @columnName = 'StartDate'
-BEGIN
-	UPDATE Projects SET StartDate = @DateIn, DateUpdated = GetDate() WHERE Id = @Id
-END
-
-END
-
-GO
-
-IF OBJECT_ID('spUpdateProjectStringField', 'P') IS NOT NULL
-DROP PROCEDURE spUpdateProjectStringField
-
-GO
-
-CREATE PROC spUpdateProjectStringField
-@columnName nvarchar(100),
-@Id int,
-@StringIn nvarchar(255)
-AS 
-BEGIN
-IF @columnName = 'Location'
-BEGIN
-	UPDATE Projects SET Location = @StringIn, DateUpdated = GetDate() WHERE Id = @Id
-END
-
-IF @columnName = 'CurrRemark'
-BEGIN
-	UPDATE Projects SET CurrRemark = @StringIn, DateUpdated = GetDate() WHERE Id = @Id
-END
-
-IF @columnName = 'ProjNo'
-BEGIN
-	UPDATE Projects SET ProjNo = @StringIn, DateUpdated = GetDate() WHERE Id = @Id
-END
-
-IF @columnName = 'FiveDigit'
-BEGIN
-	UPDATE Projects SET FiveDigit = @StringIn, DateUpdated = GetDate() WHERE Id = @Id
-END
-
-IF @columnName = 'CDs'
-BEGIN
-	UPDATE Projects SET CDs = @StringIn, DateUpdated = GetDate() WHERE Id = @Id
-END
-
-IF @columnName = 'CurrentComment'
-BEGIN
-	UPDATE Projects SET CurrentComment = @StringIn, DateUpdated = GetDate() WHERE Id = @Id
-END
-
-END
-
-GO
-
-IF OBJECT_ID('spUpdateProjectIntField', 'P') IS NOT NULL
-DROP PROCEDURE spUpdateProjectIntField
-
-GO
-
-CREATE PROC spUpdateProjectIntField
-@columnName nvarchar(100),
-@Id int,
-@IntIn int
-AS 
-BEGIN
-IF @columnName = 'DistrictId'
-BEGIN
-	UPDATE Projects SET DistrictId = @IntIn, DateUpdated = GetDate() WHERE Id = @Id
-END
-
-IF @columnName = 'JobTypeId'
-BEGIN
-	UPDATE Projects SET JobTypeId = @IntIn, DateUpdated = GetDate() WHERE Id = @Id
-END
-
-IF @columnName = 'HeadEngineerId'
-BEGIN
-	UPDATE Projects SET HeadEngineerId = @IntIn, DateUpdated = GetDate() WHERE Id = @Id
-END
-
-IF @columnName = 'DesignEngineerId'
-BEGIN
-	UPDATE Projects SET DesignEngineerId = @IntIn, DateUpdated = GetDate() WHERE Id = @Id
-END
-
-END
-
-GO
 
 
 IF OBJECT_ID('spUserIsValid', 'P') IS NOT NULL
@@ -1467,6 +1543,264 @@ END
 
 GO
 
+
+
+IF OBJECT_ID('spTransferProjects', 'P') IS NOT NULL
+DROP PROCEDURE spTransferProjects;
+
+GO
+
+CREATE PROC spTransferProjects  
+	@MAIN_PROJECTS_KEY int,
+	@LOC nvarchar(80)= null,
+	@SYS_NUM int= null,
+	@INT_NUM int= null,
+	@ROUTE nvarchar(10)= null,
+	@JOB_TYPE_CODE nvarchar(20)= null,
+	@JOB_TYPE_KEY int= null,
+	@PROJ_NO nvarchar(10)= null,
+	@CD_NUMS nvarchar(16)= null,
+	@DIST_ID int= null,
+	@DIST_CODE nvarchar(25)= null,
+	@RTP_TO_USERNAME nvarchar(255)= null,
+	@DES_ENGR_USERNAME nvarchar(255)= null,
+	@DATE_ASSIGNED date= null,
+	@TO_BASE date= null,
+	@FROM_BASE date= null,
+	@NEED_BSL bit= null,
+	@TO_BSL date= null,
+	@FROM_BSL date= null,
+	@DOT_DUE_DATE date= null,
+	@DOT_APPROVED date= null,
+	@NEED_DWP bit= null,
+	@TO_DWP date= null,
+	@FROM_DWP date= null,
+	@TO_DISTRICT date= null,
+	@FROM_DISTRICT date= null,
+	@TO_TIMING date= null,
+	@FROM_TIMING date= null,
+	@FIELD_CHECK date= null,
+	@PRE_DESIGN date= null,
+	@NEED_REVIEW bit= null,
+	@TO_REVIEW date= null,
+	@REVIEW_NO int= null,
+	@FROM_REVIEW date= null,
+	@COORD date= null,
+	@CURR_REMARK nvarchar(255)= null,
+	@CURR_COMMENT nvarchar(255)= null,
+	@NEW_SIG bit= null,
+	@LT_PH int= null,
+	@LAST_UPDATED datetime= null,
+	@LAST_UPDATED_USERNAME nvarchar(255)= null,
+	@RUSH bit= null,
+	@DATE_CREATED date= null,
+	@NEED_DISTRICT bit= null,
+	@NEED_TIMING bit= null,
+	@NEED_OTHER_AGENCIES bit= null,
+	@TO_OTHER_AGENCIES date= null,
+	@FROM_OTHER_AGENCIES date= null,
+	@NEED_BASE bit= null,
+	@NEED_FIELD_CHECK bit= null,
+	@NEED_PRE_DESIGN bit= null,
+	@PROJ_TO_BASE date= null,
+	@PROJ_TO_BSL date= null,
+	@PROJ_TO_DISTRICT date= null,
+	@PROJ_TO_DWP date= null,
+	@PROJ_TO_OTHER_AGENCIES date= null,
+	@PROJ_TO_TIMING date= null,
+	@PROJ_TO_REVIEW date= null,
+	@PROJ_FROM_BASE datetime= null,
+	@PROJ_FROM_BSL date= null,
+	@PROJ_FROM_DISTRICT date= null,
+	@PROJ_FROM_DWP date= null,
+	@PROJ_FROM_OTHER_AGENCIES date= null,
+	@PROJ_FROM_TIMING date= null,
+	@PROJ_FROM_REVIEW date= null,
+	@PROJ_FIELD_CHECK date= null,
+	@PROJ_PRE_DESIGN date= null,
+	@PROJ_COORD date= null,
+	@PROJ_DOT_APPROVED date= null,
+	@PROJ_START_DATE date= null,
+	@PROJ_COMPLETED date= null,
+	@START_DATE date= null,
+	@COMPLETED date= null,
+	@TO_AS_BUILT date= null,
+	@FROM_AS_BUILT date= null,
+	@PROJ_TO_AS_BUILT date= null,
+	@PROJ_FROM_AS_BUILT date= null,
+	@BSL_SIGNED date= null,
+	@PROJ_BSL_SIGNED date= null
+
+AS
+BEGIN  
+ INSERT INTO sdn_main_projects 
+ (
+	MAIN_PROJECTS_KEY,
+	LOC,
+	SYS_NUM,
+	INT_NUM,
+	ROUTE,
+	JOB_TYPE_CODE,
+	JOB_TYPE_KEY,
+	PROJ_NO,
+	CD_NUMS,
+	DIST_ID,
+	DIST_CODE,
+	RTP_TO_USERNAME,
+	DES_ENGR_USERNAME,
+	DATE_ASSIGNED,
+	TO_BASE,
+	FROM_BASE,
+	NEED_BSL,
+	TO_BSL,
+	FROM_BSL,
+	DOT_DUE_DATE,
+	DOT_APPROVED,
+	NEED_DWP,
+	TO_DWP,
+	FROM_DWP,
+	TO_DISTRICT,
+	FROM_DISTRICT,
+	TO_TIMING,
+	FROM_TIMING,
+	FIELD_CHECK,
+	PRE_DESIGN,
+	NEED_REVIEW,
+	TO_REVIEW,
+	REVIEW_NO,
+	FROM_REVIEW,
+	COORD,
+	CURR_REMARK,
+	CURR_COMMENT,
+	NEW_SIG,
+	LT_PH,
+	LAST_UPDATED,
+	LAST_UPDATED_USERNAME,
+	RUSH,
+	DATE_CREATED,
+	NEED_DISTRICT,
+	NEED_TIMING,
+	NEED_OTHER_AGENCIES,
+	TO_OTHER_AGENCIES,
+	FROM_OTHER_AGENCIES,
+	NEED_BASE,
+	NEED_FIELD_CHECK,
+	NEED_PRE_DESIGN,
+	PROJ_TO_BASE,
+	PROJ_TO_BSL,
+	PROJ_TO_DISTRICT,
+	PROJ_TO_DWP,
+	PROJ_TO_OTHER_AGENCIES,
+	PROJ_TO_TIMING,
+	PROJ_TO_REVIEW,
+	PROJ_FROM_BASE,
+	PROJ_FROM_BSL,
+	PROJ_FROM_DISTRICT,
+	PROJ_FROM_DWP,
+	PROJ_FROM_OTHER_AGENCIES,
+	PROJ_FROM_TIMING,
+	PROJ_FROM_REVIEW,
+	PROJ_FIELD_CHECK,
+	PROJ_PRE_DESIGN,
+	PROJ_COORD,
+	PROJ_DOT_APPROVED,
+	PROJ_START_DATE,
+	PROJ_COMPLETED,
+	START_DATE,
+	COMPLETED,
+	TO_AS_BUILT,
+	FROM_AS_BUILT,
+	PROJ_TO_AS_BUILT,
+	PROJ_FROM_AS_BUILT,
+	BSL_SIGNED,
+	PROJ_BSL_SIGNED
+ 
+ )  
+ VALUES (
+	@MAIN_PROJECTS_KEY,
+	@LOC,
+	@SYS_NUM,
+	@INT_NUM,
+	@ROUTE,
+	@JOB_TYPE_CODE,
+	@JOB_TYPE_KEY,
+	@PROJ_NO,
+	@CD_NUMS,
+	@DIST_ID,
+	@DIST_CODE,
+	@RTP_TO_USERNAME,
+	@DES_ENGR_USERNAME,
+	@DATE_ASSIGNED,
+	@TO_BASE,
+	@FROM_BASE,
+	@NEED_BSL,
+	@TO_BSL,
+	@FROM_BSL,
+	@DOT_DUE_DATE,
+	@DOT_APPROVED,
+	@NEED_DWP,
+	@TO_DWP,
+	@FROM_DWP,
+	@TO_DISTRICT,
+	@FROM_DISTRICT,
+	@TO_TIMING,
+	@FROM_TIMING,
+	@FIELD_CHECK,
+	@PRE_DESIGN,
+	@NEED_REVIEW,
+	@TO_REVIEW,
+	@REVIEW_NO,
+	@FROM_REVIEW,
+	@COORD,
+	@CURR_REMARK,
+	@CURR_COMMENT,
+	@NEW_SIG,
+	@LT_PH,
+	@LAST_UPDATED,
+	@LAST_UPDATED_USERNAME,
+	@RUSH,
+	@DATE_CREATED,
+	@NEED_DISTRICT,
+	@NEED_TIMING,
+	@NEED_OTHER_AGENCIES,
+	@TO_OTHER_AGENCIES,
+	@FROM_OTHER_AGENCIES,
+	@NEED_BASE,
+	@NEED_FIELD_CHECK,
+	@NEED_PRE_DESIGN,
+	@PROJ_TO_BASE,
+	@PROJ_TO_BSL,
+	@PROJ_TO_DISTRICT,
+	@PROJ_TO_DWP,
+	@PROJ_TO_OTHER_AGENCIES,
+	@PROJ_TO_TIMING,
+	@PROJ_TO_REVIEW,
+	@PROJ_FROM_BASE,
+	@PROJ_FROM_BSL,
+	@PROJ_FROM_DISTRICT,
+	@PROJ_FROM_DWP,
+	@PROJ_FROM_OTHER_AGENCIES,
+	@PROJ_FROM_TIMING,
+	@PROJ_FROM_REVIEW,
+	@PROJ_FIELD_CHECK,
+	@PROJ_PRE_DESIGN,
+	@PROJ_COORD,
+	@PROJ_DOT_APPROVED,
+	@PROJ_START_DATE,
+	@PROJ_COMPLETED,
+	@START_DATE,
+	@COMPLETED,
+	@TO_AS_BUILT,
+	@FROM_AS_BUILT,
+	@PROJ_TO_AS_BUILT,
+	@PROJ_FROM_AS_BUILT,
+	@BSL_SIGNED,
+	@PROJ_BSL_SIGNED
+ );
+
+END
+
+GO
 
 
 

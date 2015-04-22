@@ -3,9 +3,42 @@
 -- before count 37
 
 -- Note!!! The following are not do be deleted
---  spTransferPlaces
---  spTransferProjects
 -- They are required by ADOTransfer
+
+
+-- Chaff
+IF OBJECT_ID('spUpdateProjectDateTimeField', 'P') IS NOT NULL
+DROP PROCEDURE spUpdateProjectDateTimeField;
+
+IF OBJECT_ID('spUpdateRequirementsFieldByIdDateTime', 'P') IS NOT NULL
+DROP PROCEDURE spUpdateRequirementsFieldByIdDateTime;
+
+IF OBJECT_ID('spUpdateRequirementsFieldByIdString', 'P') IS NOT NULL
+DROP PROCEDURE spUpdateRequirementsFieldByIdString;
+
+
+-- End of Chaff
+--spGetEngineerByUserName
+
+
+IF OBJECT_ID('spGetEngineerByUserName', 'P') IS NOT NULL
+DROP PROCEDURE spGetEngineerByUserName;
+
+
+IF OBJECT_ID('spUpdateUserPassword', 'P') IS NOT NULL
+DROP PROCEDURE spUpdateUserPassword;
+
+
+IF OBJECT_ID('spGetPlacesWithSearch', 'P') IS NOT NULL
+DROP PROCEDURE spGetPlacesWithSearch;
+
+
+IF OBJECT_ID('spTransferProjects', 'P') IS NOT NULL
+DROP PROCEDURE spTransferProjects;
+
+
+IF OBJECT_ID('spTransferPlaces', 'P') IS NOT NULL
+DROP PROCEDURE spTransferPlaces;
 
 
 IF OBJECT_ID('spDeleteProject', 'P') IS NOT NULL

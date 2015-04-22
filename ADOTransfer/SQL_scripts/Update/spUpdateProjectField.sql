@@ -2,12 +2,13 @@
 
 GO
 
-IF OBJECT_ID('spUpdateProjectFieldByIdDateTime', 'P') IS NOT NULL
-DROP PROCEDURE spUpdateProjectFieldByIdDateTime
+--            spUpdateProjectdDateTimeField
+IF OBJECT_ID('spUpdateProjectDateTimeField', 'P') IS NOT NULL
+DROP PROCEDURE spUpdateProjectDateTimeField
 
 GO
 
-CREATE PROC spUpdateProjectFieldByIdDateTime
+CREATE PROC spUpdateProjectDateTimeField
 @columnName nvarchar(100),
 @Id int,
 @ValueIn DateTime
@@ -28,12 +29,13 @@ END
 
 GO
 
-IF OBJECT_ID('spUpdateProjectFieldByIdString', 'P') IS NOT NULL
-DROP PROCEDURE spUpdateProjectFieldByIdString
+              
+IF OBJECT_ID('spUpdateProjectStringField', 'P') IS NOT NULL
+DROP PROCEDURE spUpdateProjectStringField
 
 GO
 
-CREATE PROC spUpdateProjectFieldByIdString
+CREATE PROC spUpdateProjectStringField
 @columnName nvarchar(100),
 @Id int,
 @ValueIn nvarchar(255)
@@ -73,12 +75,12 @@ END
 
 GO
 
-IF OBJECT_ID('spUpdateProjectFieldByIdInt', 'P') IS NOT NULL
-DROP PROCEDURE spUpdateProjectFieldByIdInt
+IF OBJECT_ID('spUpdateProjectIntField', 'P') IS NOT NULL
+DROP PROCEDURE spUpdateProjectIntField
 
 GO
 
-CREATE PROC spUpdateProjectFieldByIdInt
+CREATE PROC spUpdateProjectIntField
 @columnName nvarchar(100),
 @Id int,
 @ValueIn int
@@ -107,8 +109,6 @@ END
 END
 
 GO
-
-
 
 IF OBJECT_ID('spUpdateRequirementsFieldByIdDateTime', 'P') IS NOT NULL
 DROP PROCEDURE spUpdateRequirementsFieldByIdDateTime
@@ -154,3 +154,4 @@ END
 END
 
 GO
+

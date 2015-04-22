@@ -23,6 +23,34 @@ namespace SDTracker.Controllers
 
         private int numRows = 10;
 
+
+
+
+        [HttpPost]
+        public JsonResult SaveField(string objID, string fieldName, string txtValue)
+        {
+            bool bReturn = false;
+            int id = 0;
+            string sMsg = "";
+            try
+            {
+                id = Int32.Parse(objID);
+
+                bReturn = dbRepo.SaveField(id, fieldName, txtValue);
+                if (bReturn) { sMsg = "Good"; }
+            }
+            catch (Exception e)
+            {
+                string msg = e.ToString();
+                sMsg = msg;
+                //TODO: ADD some logging function
+                bReturn = false;
+            }
+            return Json(new { IsUpdated = bReturn, Msg = sMsg });
+        }
+
+
+
         [HttpPost]
         [ActionName("Delete")]
         public ActionResult Delete(int Id)
@@ -162,29 +190,6 @@ namespace SDTracker.Controllers
             return View("Edit", project);
         }
 
-
-        [HttpPost]
-        public JsonResult SaveField(string objID, string fieldName, string txtValue)
-        {
-            bool bReturn = false;
-            int id = 0;
-            string sMsg = "";
-            try
-            {
-                id = Int32.Parse(objID);
-
-                bReturn = dbRepo.SaveField(id, fieldName, txtValue);
-                if(bReturn){sMsg = "Good"; }
-            }
-            catch (Exception e)
-            {
-                string msg = e.ToString();
-                sMsg = msg;
-                //TODO: ADD some logging function
-                bReturn = false;
-            }
-            return Json(new { IsUpdated = bReturn, Msg = sMsg });
-        }
 
 
         [HttpGet]
