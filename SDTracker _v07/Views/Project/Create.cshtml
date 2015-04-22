@@ -20,7 +20,14 @@
                     @Html.TextBox("searchTerm", null, new { id = "txtSearch", @class = "form-control" })
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
+                <div class="form-group">
+                    @Html.Label("5-digit", new { @for = "txtFiveDigit" });
+                    @Html.TextBox("searchRoute", null, new { id = "txtFiveDigit", @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="col-md-3">
                 <div class="form-group">
                     @Html.Label("Filter District", new { @for = "Districts" });
                     @Html.DropDownList("Districts", null, "-select a district-", new { @class = "form-control" })
@@ -68,7 +75,7 @@
                 @Html.DisplayFor(modelItem => item.DistrictId)
             </td>
             <td>
-               @using (Html.BeginForm("CreateItem", "Project", new { id = item.Id }))
+               @using (Html.BeginForm("CreateItem", "Project", new { FiveDigit = item.FiveDigit }))
                {
                 <input type="submit" value="Create" class="btn btn-sm btn-warning" onclick="return confirm(''Create new project with = @item.PlaceLocation');" />
                }
@@ -88,6 +95,22 @@
 </div>
 
 <script type="text/javascript">
+
+
+    $(document).ready(function () {
+        $('#txtSearch').keypress(function (e) {
+            if (e.keyCode == 13)
+                $('#submitBtn').click();
+        });
+
+        $('#txtFiveDigit').keypress(function (e) {
+            if (e.keyCode == 13)
+                $('#txtFiveDigit').click();
+        });
+
+    });
+
+
     $(function () {
         $("#txtSearch").autocomplete({
             source: '@Url.Action("GetPlacesSearch")',
@@ -95,18 +118,5 @@
         });
     });
 
-    $(document).ready(function () {
-        $('#txtSearch').keypress(function (e) {
-            if (e.keyCode == 13)
-                $('#submitBtn').click();
-        });
-    });
-
-
-    $(document).ready(function () {
-        $('.createProject').click(function () {
-            $(this).closest('form')[0].submit();
-        });
-    });
 
 </script>

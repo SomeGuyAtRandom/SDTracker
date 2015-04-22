@@ -14,7 +14,7 @@ namespace BusinessLayer.DbImp
     {
         protected String connectionString = ConfigurationManager.ConnectionStrings["SDTrackerContext"].ConnectionString;
 
-        public int CreateProject(int ProjectId)
+        public int CreateProject(string FiveDigit)
         {
             int iReturn = 0;
             using (SqlConnection con = new SqlConnection(connectionString))
@@ -23,8 +23,8 @@ namespace BusinessLayer.DbImp
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 SqlParameter pPlaceId = new SqlParameter();
-                pPlaceId.ParameterName = "@PlaceId";
-                pPlaceId.Value = ProjectId;
+                pPlaceId.ParameterName = "@FiveDigit";
+                pPlaceId.Value = FiveDigit;
                 cmd.Parameters.Add(pPlaceId);
 
                 con.Open();

@@ -6,7 +6,7 @@ namespace BusinessLayer.DbInterfaces
 {
     public interface IProjectDb
     {
-        int CreateProject(int ProjectId);
+        int CreateProject(string FiveDigit);
 
         bool SaveField(int id, string FieldName, string Value);
 

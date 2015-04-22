@@ -87,7 +87,6 @@ namespace SDTracker.Controllers
             return View("Table", projects.ToPagedList(iPage, numRows));
         }
 
-
         // Used in Project/Table
         // to return a list of Places as auto complete
         public JsonResult GetProjectsSearch(string term, string Districts)
@@ -126,15 +125,13 @@ namespace SDTracker.Controllers
 
         }
 
-
         [HttpPost]
         [ActionName("CreateItem")]
-        public ActionResult CreateItem(int Id, int? page)
+        public ActionResult CreateItem(string FiveDigit, int? page)
         {
-            int iProjectId = dbRepo.CreateProject(Id);
+            int iProjectId = dbRepo.CreateProject(FiveDigit);
             return RedirectToAction("Edit", new { Id = iProjectId });
         }
-
         
         [HttpGet]
         public ActionResult Edit(int Id)

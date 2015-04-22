@@ -10,9 +10,9 @@ namespace BusinessLayer.MockDbs
     {
         private ProjectDbImp context = new ProjectDbImp();
 
-        public int CreateProject(int ProjectId)
+        public int CreateProject(string FiveDigit)
         {
-            return context.CreateProject(ProjectId);
+            return context.CreateProject(FiveDigit);
         }
 
         public bool SaveField(int id, string FieldName, string Value)
