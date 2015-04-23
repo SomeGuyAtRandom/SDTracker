@@ -1,17 +1,23 @@
 ﻿USE [SignalDB];
 
 -- REQUIRES A RUN OF ADO Transfer
+-- Also note that the table Engineers is dependent on UserPasswords
+-- and thus will need to be re-created in this script.
+-- ALSO note that the table UserRoles is dependent on UserPasswords
+-- and thus will need to be re-created in this script.
+-- ALSO note that the table UserRoles is Requirements (with an 's') 
 
-
+-- This action is to clear out this stored procedure (if it exsists) 
+-- This stored procedure will be re-created and dropped after the run of this script
 IF OBJECT_ID('dbo.Requirements', 'U') IS NOT NULL
 DROP TABLE dbo.Requirements;
 
-
+-- Note: the table Projects has a forg
 IF OBJECT_ID('dbo.Projects', 'U') IS NOT NULL
 DROP TABLE dbo.Projects;
 
--- Delete any exsisting stored procedurs
-
+-- This action is to clear out this stored procedure (if it exsists) 
+-- This stored procedure will be re-created and dropped after the run of this script
 IF OBJECT_ID('createTblEngineers', 'P') IS NOT NULL
 DROP PROCEDURE createTblEngineers;
 GO
@@ -20,6 +26,8 @@ IF OBJECT_ID('addToEngineers', 'P') IS NOT NULL
 DROP PROCEDURE addToEngineers;
 GO
 
+-- This action is to clear out this stored procedure (if it exsists) 
+-- This stored procedure will be re-created and dropped after the run of this script
 IF OBJECT_ID('createTblUserPasswords', 'P') IS NOT NULL
 DROP PROCEDURE createTblUserPasswords;
 GO
@@ -28,7 +36,8 @@ IF OBJECT_ID('addToUserPasswords', 'P') IS NOT NULL
 DROP PROCEDURE addToUserPasswords;
 GO
 
-
+-- This action is to clear out this stored procedure (if it exsists) 
+-- This stored procedure will be re-created and dropped after the run of this script
 IF OBJECT_ID('createTblUserRoles', 'P') IS NOT NULL
 DROP PROCEDURE createTblUserRoles;
 GO
@@ -36,8 +45,6 @@ GO
 IF OBJECT_ID('addToUserRoles', 'P') IS NOT NULL
 DROP PROCEDURE addToUserRoles;
 GO
-
--- The CREATE TABLE stored procedures
 
 CREATE PROC createTblEngineers
 AS
@@ -47,6 +54,7 @@ DROP TABLE dbo.Engineers;
 
  CREATE TABLE Engineers
 (
+	-- Please note the foreign key reference
 	Id int FOREIGN KEY REFERENCES UserPasswords(Id) default null,
 	FirstName nvarchar(30),
 	LastName nvarchar(30),
@@ -122,9 +130,6 @@ GO
 
 EXEC createTblEngineers 
 GO
-
-
-
 
 -- ADD TO TABLE PROCEEDURES
 CREATE PROC addToEngineers
@@ -236,7 +241,6 @@ EXEC addToEngineers
 GO
 
 -- CLEAN UP
-
 IF OBJECT_ID('createTblEngineers', 'P') IS NOT NULL
 DROP PROCEDURE createTblEngineers;
 GO
@@ -263,7 +267,7 @@ DROP PROCEDURE addToUserRoles;
 GO
 
 
-
+-- Test
 SELECT * FROM UserPasswords;
 
 GO

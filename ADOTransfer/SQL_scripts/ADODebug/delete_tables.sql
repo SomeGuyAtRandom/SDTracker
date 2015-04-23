@@ -2,6 +2,18 @@
 
 -- Do not drop sdn_main_projects this is required by ADO Transfer
 -- Do not drop Places this is required by ADO Transfer
+-- It is not necessary to drop .. 
+-- sdn_main_projects
+-- Windows Forms Authentication builds the following tables:
+-- webpages_OAuthMembership
+-- webpages_Membership
+-- webpages_Roles
+-- webpages_UsersInRoles
+-- UserProfile (note without the webpages_ prefix..) 
+
+-- I use my own Authentication and Membership Roles
+-- TODO: Check it out: I think this is because of cookie enablement and thus the session information is stored on the sql server? 
+
 
 IF OBJECT_ID('dbo.UserRoles', 'U') IS NOT NULL
 DROP TABLE dbo.UserRoles;

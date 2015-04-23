@@ -1,5 +1,7 @@
 ﻿USE [SignalDB];
 
+-- This action is to clear out this stored procedure (if it exsists) 
+-- This stored procedure will be re-created and dropped after the run of this script
 IF OBJECT_ID('createTblProjects', 'P') IS NOT NULL
 DROP PROCEDURE createTblProjects;
 
@@ -21,13 +23,15 @@ DROP TABLE dbo.Projects;
 CREATE TABLE Projects
 (
 	Id int primary key identity,
-	Location nvarchar(80), 
+	Location nvarchar(80),
+	-- Please note the foreign key reference 
 	DistrictId int FOREIGN KEY REFERENCES Districts(Id) default null,
 	CurrRemark nvarchar(80),
 	Rush bit,
 	ProjNo nvarchar(20),
 	FiveDigit nvarchar(10),
 	CDs nvarchar(16), 
+	-- Please note the foreign key reference
 	JobTypeId int FOREIGN KEY REFERENCES JobTypes(Id) default null,
 	HeadEngineerId int FOREIGN KEY REFERENCES Engineers(Id) default null,
 	DesignEngineerId int FOREIGN KEY REFERENCES Engineers(Id) default null,

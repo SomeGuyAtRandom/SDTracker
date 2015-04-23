@@ -1,5 +1,7 @@
 ﻿USE [SignalDB];
 
+-- This action is to clear out this stored procedure (if it exsists) 
+-- This stored procedure will be re-created and dropped after the run of this script
 IF OBJECT_ID('createTblRequirement', 'P') IS NOT NULL
 DROP PROCEDURE createTblRequirement;
 

@@ -3,7 +3,8 @@
 
 -- DROP TABLE Projects;
 
-
+-- This action is to clear out this stored procedure (if it exsists) 
+-- This stored procedure will be re-created and dropped after the run of this script
 IF OBJECT_ID('createTblDistricts', 'P') IS NOT NULL
 DROP PROCEDURE createTblDistricts;
 
@@ -39,6 +40,7 @@ BEGIN
 SET IDENTITY_INSERT Districts ON;
 DELETE FROM Districts;
 -- TODO: Refactor Name to District...
+-- On most cases, there will be no need to edit data
 insert into Districts (Id,Name,Code,DateCreated,DateUpdated)  
 values ( 1,'Hollywood','H',GETDATE(), GETDATE()),
 (20,'Central','C',GETDATE(), GETDATE()),

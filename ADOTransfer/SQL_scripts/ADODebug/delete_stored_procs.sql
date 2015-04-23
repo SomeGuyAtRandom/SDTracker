@@ -1,12 +1,13 @@
 ﻿USE [SignalDB];
 -- The purpose of this tools is to make sure ONLY those stored proceedurs created are those listed in the Build folder
--- before count 37
+-- before count 58
 
 -- Note!!! The following are not do be deleted
 -- They are required by ADOTransfer
+-- The following stored procdures are not included in this delete and not yet included in the build:
+-- rptSummaryReport
+-- in general I will refrain from adding rpt or test prefix
 
-
--- Chaff
 IF OBJECT_ID('spUpdateProjectDateTimeField', 'P') IS NOT NULL
 DROP PROCEDURE spUpdateProjectDateTimeField;
 
@@ -16,9 +17,6 @@ DROP PROCEDURE spUpdateRequirementsFieldByIdDateTime;
 IF OBJECT_ID('spUpdateRequirementsFieldByIdString', 'P') IS NOT NULL
 DROP PROCEDURE spUpdateRequirementsFieldByIdString;
 
-
--- End of Chaff
---spGetEngineerByUserName
 
 
 IF OBJECT_ID('spGetEngineerByUserName', 'P') IS NOT NULL

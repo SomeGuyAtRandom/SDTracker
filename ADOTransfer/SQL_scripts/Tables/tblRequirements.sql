@@ -1,6 +1,7 @@
 ﻿USE [SignalDB];
 
-
+-- This action is to clear out this stored procedure (if it exsists) 
+-- This stored procedure will be re-created and dropped after the run of this script
 IF OBJECT_ID('createRequirements', 'P') IS NOT NULL
 DROP PROCEDURE createRequirements;
 
@@ -21,6 +22,7 @@ DROP TABLE dbo.Requirements;
 CREATE TABLE Requirements
 (
 	Id int primary key identity,
+	-- Please note the foreign key referencse
 	RequirementId int FOREIGN KEY REFERENCES Requirement(Id) default 0,
 	ProjectId int FOREIGN KEY REFERENCES Projects(Id) default 0,
 	Required bit,

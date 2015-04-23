@@ -1,5 +1,7 @@
 ﻿USE [SignalDB];
 -- This script will create the database from scratch.
+-- Please Run ADOTransfer before running this script
+-- Since this rebuilds all the dbs.. it repopulates..
 
 DELETE FROM UserPasswords
 
