@@ -127,6 +127,72 @@ namespace BusinessLayer.DbImp
             return false;
         }
 
+        // Note that it int eventId is the Id from the Requirements (plural) table
+        private bool SaveRequirementDateTime(int reqId, string FieldName, string Value)
+        {
+
+            DateTime dVal = new DateTime();
+
+            try { dVal = DateTime.Parse(Value); }
+            catch { return false; }
+
+            SqlParameter pId = new SqlParameter();
+            pId.ParameterName = "@Id";
+            pId.Value = reqId;
+
+            SqlParameter pColumnName = new SqlParameter();
+            pColumnName.ParameterName = "@columnName";
+            pColumnName.Value = FieldName;
+
+            SqlParameter pValueIn = new SqlParameter();
+            pValueIn.ParameterName = "@ValueIn";
+            pValueIn.Value = dVal;
+            return DoSaveField(pId, pColumnName, pValueIn, "spUpdateRequirementsFieldByIdDateTime");
+
+
+        }
+
+        private bool SaveRequirementString(int reqId, string FieldName, string Value)
+        {
+            SqlParameter pId = new SqlParameter();
+            pId.ParameterName = "@Id";
+            pId.Value = reqId;
+
+            SqlParameter pColumnName = new SqlParameter();
+            pColumnName.ParameterName = "@columnName";
+            pColumnName.Value = FieldName;
+
+            SqlParameter pValueIn = new SqlParameter();
+            pValueIn.ParameterName = "@ValueIn";
+            pValueIn.Value = Value;
+            return DoSaveField(pId, pColumnName, pValueIn, "spUpdateRequirementsFieldByIdString");
+
+
+        }
+
+        private bool SaveRequirementBool(int reqId, string FieldName, string Value)
+        {
+            Boolean bVal = new Boolean();
+
+            try { bVal = Boolean.Parse(Value); }
+            catch { return false; }
+
+            SqlParameter pId = new SqlParameter();
+            pId.ParameterName = "@Id";
+            pId.Value = reqId;
+
+            SqlParameter pColumnName = new SqlParameter();
+            pColumnName.ParameterName = "@columnName";
+            pColumnName.Value = FieldName;
+
+            SqlParameter pValueIn = new SqlParameter();
+            pValueIn.ParameterName = "@ValueIn";
+            pValueIn.Value = bVal;
+            return DoSaveField(pId, pColumnName, pValueIn, "spUpdateRequirementsFieldByIdBool");
+
+
+        }
+
         private bool DoSaveField(SqlParameter pId, SqlParameter pColumnName, SqlParameter pValueIn, string StoredProccdure)
         {
             bool bReturn = false;
@@ -196,10 +262,18 @@ namespace BusinessLayer.DbImp
                 case "rd_StartDate":
                 case "rd_FinishDate":
                     {
-                        bReturn = false;
+                        // The Id Value passed in IS NOT the project Id, but is the Requirments Id that is associated to the project
+                        bReturn = SaveRequirementDateTime(id, FieldName, Value);
                         break;
                     }
-               
+                case "rd_CurrentComment":
+                    {
+                        // The Id Value passed in IS NOT the project Id, but is the Requirments Id that is associated to the project
+                        bReturn = SaveRequirementString(id, FieldName, Value);
+                        break;
+                    }
+
+                //Required
             }
 
 

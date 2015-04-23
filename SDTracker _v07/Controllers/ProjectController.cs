@@ -24,8 +24,6 @@ namespace SDTracker.Controllers
         private int numRows = 10;
 
 
-
-
         [HttpPost]
         public JsonResult SaveField(string objID, string fieldName, string txtValue)
         {
@@ -48,8 +46,6 @@ namespace SDTracker.Controllers
             }
             return Json(new { IsUpdated = bReturn, Msg = sMsg });
         }
-
-
 
         [HttpPost]
         [ActionName("Delete")]
@@ -131,6 +127,15 @@ namespace SDTracker.Controllers
             return Json(returnVals, JsonRequestBehavior.AllowGet);
         }
 
+
+        // Creation of a project requires two steps:
+        // First a location is required
+        //    notes on location: Location is a route number or 5-digit as it is called
+        //                       the 5-digit number needs to exist and this if the location is not in the database, it will need to be added
+        // District comes from the Location value (ie is associated with 5-digit)
+        // Second.. once the location is identified.. create a new project with location information (factory pattern) and add it to the DB
+
+        // note: this method accepts both get and post. 
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult Create(string searchTerm, string Districts, int? page)
         {
@@ -189,7 +194,6 @@ namespace SDTracker.Controllers
 
             return View("Edit", project);
         }
-
 
 
         [HttpGet]

@@ -323,7 +323,7 @@
     });
 
 
-    //When Changes happen: 
+    //When Changes happen:
 
     $('input').on('input propertychange paste', function () {
         var objID = $("[name='Id']").attr('value');
@@ -332,7 +332,7 @@
         runAjax(objID, fieldName, txtValue);
     });
 
- 
+
     $("select").change(function () {
         var objID = $("[name='Id']").attr('value');
         var fieldName = $(this).attr('id');
@@ -351,5 +351,26 @@
 
     });
 
+
+    $('.rolesCheckBox').change(function () {
+        var objID = $("[name='Id']").attr('value');
+        var roleName = $(this).attr('id');
+        var cboVal = $(this).prop('checked');
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("AddRemoveRole")',
+            dataType: 'json',
+            data: { 'objID': objID, 'roleName': roleName, 'isMember': cboVal },
+            success: function (result) {
+                if (result) {
+                    // OK..
+                } else {
+                    alert("Error in updateing " + roleName + " to user Id " + objID);
+                }
+            }
+        });
+
+    });
 </script>
 

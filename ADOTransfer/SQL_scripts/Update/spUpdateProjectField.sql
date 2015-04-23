@@ -2,7 +2,6 @@
 
 GO
 
---            spUpdateProjectdDateTimeField
 IF OBJECT_ID('spUpdateProjectDateTimeField', 'P') IS NOT NULL
 DROP PROCEDURE spUpdateProjectDateTimeField
 
@@ -155,3 +154,22 @@ END
 
 GO
 
+IF OBJECT_ID('spUpdateRequirementsFieldByIdBool', 'P') IS NOT NULL
+DROP PROCEDURE spUpdateRequirementsFieldByIdBool
+
+GO
+
+CREATE PROC spUpdateRequirementsFieldByIdBool
+@columnName nvarchar(100),
+@Id int,
+@ValueIn bit
+AS 
+BEGIN
+IF @columnName = 'Required'
+BEGIN
+	UPDATE Requirements SET Required = @ValueIn, DateUpdated = GetDate() WHERE Id = @Id
+END
+
+END
+
+GO
