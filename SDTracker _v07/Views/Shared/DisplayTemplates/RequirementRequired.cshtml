@@ -1,0 +1,44 @@
+﻿@model BusinessLayer.Models.Requirement
+
+ <tr>
+    <td>
+        @Html.DisplayFor(model => Model.RequirementName)
+
+    </td>
+    <td>
+
+        @Html.TextBox("", (Model.StartDate.HasValue ? Model.StartDate.Value.ToShortDateString() : string.Empty),
+        new
+        {
+            @Id = "StartDate." + Model.Id,
+            @class = "datePicker form-control datetype",
+            type = "text"
+        })
+
+
+    </td>
+    <td>
+        @Html.TextBox("", (Model.FinishDate.HasValue ? Model.FinishDate.Value.ToShortDateString() : string.Empty),
+        new
+        {
+            @Id = "FinishDate." + Model.Id,
+            @class = "datePicker form-control datetype",
+            type = "text"
+        })
+
+
+    </td>
+    <td>
+
+        @Html.CheckBoxFor(model => Model.Required, new { @Id = "Required." + Model.Id, @class = "form-control" })
+
+    </td>
+
+    <td>
+
+        @Html.TextBoxFor(model => Model.CurrentComment, new { @Id = "CurrentComment." + Model.Id, @class = "form-control" })
+        @Html.ValidationMessageFor(model => Model.CurrentComment)
+
+    </td>
+
+</tr>   

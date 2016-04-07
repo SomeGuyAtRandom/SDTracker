@@ -301,7 +301,7 @@
     <Content Include="Views\Shared\DisplayTemplates\DatePicker.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\DisableUser.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\LinkToDetail.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\RequirementDisplay.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\RequirementRequired.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\ShortDate.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SummaryHeader.cshtml" />
     <Content Include="Views\Shared\MenuBarItems\_AdminUser.cshtml" />
@@ -320,6 +320,8 @@
     <Content Include="Views\Report\SummaryReport.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\HeaderCellSummaryReport.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\CellSummaryReport.cshtml" />
+    <Content Include="Views\Project\modalCreateNewPlace.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\RequirementRequired - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

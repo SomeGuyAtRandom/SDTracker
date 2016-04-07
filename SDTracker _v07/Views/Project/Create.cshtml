@@ -16,27 +16,33 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    @Html.Label("Location", new { @for = "txtSearch" });
+                    @Html.Label("Location", new { @for = "txtSearch" })
                     @Html.TextBox("searchTerm", null, new { id = "txtSearch", @class = "form-control" })
                 </div>
             </div>
             <div class="col-md-1">
                 <div class="form-group">
-                    @Html.Label("5-digit", new { @for = "txtFiveDigit" });
+                    @Html.Label("5-digit", new { @for = "txtFiveDigit" })
                     @Html.TextBox("searchRoute", null, new { id = "txtFiveDigit", @class = "form-control" })
                 </div>
             </div>
 
             <div class="col-md-3">
                 <div class="form-group">
-                    @Html.Label("Filter District", new { @for = "Districts" });
+                    @Html.Label("Filter District", new { @for = "Districts" })
                     @Html.DropDownList("Districts", null, "-select a district-", new { @class = "form-control" })
                 </div>
             </div>
             <div class="col-md-1">
                 <div class="form-group">
-                    @Html.Label("", new { @for = "submitBtn" });
+                    @Html.Label("", new { @for = "submitBtn" })
                     <input id="submitBtn" type="submit" class="btn btn-md btn-primary" value="search" />
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    @Html.Label("", new { @for = "addPlace" })
+                    <button id="addPlace" class="btn btn-md btn-primary">Add Place</button>
                 </div>
             </div>
         </div>
@@ -92,31 +98,67 @@
                 Districts = ViewBag.District
             }))
      </div>
+
+    <!-- Create A New Place Modal -->
+
+    <div id="dialog-confirm" title="Empty the recycle bin?">
+        <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. Are you sure?</p>
+    </div>
+
+
 </div>
 
 <script type="text/javascript">
 
 
     $(document).ready(function () {
-        $('#txtSearch').keypress(function (e) {
-            if (e.keyCode == 13)
-                $('#submitBtn').click();
-        });
+        //$('#txtSearch').keypress(function (e) {
+        //    if (e.keyCode == 13)
+        //        $('#submitBtn').click();
+        //});
 
-        $('#txtFiveDigit').keypress(function (e) {
-            if (e.keyCode == 13)
-                $('#txtFiveDigit').click();
-        });
+        //$('#txtFiveDigit').keypress(function (e) {
+        //    if (e.keyCode == 13)
+        //        $('#txtFiveDigit').click();
+        //});
+
+        
+
+            
+        
 
     });
 
+    $("#addPlace").bind("click", function (event) {
+        openModal();
+    });
 
-    $(function () {
+    function openModal() {
+        
+        $("#dialog-confirm").dialog({
+            resizable: false,
+            height: 140,
+            modal: true,
+            buttons: {
+                "Delete all items": function () {
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+        event.preventDefault();
+
+    }
+
+
+    @*$(function () {
         $("#txtSearch").autocomplete({
             source: '@Url.Action("GetPlacesSearch")',
             minLength: 1
         });
-    });
+    });*@
 
 
 </script>

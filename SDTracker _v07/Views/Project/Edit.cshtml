@@ -1,5 +1,6 @@
 ﻿@model BusinessLayer.Models.Project
 
+@using SDTracker.Common;
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -21,10 +22,20 @@
         </div>
         <div class="col-md-1">
             <div class="form-group">
-                @using (Html.BeginForm("Delete", "Project", new { Id = Model.Id }))
+
+                @if (SDTRoleProvider.UserIsInRole(ViewContext, "Head Engineer,Design Engineer"))
                 {
-                    <input type="submit" value="Delete" class="btn btn-sm btn-warning" onclick="return confirm('Create new project with = @Model.Location');" />
+                    using (Html.BeginForm("Delete", "Project", new { Id = Model.Id }))
+                    
+                    
+                    
+                    
+                    {
+                        <input type="submit" value="Delete" class="btn btn-sm btn-warning" onclick="return confirm('Create new project with = @Model.Location');" />
+                    }
                 }
+
+                
             </div>
         </div>
      </div>   
@@ -232,16 +243,91 @@
 
             </div>
             <div role="tabpanel" class="tab-pane" id="actions">
-                <div class="row well">
-                    <table class="table table-striped">
-                        @foreach (var item in Model.Requirements)
-                        {
-                            <tr>
-                                @Html.DisplayFor(modelItem => item, "RequirementDisplay")
-                            </tr>
-                        }
-                    </table>
+
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headReqRequired">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#reqRequired" aria-expanded="false" aria-controls="reqRequired">
+                                    Required
+                                </a>
+                            </h4>
+                        </div>
+
+                    </div>
+                    
+                    <div id="reqRequired" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headReqRequired">
+                        <div class="panel-body">
+                            <div class="row well">
+                                <table class="table table-striped">
+                                    @foreach (var item in Model.Requirements)
+                                    {
+                                        @Html.DisplayFor(modelItem => item, "RequirementRequired")
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headReqCompleated">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#reqCompleated" aria-expanded="false" aria-controls="reqCompleated">
+                                    Compleated
+                                </a>
+                            </h4>
+                        </div>
+
+                    </div>
+
+                    <div id="reqCompleated" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headReqCompleated">
+                        <div class="panel-body">
+                            <div class="row well">
+                                <table class="table table-striped">
+                                    @foreach (var item in Model.Requirements)
+                                    {
+                                        @Html.DisplayFor(modelItem => item, "RequirementRequired")
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headReqNotRequired">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#reqReqNotRequired" aria-expanded="false" aria-controls="reqReqNotRequired">
+                                    Not Required
+                                </a>
+                            </h4>
+                        </div>
+
+                    </div>
+
+                    <div id="reqReqNotRequired" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headReqNotRequired">
+                        <div class="panel-body">
+                            <div class="row well">
+                                <table class="table table-striped">
+                                    @foreach (var item in Model.Requirements)
+                                    {
+                                        @Html.DisplayFor(modelItem => item, "RequirementRequired")
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
             </div>
             <div role="tabpanel" class="tab-pane" id="messages">...</div>
         </div>
